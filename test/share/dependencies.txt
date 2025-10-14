@@ -1,0 +1,4 @@
+java.net.http:17.35
+jdk.httpserver:17.35
+jdk.net:17.35
+java.base:17.35

@@ -1,0 +1,948 @@
+#include <jdk.net.test.h>
+
+#include <java.net.http.h>
+#include <jdk.httpserver.h>
+#include <jdk.net.h>
+#include <java.base.h>
+#include <java/lang/ClassEntry.h>
+#include <java/lang/Library.h>
+#include <java/lang/ModuleInfo.h>
+#include <java/lang/ResourceEntry.h>
+#include <jcpp.h>
+#include <ALPNFailureTest.h>
+#include <ALPNFailureTest$ReadOnlyServer.h>
+#include <ActionSpace.h>
+#include <AddURLTest.h>
+#include <AddURLTest$MyURLClassLoader.h>
+#include <AddressNotSet.h>
+#include <AnotherSelectFdsLimit.h>
+#include <AnotherSelectFdsLimit$WorkerThread.h>
+#include <AsyncCloseTest.h>
+#include <B4148751.h>
+#include <B4414825.h>
+#include <B4769350.h>
+#include <B4769350$AuthenticationHandler.h>
+#include <B4769350$Client.h>
+#include <B4769350$MyAuthenticator.h>
+#include <B4769350$Server.h>
+#include <B4769350$Server$AuthenticationHandlerT1a.h>
+#include <B4769350$Server$AuthenticationHandlerT1b.h>
+#include <B4769350$Server$AuthenticationHandlerT1c.h>
+#include <B4769350$Server$AuthenticationHandlerT1d.h>
+#include <B4769350$Server$AuthenticationHandlerT2a.h>
+#include <B4769350$Server$AuthenticationHandlerT2b.h>
+#include <B4769350$Server$AuthenticationHandlerT3a.h>
+#include <B4769350$Server$AuthenticationHandlerT3bc.h>
+#include <B4849451.h>
+#include <B4923906.h>
+#include <B4962064.h>
+#include <B4962064$MyAuthenticator.h>
+#include <B5086147.h>
+#include <B5087907.h>
+#include <B6246242.h>
+#include <B6277794.h>
+#include <B6296240.h>
+#include <B6411513.h>
+#include <B6425815.h>
+#include <B6427403.h>
+#include <B6463990.h>
+#include <B6469803.h>
+#include <B6499348.h>
+#include <B6529759.h>
+#include <B6529759$a.h>
+#include <B6563259.h>
+#include <B6644726.h>
+#include <B6737819.h>
+#include <B6791927.h>
+#include <B6827999.h>
+#include <B6827999$MyURLClassLoader.h>
+#include <B6896088.h>
+#include <B8035158.h>
+#include <B8035158$TestCase.h>
+#include <B8035158$TestCase$1.h>
+#include <B8035653.h>
+#include <BadDottedIPAddress.h>
+#include <BadIPv6Addresses.h>
+#include <BadProxySelector.h>
+#include <BadProxySelector$HTTPProxySelector.h>
+#include <BadProxySelector$NullHTTPProxySelector.h>
+#include <BasicAuthTest.h>
+#include <BasicAuthTest$ClientAuth.h>
+#include <BasicAuthTest$Handler.h>
+#include <BasicAuthTest$ServerAuth.h>
+#include <BigBacklog.h>
+#include <BindFailTest.h>
+#include <BodyProcessorInputStreamTest.h>
+#include <ByteArrayPublishers.h>
+#include <CachedUnknownHostName.h>
+#include <Cert.h>
+#include <CheckBoundaries.h>
+#include <CheckDiscard.h>
+#include <CheckDiscard$Sender.h>
+#include <Child.h>
+#include <Concurrent.h>
+#include <Connect.h>
+#include <Constructor.h>
+#include <Constructor$Entry.h>
+#include <CookieNegativeMaxAge.h>
+#include <CreateUnresolved.h>
+#include <CustomSocketImplFactory.h>
+#include <CustomSocketImplFactory$CustomSocketImpl.h>
+#include <DecodeNonEncoded.h>
+#include <Decoder.h>
+#include <DelegatingHttpClient.h>
+#include <DummySecureWebSocketServer.h>
+#include <DummySecureWebSocketServer$Credentials.h>
+#include <DummySecureWebSocketServer$WebServerSocketChannel.h>
+#include <DummySecureWebSocketServer$WebServerSocketChannel$Accepter.h>
+#include <DummySecureWebSocketServer$WebServerSocketChannel$Addressable.h>
+#include <DummySecureWebSocketServer$WebServerSocketChannel$Binder.h>
+#include <DummySecureWebSocketServer$WebServerSocketChannel$Closer.h>
+#include <DummySecureWebSocketServer$WebServerSocketChannel$Config.h>
+#include <DummySecureWebSocketServer$WebSocketChannel.h>
+#include <DummySecureWebSocketServer$WebSocketChannel$Closer.h>
+#include <DummySecureWebSocketServer$WebSocketChannel$Config.h>
+#include <DummySecureWebSocketServer$WebSocketChannel$Reader.h>
+#include <DummySecureWebSocketServer$WebSocketChannel$Writer.h>
+#include <DummyWebSocketServer.h>
+#include <DummyWebSocketServer$Credentials.h>
+#include <EmptyAuthenticate.h>
+#include <EncodeDecode.h>
+#include <Equals.h>
+#include <ExceptionallyCloseable.h>
+#include <ExifContentGuesser.h>
+#include <FindResourceDoesNotThrowException.h>
+#include <FixedHttpResponse.h>
+#include <FlowAdaptersCompileOnly.h>
+#include <FlowAdaptersCompileOnly$BBPublisher.h>
+#include <FlowAdaptersCompileOnly$CollectionSubscriber.h>
+#include <FlowAdaptersCompileOnly$IntegerSubscriber.h>
+#include <FlowAdaptersCompileOnly$IterableSubscriber.h>
+#include <FlowAdaptersCompileOnly$ListSubscriber.h>
+#include <FlowAdaptersCompileOnly$ListSubscriberX.h>
+#include <FlowAdaptersCompileOnly$LongSubscriber.h>
+#include <FlowAdaptersCompileOnly$MBBPublisher.h>
+#include <FlowAdaptersCompileOnly$NumberSubscriber.h>
+#include <FlowAdaptersCompileOnly$ObjectSubscriber.h>
+#include <Frame.h>
+#include <Frame$Consumer.h>
+#include <Frame$HeaderWriter.h>
+#include <Frame$Masker.h>
+#include <Frame$Opcode.h>
+#include <Frame$Reader.h>
+#include <GetAuthenticatorTest.h>
+#include <GetAuthenticatorTest$MyAuthenticator.h>
+#include <GetContentType.h>
+#include <GetDefaultPort.h>
+#include <GetFileNameMap.h>
+#include <GetLocalAddress.h>
+#include <GetLoopbackAddress.h>
+#include <GetMacAddress.h>
+#include <GetURLsTest.h>
+#include <GetURLsTest$MyURLClassLoader.h>
+#include <HandlerLoop.h>
+#include <HandlerLoop$Dummy.h>
+#include <HandlerLoop$HandlerFactory.h>
+#include <HandlersPkgPrefix.h>
+#include <HandlersPkgPrefix$Result.h>
+#include <HandshakeFailureTest.h>
+#include <HandshakeFailureTest$AbstractServer.h>
+#include <HandshakeFailureTest$ExceptionChecker.h>
+#include <HandshakeFailureTest$ExpectedExceptionType.h>
+#include <HandshakeFailureTest$PlainServer.h>
+#include <HandshakeFailureTest$SSLServer.h>
+#include <HashCode.h>
+#include <HashSpread.h>
+#include <HeaderWriterDriver.h>
+#include <HeadersTest.h>
+#include <HeadersTest$1.h>
+#include <HeadersTest$10.h>
+#include <HeadersTest$11.h>
+#include <HeadersTest$2.h>
+#include <HeadersTest$3.h>
+#include <HeadersTest$4.h>
+#include <HeadersTest$5.h>
+#include <HeadersTest$6.h>
+#include <HeadersTest$7.h>
+#include <HeadersTest$8.h>
+#include <HeadersTest$9.h>
+#include <HeadersTest2.h>
+#include <HeadersTest2$CompareTest.h>
+#include <HpackBinaryTestDriver.h>
+#include <HpackCircularBufferDriver.h>
+#include <HpackDecoderDriver.h>
+#include <HpackEncoderDriver.h>
+#include <HpackHeaderTableDriver.h>
+#include <HpackHuffmanDriver.h>
+#include <Http1ChunkedTest.h>
+#include <Http1ChunkedTest$Data.h>
+#include <Http1ChunkedTest$Responses.h>
+#include <HttpInputStreamTest.h>
+#include <HttpInputStreamTest$HttpInputStreamHandler.h>
+#include <HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream.h>
+#include <HttpRequestBuilderTest.h>
+#include <IDNTest.h>
+#include <IPv4Formats.h>
+#include <IPv6AddressTypes.h>
+#include <IPv6Numeric.h>
+#include <IllegalArg.h>
+#include <ImmutableHeaders.h>
+#include <ImmutableHeaders$ImmutableHeadersHandler.h>
+#include <ImplicitBind.h>
+#include <IndexTest.h>
+#include <Inet6AddressSerTest.h>
+#include <Inet6AddressSerTest$PayloadTest.h>
+#include <Inet6AddressSerializationTest.h>
+#include <InheritHandle.h>
+#include <InternalNameServiceTest.h>
+#include <InternalNameServiceWithHostsFileTest.h>
+#include <InternalNameServiceWithNoHostsFileTest.h>
+#include <InterruptedBlockingSend.h>
+#include <InterruptibleDatagramSocket.h>
+#include <IsHostReachableBug.h>
+#include <IsReachable.h>
+#include <IsReachableViaLoopbackTest.h>
+#include <JavadocExamples.h>
+#include <JavadocExamples$Foo.h>
+#include <JavadocExamples$FromMappingSubscriber.h>
+#include <JavadocExamples$LineParserSubscriber.h>
+#include <JavadocExamples$ObjectMapper.h>
+#include <JavadocExamples$PrintSubscriber.h>
+#include <LineAdaptersCompileOnly.h>
+#include <LineAdaptersCompileOnly$CharSequenceSubscriber.h>
+#include <LineAdaptersCompileOnly$ObjectSubscriber.h>
+#include <LineAdaptersCompileOnly$StringSubscriber.h>
+#include <LineAdaptersCompileOnly$StringSubscriberX.h>
+#include <LocalHostCookie.h>
+#include <LocalHostCookie$MyCookieHandler.h>
+#include <LocalHostCookie$Server.h>
+#include <LocalSocketAddress.h>
+#include <LocaleDependentURLTest.h>
+#include <LookupTest.h>
+#include <LookupTest$LookupTestPolicy.h>
+#include <LookupTest$Server.h>
+#include <MaskerDriver.h>
+#include <MessageQueueDriver.h>
+#include <MethodsTest.h>
+#include <MethodsTest$1.h>
+#include <MockE1000g0Inet6Address.h>
+#include <MockListener.h>
+#include <MockListener$Invocation.h>
+#include <MockListener$OnBinary.h>
+#include <MockListener$OnClose.h>
+#include <MockListener$OnError.h>
+#include <MockListener$OnOpen.h>
+#include <MockListener$OnPing.h>
+#include <MockListener$OnPong.h>
+#include <MockListener$OnText.h>
+#include <MockLo0Inet6Address.h>
+#include <MockServer.h>
+#include <MockServer$Connection.h>
+#include <MultiAuthTest.h>
+#include <MultiAuthTest$ClientAuth.h>
+#include <MultiAuthTest$Handler.h>
+#include <MultiAuthTest$HttpRequestBuilderFactory.h>
+#include <MultiAuthTest$ServerAuth.h>
+#include <MultiThreadedSystemProxies.h>
+#include <MultiThreadedSystemProxies$1.h>
+#include <MulticastTTL.h>
+#include <MyHttpURLConnectionImpl.h>
+#include <MyPrincipal.h>
+#include <NativeThread.h>
+#include <NetParamsTest.h>
+#include <NetworkInterfaceEmptyGetInetAddressesTest.h>
+#include <NetworkPrefixLength.h>
+#include <NoAction.h>
+#include <NonOverridableHandlerFactory.h>
+#include <NonOverridableHandlerFactory$NonOverridableHandler.h>
+#include <NullArguments.h>
+#include <NullConstructor.h>
+#include <NullConstructor$1.h>
+#include <NullHost.h>
+#include <NullHost$Server.h>
+#include <NullURLTest.h>
+#include <NullUriCookieTest.h>
+#include <Offset.h>
+#include <OneExceptionOnly.h>
+#include <OpenConnection.h>
+#include <OpenStream.h>
+#include <ParseAuthority.h>
+#include <ParseURL.h>
+#include <PlainProxyConnectionTest.h>
+#include <PlainProxyConnectionTest$1.h>
+#include <PlainProxyConnectionTest$CountingProxySelector.h>
+#include <PortUnreachable.h>
+#include <Protocol.h>
+#include <ProxyServer.h>
+#include <ProxyServer$1.h>
+#include <ProxyServer$Connection.h>
+#include <ProxyServer$Credentials.h>
+#include <Race.h>
+#include <Race$1.h>
+#include <RacyHandler.h>
+#include <RacyHandler$CustomHttpHandler.h>
+#include <ReadAfterReset.h>
+#include <ReaderDriver.h>
+#include <RelativeEncoding.h>
+#include <RelativePath.h>
+#include <RelativeURL.h>
+#include <RelativeURLTest.h>
+#include <ReportSocketClosed.h>
+#include <RequestPropertyValues.h>
+#include <RequestPropertyValues$DummyURLConnection.h>
+#include <Responses.h>
+#include <Responses$HttpServer.h>
+#include <RestoreURL.h>
+#include <RestrictedHeadersTest.h>
+#include <Reuse.h>
+#include <ReuseAddressTest.h>
+#include <ReuseBuf.h>
+#include <ReuseBuf$ServerThread.h>
+#include <S.h>
+#include <S$1.h>
+#include <S$2.h>
+#include <S$3.h>
+#include <S$3$1.h>
+#include <S$NReadsInputStream.h>
+#include <SecureZipFSProvider.h>
+#include <SecureZipFSProvider$SecureZipFS.h>
+#include <SecureZipFSProvider$TestPath.h>
+#include <SecureZipFSProvider$TestPath$1.h>
+#include <SelectFdsLimit.h>
+#include <Send12k.h>
+#include <SendDatagramToBadAddress.h>
+#include <SendDatagramToBadAddress$Server.h>
+#include <SendSize.h>
+#include <SendSize$ClientThread.h>
+#include <SendSize$ServerThread.h>
+#include <Serialize.h>
+#include <SetBufferSize.h>
+#include <SetOption.h>
+#include <SetReceiveBufferSize.h>
+#include <SetTTLAndGetTTL.h>
+#include <SetTTLTo0.h>
+#include <ShortRequestBody.h>
+#include <ShortRequestBody$AbstractDelegateRequestBody.h>
+#include <ShortRequestBody$ByteArrayRequestBody.h>
+#include <ShortRequestBody$FileRequestBody.h>
+#include <ShortRequestBody$Server.h>
+#include <ShortRequestBody$StringRequestBody.h>
+#include <ShutdownBoth.h>
+#include <SoTimeout.h>
+#include <SocketGrowth.h>
+#include <SocketPermissionCollection.h>
+#include <SocksServer.h>
+#include <SocksServer$ClientHandler.h>
+#include <SocksServer$ClientHandler$Tunnel.h>
+#include <SpecifyHandler.h>
+#include <Streams.h>
+#include <Streams$InputStreamGetter.h>
+#include <Streams$OutputStreamGetter.h>
+#include <Streams$StreamGetter.h>
+#include <StringScope.h>
+#include <SubNetworkInterfaceTest.h>
+#include <SurrogatePairs.h>
+#include <SystemProxies.h>
+#include <TIFFContentGuesser.h>
+#include <TckDriver.h>
+#include <TcpKeepAliveTest.h>
+#include <Test4URI.h>
+#include <Test4URL.h>
+#include <TestAfterClose.h>
+#include <TestDefaults.h>
+#include <TestHttpCookie.h>
+#include <TestIPv6Addresses.h>
+#include <TestKit.h>
+#include <TestKit$ThrowingFunction.h>
+#include <TestKit$ThrowingProcedure.h>
+#include <TestPort.h>
+#include <TestRFC2732.h>
+#include <TestUtil.h>
+#include <ThreadStop.h>
+#include <ThreadStop$Server.h>
+#include <TimeToLive.h>
+#include <Timeout.h>
+#include <TimeoutOrdering.h>
+#include <UNCTest.h>
+#include <URIToURLTest2.h>
+#include <URItoURLTest.h>
+#include <URLDecoderArgs.h>
+#include <URLEncodeDecode.h>
+#include <URLEncoderEncodeArgs.h>
+#include <URLParsing.h>
+#include <URLPermissionTest.h>
+#include <URLPermissionTest$ActionImpliesTest.h>
+#include <URLPermissionTest$ActionsStringTest.h>
+#include <URLPermissionTest$CreateTest.h>
+#include <URLPermissionTest$ExTest.h>
+#include <URLPermissionTest$HashCodeTest.h>
+#include <URLPermissionTest$Test.h>
+#include <URLPermissionTest$URLEqualityTest.h>
+#include <URLPermissionTest$URLImpliesTest.h>
+#include <UnknownContentType.h>
+#include <Unresolved.h>
+#include <UppercaseScheme.h>
+#include <UseSTD3ASCIIRules.h>
+#include <WebSocketExample.h>
+#include <WebSocketExample$1.h>
+#include <WebSocketExample$2.h>
+#include <WhiteSpaceHostTest.h>
+#include <Wildcard.h>
+#include <ZeroRedirects.h>
+#include <ZeroRedirects$Handler.h>
+#include <com/foo/content/text/Plain2.h>
+#include <getResponseCode4HttpURLConnection.h>
+#include <handlers/bar/Handler.h>
+#include <handlers/foo/Handler.h>
+#include <handlers/jar/Handler.h>
+#include <isSiteLocalAddress.h>
+#include <jdk/internal/net/http/AbstractRandomTest.h>
+#include <jdk/internal/net/http/SimpleSSLContext.h>
+#include <jdk/internal/net/http/hpack/BuffersTestingKit.h>
+#include <jdk/internal/net/http/hpack/BuffersTestingKit$1.h>
+#include <jdk/internal/net/http/hpack/BuffersTestingKit$2.h>
+#include <jdk/internal/net/http/hpack/SpecHelper.h>
+#include <jdk/internal/net/http/websocket/TestSupport.h>
+#include <jdk/internal/net/http/websocket/TestSupport$1.h>
+#include <jdk/internal/net/http/websocket/TestSupport$2.h>
+#include <jdk/internal/net/http/websocket/TestSupport$AssertionFailedException.h>
+#include <jdk/internal/net/http/websocket/TestSupport$F.h>
+#include <jdk/internal/net/http/websocket/TestSupport$F1.h>
+#include <jdk/internal/net/http/websocket/TestSupport$F2.h>
+#include <jdk/internal/net/http/websocket/TestSupport$F3.h>
+#include <jdk/internal/net/http/websocket/TestSupport$F4.h>
+#include <jdk/internal/net/http/websocket/TestSupport$F5.h>
+#include <jdk/internal/net/http/websocket/TestSupport$ThrowingProcedure.h>
+#include <org/reactivestreams/Subscription.h>
+#include <org/reactivestreams/tck/flow/support/Function.h>
+#include <org/reactivestreams/tck/flow/support/NonFatal.h>
+#include <org/reactivestreams/tck/flow/support/Optional.h>
+#include <org/reactivestreams/tck/flow/support/Optional$1.h>
+#include <org/reactivestreams/tck/flow/support/Optional$Some.h>
+#include <org/reactivestreams/tck/flow/support/PublisherVerificationRules.h>
+#include <org/reactivestreams/tck/flow/support/SubscriberBufferOverflowException.h>
+#include <org/reactivestreams/tck/flow/support/SubscriberWhiteboxVerificationRules.h>
+#include <org/reactivestreams/tck/flow/support/TestException.h>
+#include <p/A.h>
+#include <p/B.h>
+#include <p/Bar.h>
+#include <p/Baz.h>
+#include <p/Foo.h>
+#include <textToNumericFormat.h>
+
+#undef A
+#undef B
+#undef S
+
+#define $classEntry(name, clazz) {name, clazz::load$, $getMark(clazz)}
+::java::lang::ClassEntry _jdk$net$test_classes_[] = {
+	$classEntry("ALPNFailureTest", ::ALPNFailureTest),
+	$classEntry("ALPNFailureTest$ReadOnlyServer", ::ALPNFailureTest$ReadOnlyServer),
+	$classEntry("ActionSpace", ::ActionSpace),
+	$classEntry("AddURLTest", ::AddURLTest),
+	$classEntry("AddURLTest$MyURLClassLoader", ::AddURLTest$MyURLClassLoader),
+	$classEntry("AddressNotSet", ::AddressNotSet),
+	$classEntry("AnotherSelectFdsLimit", ::AnotherSelectFdsLimit),
+	$classEntry("AnotherSelectFdsLimit$WorkerThread", ::AnotherSelectFdsLimit$WorkerThread),
+	$classEntry("AsyncCloseTest", ::AsyncCloseTest),
+	$classEntry("B4148751", ::B4148751),
+	$classEntry("B4414825", ::B4414825),
+	$classEntry("B4769350", ::B4769350),
+	$classEntry("B4769350$AuthenticationHandler", ::B4769350$AuthenticationHandler),
+	$classEntry("B4769350$Client", ::B4769350$Client),
+	$classEntry("B4769350$MyAuthenticator", ::B4769350$MyAuthenticator),
+	$classEntry("B4769350$Server", ::B4769350$Server),
+	$classEntry("B4769350$Server$AuthenticationHandlerT1a", ::B4769350$Server$AuthenticationHandlerT1a),
+	$classEntry("B4769350$Server$AuthenticationHandlerT1b", ::B4769350$Server$AuthenticationHandlerT1b),
+	$classEntry("B4769350$Server$AuthenticationHandlerT1c", ::B4769350$Server$AuthenticationHandlerT1c),
+	$classEntry("B4769350$Server$AuthenticationHandlerT1d", ::B4769350$Server$AuthenticationHandlerT1d),
+	$classEntry("B4769350$Server$AuthenticationHandlerT2a", ::B4769350$Server$AuthenticationHandlerT2a),
+	$classEntry("B4769350$Server$AuthenticationHandlerT2b", ::B4769350$Server$AuthenticationHandlerT2b),
+	$classEntry("B4769350$Server$AuthenticationHandlerT3a", ::B4769350$Server$AuthenticationHandlerT3a),
+	$classEntry("B4769350$Server$AuthenticationHandlerT3bc", ::B4769350$Server$AuthenticationHandlerT3bc),
+	$classEntry("B4849451", ::B4849451),
+	$classEntry("B4923906", ::B4923906),
+	$classEntry("B4962064", ::B4962064),
+	$classEntry("B4962064$MyAuthenticator", ::B4962064$MyAuthenticator),
+	$classEntry("B5086147", ::B5086147),
+	$classEntry("B5087907", ::B5087907),
+	$classEntry("B6246242", ::B6246242),
+	$classEntry("B6277794", ::B6277794),
+	$classEntry("B6296240", ::B6296240),
+	$classEntry("B6411513", ::B6411513),
+	$classEntry("B6425815", ::B6425815),
+	$classEntry("B6427403", ::B6427403),
+	$classEntry("B6463990", ::B6463990),
+	$classEntry("B6469803", ::B6469803),
+	$classEntry("B6499348", ::B6499348),
+	$classEntry("B6529759", ::B6529759),
+	$classEntry("B6529759$a", ::B6529759$a),
+	$classEntry("B6563259", ::B6563259),
+	$classEntry("B6644726", ::B6644726),
+	$classEntry("B6737819", ::B6737819),
+	$classEntry("B6791927", ::B6791927),
+	$classEntry("B6827999", ::B6827999),
+	$classEntry("B6827999$MyURLClassLoader", ::B6827999$MyURLClassLoader),
+	$classEntry("B6896088", ::B6896088),
+	$classEntry("B8035158", ::B8035158),
+	$classEntry("B8035158$TestCase", ::B8035158$TestCase),
+	$classEntry("B8035158$TestCase$1", ::B8035158$TestCase$1),
+	$classEntry("B8035653", ::B8035653),
+	$classEntry("BadDottedIPAddress", ::BadDottedIPAddress),
+	$classEntry("BadIPv6Addresses", ::BadIPv6Addresses),
+	$classEntry("BadProxySelector", ::BadProxySelector),
+	$classEntry("BadProxySelector$HTTPProxySelector", ::BadProxySelector$HTTPProxySelector),
+	$classEntry("BadProxySelector$NullHTTPProxySelector", ::BadProxySelector$NullHTTPProxySelector),
+	$classEntry("BasicAuthTest", ::BasicAuthTest),
+	$classEntry("BasicAuthTest$ClientAuth", ::BasicAuthTest$ClientAuth),
+	$classEntry("BasicAuthTest$Handler", ::BasicAuthTest$Handler),
+	$classEntry("BasicAuthTest$ServerAuth", ::BasicAuthTest$ServerAuth),
+	$classEntry("BigBacklog", ::BigBacklog),
+	$classEntry("BindFailTest", ::BindFailTest),
+	$classEntry("BodyProcessorInputStreamTest", ::BodyProcessorInputStreamTest),
+	$classEntry("ByteArrayPublishers", ::ByteArrayPublishers),
+	$classEntry("CachedUnknownHostName", ::CachedUnknownHostName),
+	$classEntry("Cert", ::Cert),
+	$classEntry("CheckBoundaries", ::CheckBoundaries),
+	$classEntry("CheckDiscard", ::CheckDiscard),
+	$classEntry("CheckDiscard$Sender", ::CheckDiscard$Sender),
+	$classEntry("Child", ::Child),
+	$classEntry("Concurrent", ::Concurrent),
+	$classEntry("Connect", ::Connect),
+	$classEntry("Constructor", ::Constructor),
+	$classEntry("Constructor$Entry", ::Constructor$Entry),
+	$classEntry("CookieNegativeMaxAge", ::CookieNegativeMaxAge),
+	$classEntry("CreateUnresolved", ::CreateUnresolved),
+	$classEntry("CustomSocketImplFactory", ::CustomSocketImplFactory),
+	$classEntry("CustomSocketImplFactory$CustomSocketImpl", ::CustomSocketImplFactory$CustomSocketImpl),
+	$classEntry("DecodeNonEncoded", ::DecodeNonEncoded),
+	$classEntry("Decoder", ::Decoder),
+	$classEntry("DelegatingHttpClient", ::DelegatingHttpClient),
+	$classEntry("DummySecureWebSocketServer", ::DummySecureWebSocketServer),
+	$classEntry("DummySecureWebSocketServer$Credentials", ::DummySecureWebSocketServer$Credentials),
+	$classEntry("DummySecureWebSocketServer$WebServerSocketChannel", ::DummySecureWebSocketServer$WebServerSocketChannel),
+	$classEntry("DummySecureWebSocketServer$WebServerSocketChannel$Accepter", ::DummySecureWebSocketServer$WebServerSocketChannel$Accepter),
+	$classEntry("DummySecureWebSocketServer$WebServerSocketChannel$Addressable", ::DummySecureWebSocketServer$WebServerSocketChannel$Addressable),
+	$classEntry("DummySecureWebSocketServer$WebServerSocketChannel$Binder", ::DummySecureWebSocketServer$WebServerSocketChannel$Binder),
+	$classEntry("DummySecureWebSocketServer$WebServerSocketChannel$Closer", ::DummySecureWebSocketServer$WebServerSocketChannel$Closer),
+	$classEntry("DummySecureWebSocketServer$WebServerSocketChannel$Config", ::DummySecureWebSocketServer$WebServerSocketChannel$Config),
+	$classEntry("DummySecureWebSocketServer$WebSocketChannel", ::DummySecureWebSocketServer$WebSocketChannel),
+	$classEntry("DummySecureWebSocketServer$WebSocketChannel$Closer", ::DummySecureWebSocketServer$WebSocketChannel$Closer),
+	$classEntry("DummySecureWebSocketServer$WebSocketChannel$Config", ::DummySecureWebSocketServer$WebSocketChannel$Config),
+	$classEntry("DummySecureWebSocketServer$WebSocketChannel$Reader", ::DummySecureWebSocketServer$WebSocketChannel$Reader),
+	$classEntry("DummySecureWebSocketServer$WebSocketChannel$Writer", ::DummySecureWebSocketServer$WebSocketChannel$Writer),
+	$classEntry("DummyWebSocketServer", ::DummyWebSocketServer),
+	$classEntry("DummyWebSocketServer$Credentials", ::DummyWebSocketServer$Credentials),
+	$classEntry("EmptyAuthenticate", ::EmptyAuthenticate),
+	$classEntry("EncodeDecode", ::EncodeDecode),
+	$classEntry("Equals", ::Equals),
+	$classEntry("ExceptionallyCloseable", ::ExceptionallyCloseable),
+	$classEntry("ExifContentGuesser", ::ExifContentGuesser),
+	$classEntry("FindResourceDoesNotThrowException", ::FindResourceDoesNotThrowException),
+	$classEntry("FixedHttpResponse", ::FixedHttpResponse),
+	$classEntry("FlowAdaptersCompileOnly", ::FlowAdaptersCompileOnly),
+	$classEntry("FlowAdaptersCompileOnly$BBPublisher", ::FlowAdaptersCompileOnly$BBPublisher),
+	$classEntry("FlowAdaptersCompileOnly$CollectionSubscriber", ::FlowAdaptersCompileOnly$CollectionSubscriber),
+	$classEntry("FlowAdaptersCompileOnly$IntegerSubscriber", ::FlowAdaptersCompileOnly$IntegerSubscriber),
+	$classEntry("FlowAdaptersCompileOnly$IterableSubscriber", ::FlowAdaptersCompileOnly$IterableSubscriber),
+	$classEntry("FlowAdaptersCompileOnly$ListSubscriber", ::FlowAdaptersCompileOnly$ListSubscriber),
+	$classEntry("FlowAdaptersCompileOnly$ListSubscriberX", ::FlowAdaptersCompileOnly$ListSubscriberX),
+	$classEntry("FlowAdaptersCompileOnly$LongSubscriber", ::FlowAdaptersCompileOnly$LongSubscriber),
+	$classEntry("FlowAdaptersCompileOnly$MBBPublisher", ::FlowAdaptersCompileOnly$MBBPublisher),
+	$classEntry("FlowAdaptersCompileOnly$NumberSubscriber", ::FlowAdaptersCompileOnly$NumberSubscriber),
+	$classEntry("FlowAdaptersCompileOnly$ObjectSubscriber", ::FlowAdaptersCompileOnly$ObjectSubscriber),
+	$classEntry("Frame", ::Frame),
+	$classEntry("Frame$Consumer", ::Frame$Consumer),
+	$classEntry("Frame$HeaderWriter", ::Frame$HeaderWriter),
+	$classEntry("Frame$Masker", ::Frame$Masker),
+	$classEntry("Frame$Opcode", ::Frame$Opcode),
+	$classEntry("Frame$Reader", ::Frame$Reader),
+	$classEntry("GetAuthenticatorTest", ::GetAuthenticatorTest),
+	$classEntry("GetAuthenticatorTest$MyAuthenticator", ::GetAuthenticatorTest$MyAuthenticator),
+	$classEntry("GetContentType", ::GetContentType),
+	$classEntry("GetDefaultPort", ::GetDefaultPort),
+	$classEntry("GetFileNameMap", ::GetFileNameMap),
+	$classEntry("GetLocalAddress", ::GetLocalAddress),
+	$classEntry("GetLoopbackAddress", ::GetLoopbackAddress),
+	$classEntry("GetMacAddress", ::GetMacAddress),
+	$classEntry("GetURLsTest", ::GetURLsTest),
+	$classEntry("GetURLsTest$MyURLClassLoader", ::GetURLsTest$MyURLClassLoader),
+	$classEntry("HandlerLoop", ::HandlerLoop),
+	$classEntry("HandlerLoop$Dummy", ::HandlerLoop$Dummy),
+	$classEntry("HandlerLoop$HandlerFactory", ::HandlerLoop$HandlerFactory),
+	$classEntry("HandlersPkgPrefix", ::HandlersPkgPrefix),
+	$classEntry("HandlersPkgPrefix$Result", ::HandlersPkgPrefix$Result),
+	$classEntry("HandshakeFailureTest", ::HandshakeFailureTest),
+	$classEntry("HandshakeFailureTest$AbstractServer", ::HandshakeFailureTest$AbstractServer),
+	$classEntry("HandshakeFailureTest$ExceptionChecker", ::HandshakeFailureTest$ExceptionChecker),
+	$classEntry("HandshakeFailureTest$ExpectedExceptionType", ::HandshakeFailureTest$ExpectedExceptionType),
+	$classEntry("HandshakeFailureTest$PlainServer", ::HandshakeFailureTest$PlainServer),
+	$classEntry("HandshakeFailureTest$SSLServer", ::HandshakeFailureTest$SSLServer),
+	$classEntry("HashCode", ::HashCode),
+	$classEntry("HashSpread", ::HashSpread),
+	$classEntry("HeaderWriterDriver", ::HeaderWriterDriver),
+	$classEntry("HeadersTest", ::HeadersTest),
+	$classEntry("HeadersTest$1", ::HeadersTest$1),
+	$classEntry("HeadersTest$10", ::HeadersTest$10),
+	$classEntry("HeadersTest$11", ::HeadersTest$11),
+	$classEntry("HeadersTest$2", ::HeadersTest$2),
+	$classEntry("HeadersTest$3", ::HeadersTest$3),
+	$classEntry("HeadersTest$4", ::HeadersTest$4),
+	$classEntry("HeadersTest$5", ::HeadersTest$5),
+	$classEntry("HeadersTest$6", ::HeadersTest$6),
+	$classEntry("HeadersTest$7", ::HeadersTest$7),
+	$classEntry("HeadersTest$8", ::HeadersTest$8),
+	$classEntry("HeadersTest$9", ::HeadersTest$9),
+	$classEntry("HeadersTest2", ::HeadersTest2),
+	$classEntry("HeadersTest2$CompareTest", ::HeadersTest2$CompareTest),
+	$classEntry("HpackBinaryTestDriver", ::HpackBinaryTestDriver),
+	$classEntry("HpackCircularBufferDriver", ::HpackCircularBufferDriver),
+	$classEntry("HpackDecoderDriver", ::HpackDecoderDriver),
+	$classEntry("HpackEncoderDriver", ::HpackEncoderDriver),
+	$classEntry("HpackHeaderTableDriver", ::HpackHeaderTableDriver),
+	$classEntry("HpackHuffmanDriver", ::HpackHuffmanDriver),
+	$classEntry("Http1ChunkedTest", ::Http1ChunkedTest),
+	$classEntry("Http1ChunkedTest$Data", ::Http1ChunkedTest$Data),
+	$classEntry("Http1ChunkedTest$Responses", ::Http1ChunkedTest$Responses),
+	$classEntry("HttpInputStreamTest", ::HttpInputStreamTest),
+	$classEntry("HttpInputStreamTest$HttpInputStreamHandler", ::HttpInputStreamTest$HttpInputStreamHandler),
+	$classEntry("HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream", ::HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream),
+	$classEntry("HttpRequestBuilderTest", ::HttpRequestBuilderTest),
+	$classEntry("IDNTest", ::IDNTest),
+	$classEntry("IPv4Formats", ::IPv4Formats),
+	$classEntry("IPv6AddressTypes", ::IPv6AddressTypes),
+	$classEntry("IPv6Numeric", ::IPv6Numeric),
+	$classEntry("IllegalArg", ::IllegalArg),
+	$classEntry("ImmutableHeaders", ::ImmutableHeaders),
+	$classEntry("ImmutableHeaders$ImmutableHeadersHandler", ::ImmutableHeaders$ImmutableHeadersHandler),
+	$classEntry("ImplicitBind", ::ImplicitBind),
+	$classEntry("IndexTest", ::IndexTest),
+	$classEntry("Inet6AddressSerTest", ::Inet6AddressSerTest),
+	$classEntry("Inet6AddressSerTest$PayloadTest", ::Inet6AddressSerTest$PayloadTest),
+	$classEntry("Inet6AddressSerializationTest", ::Inet6AddressSerializationTest),
+	$classEntry("InheritHandle", ::InheritHandle),
+	$classEntry("InternalNameServiceTest", ::InternalNameServiceTest),
+	$classEntry("InternalNameServiceWithHostsFileTest", ::InternalNameServiceWithHostsFileTest),
+	$classEntry("InternalNameServiceWithNoHostsFileTest", ::InternalNameServiceWithNoHostsFileTest),
+	$classEntry("InterruptedBlockingSend", ::InterruptedBlockingSend),
+	$classEntry("InterruptibleDatagramSocket", ::InterruptibleDatagramSocket),
+	$classEntry("IsHostReachableBug", ::IsHostReachableBug),
+	$classEntry("IsReachable", ::IsReachable),
+	$classEntry("IsReachableViaLoopbackTest", ::IsReachableViaLoopbackTest),
+	$classEntry("JavadocExamples", ::JavadocExamples),
+	$classEntry("JavadocExamples$Foo", ::JavadocExamples$Foo),
+	$classEntry("JavadocExamples$FromMappingSubscriber", ::JavadocExamples$FromMappingSubscriber),
+	$classEntry("JavadocExamples$LineParserSubscriber", ::JavadocExamples$LineParserSubscriber),
+	$classEntry("JavadocExamples$ObjectMapper", ::JavadocExamples$ObjectMapper),
+	$classEntry("JavadocExamples$PrintSubscriber", ::JavadocExamples$PrintSubscriber),
+	$classEntry("LineAdaptersCompileOnly", ::LineAdaptersCompileOnly),
+	$classEntry("LineAdaptersCompileOnly$CharSequenceSubscriber", ::LineAdaptersCompileOnly$CharSequenceSubscriber),
+	$classEntry("LineAdaptersCompileOnly$ObjectSubscriber", ::LineAdaptersCompileOnly$ObjectSubscriber),
+	$classEntry("LineAdaptersCompileOnly$StringSubscriber", ::LineAdaptersCompileOnly$StringSubscriber),
+	$classEntry("LineAdaptersCompileOnly$StringSubscriberX", ::LineAdaptersCompileOnly$StringSubscriberX),
+	$classEntry("LocalHostCookie", ::LocalHostCookie),
+	$classEntry("LocalHostCookie$MyCookieHandler", ::LocalHostCookie$MyCookieHandler),
+	$classEntry("LocalHostCookie$Server", ::LocalHostCookie$Server),
+	$classEntry("LocalSocketAddress", ::LocalSocketAddress),
+	$classEntry("LocaleDependentURLTest", ::LocaleDependentURLTest),
+	$classEntry("LookupTest", ::LookupTest),
+	$classEntry("LookupTest$LookupTestPolicy", ::LookupTest$LookupTestPolicy),
+	$classEntry("LookupTest$Server", ::LookupTest$Server),
+	$classEntry("MaskerDriver", ::MaskerDriver),
+	$classEntry("MessageQueueDriver", ::MessageQueueDriver),
+	$classEntry("MethodsTest", ::MethodsTest),
+	$classEntry("MethodsTest$1", ::MethodsTest$1),
+	$classEntry("MockE1000g0Inet6Address", ::MockE1000g0Inet6Address),
+	$classEntry("MockListener", ::MockListener),
+	$classEntry("MockListener$Invocation", ::MockListener$Invocation),
+	$classEntry("MockListener$OnBinary", ::MockListener$OnBinary),
+	$classEntry("MockListener$OnClose", ::MockListener$OnClose),
+	$classEntry("MockListener$OnError", ::MockListener$OnError),
+	$classEntry("MockListener$OnOpen", ::MockListener$OnOpen),
+	$classEntry("MockListener$OnPing", ::MockListener$OnPing),
+	$classEntry("MockListener$OnPong", ::MockListener$OnPong),
+	$classEntry("MockListener$OnText", ::MockListener$OnText),
+	$classEntry("MockLo0Inet6Address", ::MockLo0Inet6Address),
+	$classEntry("MockServer", ::MockServer),
+	$classEntry("MockServer$Connection", ::MockServer$Connection),
+	$classEntry("MultiAuthTest", ::MultiAuthTest),
+	$classEntry("MultiAuthTest$ClientAuth", ::MultiAuthTest$ClientAuth),
+	$classEntry("MultiAuthTest$Handler", ::MultiAuthTest$Handler),
+	$classEntry("MultiAuthTest$HttpRequestBuilderFactory", ::MultiAuthTest$HttpRequestBuilderFactory),
+	$classEntry("MultiAuthTest$ServerAuth", ::MultiAuthTest$ServerAuth),
+	$classEntry("MultiThreadedSystemProxies", ::MultiThreadedSystemProxies),
+	$classEntry("MultiThreadedSystemProxies$1", ::MultiThreadedSystemProxies$1),
+	$classEntry("MulticastTTL", ::MulticastTTL),
+	$classEntry("MyHttpURLConnectionImpl", ::MyHttpURLConnectionImpl),
+	$classEntry("MyPrincipal", ::MyPrincipal),
+	$classEntry("NativeThread", ::NativeThread),
+	$classEntry("NetParamsTest", ::NetParamsTest),
+	$classEntry("NetworkInterfaceEmptyGetInetAddressesTest", ::NetworkInterfaceEmptyGetInetAddressesTest),
+	$classEntry("NetworkPrefixLength", ::NetworkPrefixLength),
+	$classEntry("NoAction", ::NoAction),
+	$classEntry("NonOverridableHandlerFactory", ::NonOverridableHandlerFactory),
+	$classEntry("NonOverridableHandlerFactory$NonOverridableHandler", ::NonOverridableHandlerFactory$NonOverridableHandler),
+	$classEntry("NullArguments", ::NullArguments),
+	$classEntry("NullConstructor", ::NullConstructor),
+	$classEntry("NullConstructor$1", ::NullConstructor$1),
+	$classEntry("NullHost", ::NullHost),
+	$classEntry("NullHost$Server", ::NullHost$Server),
+	$classEntry("NullURLTest", ::NullURLTest),
+	$classEntry("NullUriCookieTest", ::NullUriCookieTest),
+	$classEntry("Offset", ::Offset),
+	$classEntry("OneExceptionOnly", ::OneExceptionOnly),
+	$classEntry("OpenConnection", ::OpenConnection),
+	$classEntry("OpenStream", ::OpenStream),
+	$classEntry("ParseAuthority", ::ParseAuthority),
+	$classEntry("ParseURL", ::ParseURL),
+	$classEntry("PlainProxyConnectionTest", ::PlainProxyConnectionTest),
+	$classEntry("PlainProxyConnectionTest$1", ::PlainProxyConnectionTest$1),
+	$classEntry("PlainProxyConnectionTest$CountingProxySelector", ::PlainProxyConnectionTest$CountingProxySelector),
+	$classEntry("PortUnreachable", ::PortUnreachable),
+	$classEntry("Protocol", ::Protocol),
+	$classEntry("ProxyServer", ::ProxyServer),
+	$classEntry("ProxyServer$1", ::ProxyServer$1),
+	$classEntry("ProxyServer$Connection", ::ProxyServer$Connection),
+	$classEntry("ProxyServer$Credentials", ::ProxyServer$Credentials),
+	$classEntry("Race", ::Race),
+	$classEntry("Race$1", ::Race$1),
+	$classEntry("RacyHandler", ::RacyHandler),
+	$classEntry("RacyHandler$CustomHttpHandler", ::RacyHandler$CustomHttpHandler),
+	$classEntry("ReadAfterReset", ::ReadAfterReset),
+	$classEntry("ReaderDriver", ::ReaderDriver),
+	$classEntry("RelativeEncoding", ::RelativeEncoding),
+	$classEntry("RelativePath", ::RelativePath),
+	$classEntry("RelativeURL", ::RelativeURL),
+	$classEntry("RelativeURLTest", ::RelativeURLTest),
+	$classEntry("ReportSocketClosed", ::ReportSocketClosed),
+	$classEntry("RequestPropertyValues", ::RequestPropertyValues),
+	$classEntry("RequestPropertyValues$DummyURLConnection", ::RequestPropertyValues$DummyURLConnection),
+	$classEntry("Responses", ::Responses),
+	$classEntry("Responses$HttpServer", ::Responses$HttpServer),
+	$classEntry("RestoreURL", ::RestoreURL),
+	$classEntry("RestrictedHeadersTest", ::RestrictedHeadersTest),
+	$classEntry("Reuse", ::Reuse),
+	$classEntry("ReuseAddressTest", ::ReuseAddressTest),
+	$classEntry("ReuseBuf", ::ReuseBuf),
+	$classEntry("ReuseBuf$ServerThread", ::ReuseBuf$ServerThread),
+	$classEntry("S", ::S),
+	$classEntry("S$1", ::S$1),
+	$classEntry("S$2", ::S$2),
+	$classEntry("S$3", ::S$3),
+	$classEntry("S$3$1", ::S$3$1),
+	$classEntry("S$NReadsInputStream", ::S$NReadsInputStream),
+	$classEntry("SecureZipFSProvider", ::SecureZipFSProvider),
+	$classEntry("SecureZipFSProvider$SecureZipFS", ::SecureZipFSProvider$SecureZipFS),
+	$classEntry("SecureZipFSProvider$TestPath", ::SecureZipFSProvider$TestPath),
+	$classEntry("SecureZipFSProvider$TestPath$1", ::SecureZipFSProvider$TestPath$1),
+	$classEntry("SelectFdsLimit", ::SelectFdsLimit),
+	$classEntry("Send12k", ::Send12k),
+	$classEntry("SendDatagramToBadAddress", ::SendDatagramToBadAddress),
+	$classEntry("SendDatagramToBadAddress$Server", ::SendDatagramToBadAddress$Server),
+	$classEntry("SendSize", ::SendSize),
+	$classEntry("SendSize$ClientThread", ::SendSize$ClientThread),
+	$classEntry("SendSize$ServerThread", ::SendSize$ServerThread),
+	$classEntry("Serialize", ::Serialize),
+	$classEntry("SetBufferSize", ::SetBufferSize),
+	$classEntry("SetOption", ::SetOption),
+	$classEntry("SetReceiveBufferSize", ::SetReceiveBufferSize),
+	$classEntry("SetTTLAndGetTTL", ::SetTTLAndGetTTL),
+	$classEntry("SetTTLTo0", ::SetTTLTo0),
+	$classEntry("ShortRequestBody", ::ShortRequestBody),
+	$classEntry("ShortRequestBody$AbstractDelegateRequestBody", ::ShortRequestBody$AbstractDelegateRequestBody),
+	$classEntry("ShortRequestBody$ByteArrayRequestBody", ::ShortRequestBody$ByteArrayRequestBody),
+	$classEntry("ShortRequestBody$FileRequestBody", ::ShortRequestBody$FileRequestBody),
+	$classEntry("ShortRequestBody$Server", ::ShortRequestBody$Server),
+	$classEntry("ShortRequestBody$StringRequestBody", ::ShortRequestBody$StringRequestBody),
+	$classEntry("ShutdownBoth", ::ShutdownBoth),
+	$classEntry("SoTimeout", ::SoTimeout),
+	$classEntry("SocketGrowth", ::SocketGrowth),
+	$classEntry("SocketPermissionCollection", ::SocketPermissionCollection),
+	$classEntry("SocksServer", ::SocksServer),
+	$classEntry("SocksServer$ClientHandler", ::SocksServer$ClientHandler),
+	$classEntry("SocksServer$ClientHandler$Tunnel", ::SocksServer$ClientHandler$Tunnel),
+	$classEntry("SpecifyHandler", ::SpecifyHandler),
+	$classEntry("Streams", ::Streams),
+	$classEntry("Streams$InputStreamGetter", ::Streams$InputStreamGetter),
+	$classEntry("Streams$OutputStreamGetter", ::Streams$OutputStreamGetter),
+	$classEntry("Streams$StreamGetter", ::Streams$StreamGetter),
+	$classEntry("StringScope", ::StringScope),
+	$classEntry("SubNetworkInterfaceTest", ::SubNetworkInterfaceTest),
+	$classEntry("SurrogatePairs", ::SurrogatePairs),
+	$classEntry("SystemProxies", ::SystemProxies),
+	$classEntry("TIFFContentGuesser", ::TIFFContentGuesser),
+	$classEntry("TckDriver", ::TckDriver),
+	$classEntry("TcpKeepAliveTest", ::TcpKeepAliveTest),
+	$classEntry("Test4URI", ::Test4URI),
+	$classEntry("Test4URL", ::Test4URL),
+	$classEntry("TestAfterClose", ::TestAfterClose),
+	$classEntry("TestDefaults", ::TestDefaults),
+	$classEntry("TestHttpCookie", ::TestHttpCookie),
+	$classEntry("TestIPv6Addresses", ::TestIPv6Addresses),
+	$classEntry("TestKit", ::TestKit),
+	$classEntry("TestKit$ThrowingFunction", ::TestKit$ThrowingFunction),
+	$classEntry("TestKit$ThrowingProcedure", ::TestKit$ThrowingProcedure),
+	$classEntry("TestPort", ::TestPort),
+	$classEntry("TestRFC2732", ::TestRFC2732),
+	$classEntry("TestUtil", ::TestUtil),
+	$classEntry("ThreadStop", ::ThreadStop),
+	$classEntry("ThreadStop$Server", ::ThreadStop$Server),
+	$classEntry("TimeToLive", ::TimeToLive),
+	$classEntry("Timeout", ::Timeout),
+	$classEntry("TimeoutOrdering", ::TimeoutOrdering),
+	$classEntry("UNCTest", ::UNCTest),
+	$classEntry("URIToURLTest2", ::URIToURLTest2),
+	$classEntry("URItoURLTest", ::URItoURLTest),
+	$classEntry("URLDecoderArgs", ::URLDecoderArgs),
+	$classEntry("URLEncodeDecode", ::URLEncodeDecode),
+	$classEntry("URLEncoderEncodeArgs", ::URLEncoderEncodeArgs),
+	$classEntry("URLParsing", ::URLParsing),
+	$classEntry("URLPermissionTest", ::URLPermissionTest),
+	$classEntry("URLPermissionTest$ActionImpliesTest", ::URLPermissionTest$ActionImpliesTest),
+	$classEntry("URLPermissionTest$ActionsStringTest", ::URLPermissionTest$ActionsStringTest),
+	$classEntry("URLPermissionTest$CreateTest", ::URLPermissionTest$CreateTest),
+	$classEntry("URLPermissionTest$ExTest", ::URLPermissionTest$ExTest),
+	$classEntry("URLPermissionTest$HashCodeTest", ::URLPermissionTest$HashCodeTest),
+	$classEntry("URLPermissionTest$Test", ::URLPermissionTest$Test),
+	$classEntry("URLPermissionTest$URLEqualityTest", ::URLPermissionTest$URLEqualityTest),
+	$classEntry("URLPermissionTest$URLImpliesTest", ::URLPermissionTest$URLImpliesTest),
+	$classEntry("UnknownContentType", ::UnknownContentType),
+	$classEntry("Unresolved", ::Unresolved),
+	$classEntry("UppercaseScheme", ::UppercaseScheme),
+	$classEntry("UseSTD3ASCIIRules", ::UseSTD3ASCIIRules),
+	$classEntry("WebSocketExample", ::WebSocketExample),
+	$classEntry("WebSocketExample$1", ::WebSocketExample$1),
+	$classEntry("WebSocketExample$2", ::WebSocketExample$2),
+	$classEntry("WhiteSpaceHostTest", ::WhiteSpaceHostTest),
+	$classEntry("Wildcard", ::Wildcard),
+	$classEntry("ZeroRedirects", ::ZeroRedirects),
+	$classEntry("ZeroRedirects$Handler", ::ZeroRedirects$Handler),
+	$classEntry("com.foo.content.text.Plain2", ::com::foo::content::text::Plain2),
+	$classEntry("getResponseCode4HttpURLConnection", ::getResponseCode4HttpURLConnection),
+	$classEntry("handlers.bar.Handler", ::handlers::bar::Handler),
+	$classEntry("handlers.foo.Handler", ::handlers::foo::Handler),
+	$classEntry("handlers.jar.Handler", ::handlers::jar::Handler),
+	$classEntry("isSiteLocalAddress", ::isSiteLocalAddress),
+	$classEntry("jdk.internal.net.http.AbstractRandomTest", ::jdk::internal::net::http::AbstractRandomTest),
+	$classEntry("jdk.internal.net.http.SimpleSSLContext", ::jdk::internal::net::http::SimpleSSLContext),
+	$classEntry("jdk.internal.net.http.hpack.BuffersTestingKit", ::jdk::internal::net::http::hpack::BuffersTestingKit),
+	$classEntry("jdk.internal.net.http.hpack.BuffersTestingKit$1", ::jdk::internal::net::http::hpack::BuffersTestingKit$1),
+	$classEntry("jdk.internal.net.http.hpack.BuffersTestingKit$2", ::jdk::internal::net::http::hpack::BuffersTestingKit$2),
+	$classEntry("jdk.internal.net.http.hpack.SpecHelper", ::jdk::internal::net::http::hpack::SpecHelper),
+	$classEntry("jdk.internal.net.http.websocket.TestSupport", ::jdk::internal::net::http::websocket::TestSupport),
+	$classEntry("jdk.internal.net.http.websocket.TestSupport$1", ::jdk::internal::net::http::websocket::TestSupport$1),
+	$classEntry("jdk.internal.net.http.websocket.TestSupport$2", ::jdk::internal::net::http::websocket::TestSupport$2),
+	$classEntry("jdk.internal.net.http.websocket.TestSupport$AssertionFailedException", ::jdk::internal::net::http::websocket::TestSupport$AssertionFailedException),
+	$classEntry("jdk.internal.net.http.websocket.TestSupport$F", ::jdk::internal::net::http::websocket::TestSupport$F),
+	$classEntry("jdk.internal.net.http.websocket.TestSupport$F1", ::jdk::internal::net::http::websocket::TestSupport$F1),
+	$classEntry("jdk.internal.net.http.websocket.TestSupport$F2", ::jdk::internal::net::http::websocket::TestSupport$F2),
+	$classEntry("jdk.internal.net.http.websocket.TestSupport$F3", ::jdk::internal::net::http::websocket::TestSupport$F3),
+	$classEntry("jdk.internal.net.http.websocket.TestSupport$F4", ::jdk::internal::net::http::websocket::TestSupport$F4),
+	$classEntry("jdk.internal.net.http.websocket.TestSupport$F5", ::jdk::internal::net::http::websocket::TestSupport$F5),
+	$classEntry("jdk.internal.net.http.websocket.TestSupport$ThrowingProcedure", ::jdk::internal::net::http::websocket::TestSupport$ThrowingProcedure),
+	$classEntry("org.reactivestreams.Subscription", ::org::reactivestreams::Subscription),
+	$classEntry("org.reactivestreams.tck.flow.support.Function", ::org::reactivestreams::tck::flow::support::Function),
+	$classEntry("org.reactivestreams.tck.flow.support.NonFatal", ::org::reactivestreams::tck::flow::support::NonFatal),
+	$classEntry("org.reactivestreams.tck.flow.support.Optional", ::org::reactivestreams::tck::flow::support::Optional),
+	$classEntry("org.reactivestreams.tck.flow.support.Optional$1", ::org::reactivestreams::tck::flow::support::Optional$1),
+	$classEntry("org.reactivestreams.tck.flow.support.Optional$Some", ::org::reactivestreams::tck::flow::support::Optional$Some),
+	$classEntry("org.reactivestreams.tck.flow.support.PublisherVerificationRules", ::org::reactivestreams::tck::flow::support::PublisherVerificationRules),
+	$classEntry("org.reactivestreams.tck.flow.support.SubscriberBufferOverflowException", ::org::reactivestreams::tck::flow::support::SubscriberBufferOverflowException),
+	$classEntry("org.reactivestreams.tck.flow.support.SubscriberWhiteboxVerificationRules", ::org::reactivestreams::tck::flow::support::SubscriberWhiteboxVerificationRules),
+	$classEntry("org.reactivestreams.tck.flow.support.TestException", ::org::reactivestreams::tck::flow::support::TestException),
+	$classEntry("p.A", ::p::A),
+	$classEntry("p.B", ::p::B),
+	$classEntry("p.Bar", ::p::Bar),
+	$classEntry("p.Baz", ::p::Baz),
+	$classEntry("p.Foo", ::p::Foo),
+	$classEntry("textToNumericFormat", ::textToNumericFormat)
+};
+
+const char* _jdk$net$test_packages_[] = {
+	"com.foo.content.text",
+	"handlers.bar",
+	"handlers.foo",
+	"handlers.jar",
+	"jdk.internal.net.http",
+	"jdk.internal.net.http.hpack",
+	"jdk.internal.net.http.websocket",
+	"org.reactivestreams",
+	"org.reactivestreams.tck.flow.support",
+	"p"
+};
+
+void jdk$net$test$PreloadClass(void* eventData) {
+	::java::lang::PreloadClassEvent* event = (::java::lang::PreloadClassEvent*)eventData;
+	int32_t length = $lengthOf(_jdk$net$test_classes_);
+	for (int i = 0; i < length; i++) {
+		::java::lang::ClassEntry* classEntry = &_jdk$net$test_classes_[i];
+		if (event->preinit) {
+			if ($hasFlag(classEntry->mark, $PREINIT)) {
+				classEntry->loader(nullptr, true);
+				continue;
+			}
+		}
+		if (event->preload) {
+			if ($hasFlag(classEntry->mark, $PRELOAD) || $hasFlag(classEntry->mark, $PREINIT)) {
+				classEntry->loader(nullptr, false);
+			}
+		}
+	}
+}
+
+void jdk$net$test$LibEventAction(int32_t eventType, void* eventData) {
+	if (eventType == JCPP_LIB_EVENT_TYPE_PRELOAD_CLASS) {
+		jdk$net$test$PreloadClass(eventData);
+	}
+	if (eventType == JCPP_LIB_EVENT_TYPE_THREAD_START) {
+		$setCurrentObjectStack();
+	}
+}
+
+$StringArray* jdk$net$test$GetPackages() {
+	int32_t length = $lengthOf(_jdk$net$test_packages_);
+	$var($StringArray, packages, $new($StringArray, length));
+	for (int32_t i = 0; i < length; i++) {
+		packages->set(i, $str(_jdk$net$test_packages_[i]));
+	}
+	return packages;
+}
+
+::java::lang::ClassEntry* jdk$net$test$GetClassEntry($String* name) {
+	int32_t begin = 0;
+	int32_t end = $lengthOf(_jdk$net$test_classes_) - 1;
+	while (begin <= end) {
+		int32_t mid = begin + (end - begin) / 2;
+		::java::lang::ClassEntry* classEntry = &_jdk$net$test_classes_[mid];
+		int32_t ret = name->compareTo(classEntry->name);
+		if (ret < 0) {
+			end = mid - 1;
+		} else if (ret > 0) {
+			begin = mid + 1;
+		} else {
+			return classEntry;
+		}
+	}
+	return nullptr;
+}
+
+$bytes* jdk$net$test$GetResource($String* name) {
+	return nullptr;
+}
+
+void jdk$net$test::init() {
+	::java$net$http::init();
+	::jdk$httpserver::init();
+	::jdk$net::init();
+	::java$base::init();
+	::java::lang::Library lib = {
+		"jdk.net.test", "17.35", "",
+		nullptr,
+		jdk$net$test$LibEventAction,
+		jdk$net$test$GetPackages,
+		jdk$net$test$GetClassEntry,
+		jdk$net$test$GetResource
+	};
+	$System::addLibrary(&lib);
+	$System::init();
+}
