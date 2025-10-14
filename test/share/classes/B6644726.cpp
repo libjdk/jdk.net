@@ -114,12 +114,12 @@ void B6644726::testCookieStore() {
 	}
 	$assign(m, cm->get(suri, emptyMap));
 	$assign(clst, $cast($List, m->get("Cookie"_s)));
-	if (clst->size() != 5) {
+	if ($nc(clst)->size() != 5) {
 		fail($$str({"Cookies didn\'t cross from http to https. Got only "_s, $$str(clst->size())}));
 	}
 	$assign(m, cm->get(uri, emptyMap));
 	$assign(clst, $cast($List, m->get("Cookie"_s)));
-	if (clst->size() != 4) {
+	if ($nc(clst)->size() != 4) {
 		fail($$str({"We should have gotten only 4 cookies over http (non secure), got "_s, $$str(clst->size())}));
 	}
 	if (isIn(clst, "myCookie5="_s)) {
@@ -134,7 +134,7 @@ void B6644726::testCookieStore() {
 	$assign(uri, $new($URI, "http://www.sun.com"_s));
 	$assign(m, cm->get(uri, emptyMap));
 	$assign(clst, $cast($List, m->get("Cookie"_s)));
-	if (clst->size() != 1) {
+	if ($nc(clst)->size() != 1) {
 		fail("Missing a cookie when using an empty path"_s);
 	}
 	$assign(uri, $new($URI, "http://www.sun.com"_s));

@@ -114,7 +114,7 @@ ExtendedSocketOptions$PlatformSocketOptions* ExtendedSocketOptions$PlatformSocke
 	$var($String, osname, $cast($String, $AccessController::doPrivileged(static_cast<$PrivilegedAction*>($$new($ExtendedSocketOptions$PlatformSocketOptions$1)))));
 	if ("Linux"_s->equals(osname)) {
 		return newInstance("jdk.net.LinuxSocketOptions"_s);
-	} else if (osname->startsWith("Mac"_s)) {
+	} else if ($nc(osname)->startsWith("Mac"_s)) {
 		return newInstance("jdk.net.MacOSXSocketOptions"_s);
 	} else {
 		return $new(ExtendedSocketOptions$PlatformSocketOptions);
