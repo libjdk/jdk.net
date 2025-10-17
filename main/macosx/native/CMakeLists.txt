@@ -1,9 +1,5 @@
 #machine generated
 
-if(JCPP_OS MATCHES "linux")
-	include_directories("../../linux/native")
-endif()
-
 aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}" macosx-native_SRCS)
 file(GLOB macosx-native_HEADERS *.h *.hpp)
 source_group("Include" FILES ${macosx-native_HEADERS}) 

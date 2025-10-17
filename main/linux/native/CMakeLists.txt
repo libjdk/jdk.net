@@ -1,7 +1,7 @@
 #machine generated
 
-if(JCPP_OS MATCHES "macosx")
-	include_directories("../../macosx/native")
+if(JCPP_OS MATCHES "linux")
+	add_definitions("-D_GNU_SOURCE")
 endif()
 
 aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}" linux-native_SRCS)
