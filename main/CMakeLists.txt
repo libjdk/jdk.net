@@ -11,9 +11,9 @@ if(JCPP_OS MATCHES "linux")
 	include_directories("linux/native")
 endif()
 
-if(JCPP_OS MATCHES "macosx")
-	include_directories("macosx/classes")
-	include_directories("macosx/native")
+if(JCPP_OS MATCHES "macos")
+	include_directories("macos/classes")
+	include_directories("macos/native")
 endif()
 
 if(JCPP_OS MATCHES "windows")
@@ -27,9 +27,9 @@ if(JCPP_OS MATCHES "linux")
 	add_subdirectory("linux/native")
 endif()
 
-if(JCPP_OS MATCHES "macosx")
-	add_subdirectory("macosx/classes")
-	add_subdirectory("macosx/native")
+if(JCPP_OS MATCHES "macos")
+	add_subdirectory("macos/classes")
+	add_subdirectory("macos/native")
 endif()
 
 if(JCPP_OS MATCHES "windows")
@@ -49,11 +49,11 @@ if(JCPP_OS MATCHES "linux")
 	)
 endif()
 
-if(JCPP_OS MATCHES "macosx")
+if(JCPP_OS MATCHES "macos")
 	set(local_object ${local_object}
-		"$<TARGET_OBJECTS:macosx-classes>"
-		"$<TARGET_OBJECTS:macosx-classes.jdk.net>"
-		"$<TARGET_OBJECTS:macosx-native>"
+		"$<TARGET_OBJECTS:macos-classes>"
+		"$<TARGET_OBJECTS:macos-classes.jdk.net>"
+		"$<TARGET_OBJECTS:macos-native>"
 	)
 endif()
 
@@ -87,7 +87,7 @@ if(BUILD_SHARED_LIB)
 	SET_TARGET_PROPERTIES(${JCPP_PROJECT_NAME}_shared PROPERTIES VERSION ${JCPP_PROJECT_VERSION} SOVERSION 1)
 if(JCPP_OS MATCHES "linux")
 	SET_TARGET_PROPERTIES(${JCPP_PROJECT_NAME}_shared PROPERTIES INSTALL_RPATH "\\\$ORIGIN;\\\$ORIGIN/../lib")
-elseif(JCPP_OS MATCHES "macosx")
+elseif(JCPP_OS MATCHES "macos")
 	SET_TARGET_PROPERTIES(${JCPP_PROJECT_NAME}_shared PROPERTIES INSTALL_RPATH ".;../lib")
 endif()
 
@@ -98,7 +98,7 @@ endif()
 
 	jcpp_enable_bigobj(${JCPP_PROJECT_NAME}_shared)
 
-	jcpp_enable_debug_info(${JCPP_PROJECT_NAME}_shared)
+	jcpp_encode_symbol(${JCPP_PROJECT_NAME}_shared)
 
 	install(TARGETS ${JCPP_PROJECT_NAME}_shared
 		LIBRARY DESTINATION "${JCPP_INSTALL_LIB_DIR}"
