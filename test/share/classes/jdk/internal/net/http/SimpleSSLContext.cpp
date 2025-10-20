@@ -89,6 +89,7 @@ $Object* allocate$SimpleSSLContext($Class* clazz) {
 }
 
 void SimpleSSLContext::init$() {
+	$useLocalCurrentObjectStackCache();
 	$var($String, paths, $System::getProperty("test.src.path"_s));
 	$init($File);
 	$var($StringTokenizer, st, $new($StringTokenizer, paths, $File::pathSeparator));
@@ -146,6 +147,7 @@ void SimpleSSLContext::init$() {
 }
 
 $SSLContext* SimpleSSLContext::init($InputStream* i) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($chars, passphrase, "passphrase"_s->toCharArray());
 		$var($KeyStore, ks, $KeyStore::getInstance("PKCS12"_s));

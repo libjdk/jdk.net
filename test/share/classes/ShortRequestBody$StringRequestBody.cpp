@@ -60,6 +60,7 @@ $Object* allocate$ShortRequestBody$StringRequestBody($Class* clazz) {
 }
 
 void ShortRequestBody$StringRequestBody::init$($String* body, int32_t additionalLength) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$BodyPublisher, var$0, $HttpRequest$BodyPublishers::ofString(body));
 	$init($StandardCharsets);
 	$ShortRequestBody$AbstractDelegateRequestBody::init$(var$0, $($nc(body)->getBytes($StandardCharsets::UTF_8))->length + additionalLength);

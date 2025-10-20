@@ -66,6 +66,7 @@ void B4769350$MyAuthenticator::init$() {
 }
 
 $PasswordAuthentication* B4769350$MyAuthenticator::getPasswordAuthentication() {
+	$useLocalCurrentObjectStackCache();
 	$var($PasswordAuthentication, pw, nullptr);
 	$assign(pw, $new($PasswordAuthentication, "user"_s, $("pass1"_s->toCharArray())));
 	++this->count;

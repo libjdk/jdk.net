@@ -48,6 +48,7 @@ void B6791927::init$() {
 }
 
 void B6791927::main($StringArray* aaParamters) {
+	$useLocalCurrentObjectStackCache();
 	$var($Locale, reservedLocale, $Locale::getDefault());
 	{
 		$var($Throwable, var$0, nullptr);

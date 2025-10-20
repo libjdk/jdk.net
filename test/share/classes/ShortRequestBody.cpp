@@ -251,6 +251,7 @@ void ShortRequestBody::init$() {
 
 void ShortRequestBody::main($StringArray* args) {
 	$init(ShortRequestBody);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpClient, sharedClient, $HttpClient::newHttpClient());
 	$var($List, clientSuppliers, $new($ArrayList));
 	clientSuppliers->add(static_cast<$Supplier*>($$new(ShortRequestBody$$Lambda$lambda$main$0)));
@@ -310,6 +311,7 @@ void ShortRequestBody::main($StringArray* args) {
 
 void ShortRequestBody::success($Supplier* clientSupplier, $URI* uri, $HttpRequest$BodyPublisher* publisher) {
 	$init(ShortRequestBody);
+	$useLocalCurrentObjectStackCache();
 	$var($CompletableFuture, cf, nullptr);
 	$var($HttpRequest, request, $nc($($nc($($HttpRequest::newBuilder(uri)))->POST(publisher)))->build());
 	$assign(cf, $nc(($cast($HttpClient, $($nc(clientSupplier)->get()))))->sendAsync(request, $($HttpResponse$BodyHandlers::discarding())));
@@ -326,6 +328,7 @@ void ShortRequestBody::success($Supplier* clientSupplier, $URI* uri, $HttpReques
 
 void ShortRequestBody::failureNonBlocking($Supplier* clientSupplier, $URI* uri, $HttpRequest$BodyPublisher* publisher) {
 	$init(ShortRequestBody);
+	$useLocalCurrentObjectStackCache();
 	$var($CompletableFuture, cf, nullptr);
 	$var($HttpRequest, request, $nc($($nc($($HttpRequest::newBuilder(uri)))->POST(publisher)))->build());
 	$assign(cf, $nc(($cast($HttpClient, $($nc(clientSupplier)->get()))))->sendAsync(request, $($HttpResponse$BodyHandlers::discarding())));
@@ -356,6 +359,7 @@ void ShortRequestBody::failureNonBlocking($Supplier* clientSupplier, $URI* uri, 
 
 void ShortRequestBody::failureBlocking($Supplier* clientSupplier, $URI* uri, $HttpRequest$BodyPublisher* publisher) {
 	$init(ShortRequestBody);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest, request, $nc($($nc($($HttpRequest::newBuilder(uri)))->POST(publisher)))->build());
 	try {
 		$var($HttpResponse, r, $nc(($cast($HttpClient, $($nc(clientSupplier)->get()))))->send(request, $($HttpResponse$BodyHandlers::discarding())));
@@ -378,6 +382,7 @@ void ShortRequestBody::failureBlocking($Supplier* clientSupplier, $URI* uri, $Ht
 
 $String* ShortRequestBody::readRequestHeaders($InputStream* is) {
 	$init(ShortRequestBody);
+	$useLocalCurrentObjectStackCache();
 	int32_t requestEndCount = 0;
 	int32_t r = 0;
 	int32_t eol = -1;
@@ -419,6 +424,7 @@ int32_t ShortRequestBody::fileSize($Path* p) {
 
 bool ShortRequestBody::check(bool cond, $Throwable* t, $ObjectArray* failedArgs) {
 	$init(ShortRequestBody);
+	$useLocalCurrentObjectStackCache();
 	if (cond) {
 		return true;
 	}
@@ -446,6 +452,7 @@ $HttpClient* ShortRequestBody::lambda$main$0() {
 }
 
 void clinit$ShortRequestBody($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(ShortRequestBody::STRING_BODY, "Hello world"_s);
 	$assignStatic(ShortRequestBody::MARKER, "ShortRequestBody"_s);
 	$assignStatic(ShortRequestBody::testSrc, $Paths::get($($System::getProperty("test.src"_s, "."_s)), $$new($StringArray, 0)));

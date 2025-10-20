@@ -315,6 +315,7 @@ $Random* BuffersTestingKit::random = nullptr;
 
 $ByteBuffer* BuffersTestingKit::relocate($ByteBuffer* buffer, int32_t newPosition, int32_t newCapacity) {
 	$init(BuffersTestingKit);
+	$useLocalCurrentObjectStackCache();
 	int32_t oldPosition = $nc(buffer)->position();
 	int32_t oldLimit = buffer->limit();
 	if (newPosition + oldLimit - oldPosition > newCapacity) {
@@ -357,6 +358,7 @@ $ByteBuffer* BuffersTestingKit::concat($Iterable* split) {
 
 $ByteBuffer* BuffersTestingKit::concat($Iterable* split, $Function* concatBufferFactory) {
 	$init(BuffersTestingKit);
+	$useLocalCurrentObjectStackCache();
 	int32_t size = 0;
 	{
 		$var($Iterator, i$, $nc(split)->iterator());
@@ -394,6 +396,7 @@ void BuffersTestingKit::forEachSplit(int32_t n, $Consumer* action) {
 
 void BuffersTestingKit::forEachSplit(int32_t n, $Stack* path, $Consumer* action) {
 	$init(BuffersTestingKit);
+	$useLocalCurrentObjectStackCache();
 	if (n == 0) {
 		$nc(action)->accept(path);
 	} else {
@@ -411,6 +414,7 @@ void BuffersTestingKit::init$() {
 
 void BuffersTestingKit::lambda$forEachSplit$3($ByteBuffer* bb, $Consumer* action, $Iterable* lengths) {
 	$init(BuffersTestingKit);
+	$useLocalCurrentObjectStackCache();
 	int32_t end = $nc(bb)->position();
 	$var($List, buffers, $new($LinkedList));
 	{

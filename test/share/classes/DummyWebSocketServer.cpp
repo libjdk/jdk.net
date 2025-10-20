@@ -440,6 +440,7 @@ void DummyWebSocketServer::init$($String* username, $String* password) {
 }
 
 void DummyWebSocketServer::init$($BiFunction* mapping, $String* username, $String* password) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, started, $new($AtomicBoolean));
 	$set(this, read$, $ByteBuffer::allocate(16384));
 	$set(this, readReady, $new($CountDownLatch, 1));
@@ -451,6 +452,7 @@ void DummyWebSocketServer::init$($BiFunction* mapping, $String* username, $Strin
 }
 
 void DummyWebSocketServer::read($SocketChannel* ch) {
+	$useLocalCurrentObjectStackCache();
 	$var($ByteBuffer, b, $ByteBuffer::allocate(0x00010000));
 	while ($nc(ch)->read(b) != -1) {
 		$nc(b)->flip();
@@ -477,6 +479,7 @@ void DummyWebSocketServer::write($SocketChannel* ch) {
 }
 
 void DummyWebSocketServer::serve($SocketChannel* channel) {
+	$useLocalCurrentObjectStackCache();
 	$var($Thread, reader, $new($Thread, static_cast<$Runnable*>($$new(DummyWebSocketServer$$Lambda$lambda$serve$1$1, this, channel))));
 	$var($Thread, writer, $new($Thread, static_cast<$Runnable*>($$new(DummyWebSocketServer$$Lambda$lambda$serve$2$2, this, channel))));
 	reader->start();
@@ -510,6 +513,7 @@ void DummyWebSocketServer::serve($SocketChannel* channel) {
 }
 
 $ByteBuffer* DummyWebSocketServer::read() {
+	$useLocalCurrentObjectStackCache();
 	$nc(this->readReady)->await();
 	return $nc($($nc($($nc(this->read$)->duplicate()))->asReadOnlyBuffer()))->flip();
 }
@@ -522,6 +526,7 @@ void DummyWebSocketServer::setReceiveBufferSize(int32_t bufsize) {
 }
 
 void DummyWebSocketServer::open() {
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::err)->println("Starting"_s);
 	if (!$nc(this->started)->compareAndSet(false, true)) {
@@ -553,6 +558,7 @@ void DummyWebSocketServer::open() {
 }
 
 void DummyWebSocketServer::close() {
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::err)->println($$str({"Stopping: "_s, $(getURI())}));
 	$nc(this->thread)->interrupt();
@@ -560,6 +566,7 @@ void DummyWebSocketServer::close() {
 }
 
 $URI* DummyWebSocketServer::getURI() {
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(this->started)->get()) {
 		$throwNew($IllegalStateException, "Not yet started"_s);
 	}
@@ -567,6 +574,7 @@ $URI* DummyWebSocketServer::getURI() {
 }
 
 bool DummyWebSocketServer::readRequest($SocketChannel* channel, $StringBuilder* request) {
+	$useLocalCurrentObjectStackCache();
 	$var($ByteBuffer, buffer, $ByteBuffer::allocate(512));
 	while ($nc(channel)->read(buffer) != -1) {
 		$var($CharBuffer, decoded, nullptr);
@@ -588,6 +596,7 @@ bool DummyWebSocketServer::readRequest($SocketChannel* channel, $StringBuilder* 
 }
 
 void DummyWebSocketServer::writeResponse($SocketChannel* channel, $List* response) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, s, $str({$cast($String, $($nc($($nc(response)->stream()))->collect($($Collectors::joining("\r\n"_s))))), "\r\n\r\n"_s}));
 	$var($ByteBuffer, encoded, nullptr);
 	try {
@@ -609,6 +618,7 @@ $BiFunction* DummyWebSocketServer::defaultMapping() {
 
 bool DummyWebSocketServer::authorized($DummyWebSocketServer$Credentials* credentials, $Map* requestHeaders) {
 	$init(DummyWebSocketServer);
+	$useLocalCurrentObjectStackCache();
 	$var($List, authorization, $cast($List, $nc(requestHeaders)->get("Authorization"_s)));
 	if (authorization == nullptr) {
 		return false;
@@ -638,6 +648,7 @@ bool DummyWebSocketServer::authorized($DummyWebSocketServer$Credentials* credent
 
 $String* DummyWebSocketServer::expectHeader($Map* headers, $String* name, $String* value) {
 	$init(DummyWebSocketServer);
+	$useLocalCurrentObjectStackCache();
 	$var($List, v, $cast($List, $nc(headers)->get(name)));
 	if (v == nullptr) {
 		$throwNew($IllegalStateException, $($String::format("Expected \'%s\' header, not present in %s"_s, $$new($ObjectArray, {
@@ -658,6 +669,7 @@ $String* DummyWebSocketServer::expectHeader($Map* headers, $String* name, $Strin
 
 void DummyWebSocketServer::close($AutoCloseableArray* acs) {
 	$init(DummyWebSocketServer);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($AutoCloseableArray, arr$, acs);
 		int32_t len$ = $nc(arr$)->length;
@@ -677,6 +689,7 @@ void DummyWebSocketServer::close($AutoCloseableArray* acs) {
 
 $List* DummyWebSocketServer::lambda$defaultMapping$4($List* request, $DummyWebSocketServer$Credentials* credentials) {
 	$init(DummyWebSocketServer);
+	$useLocalCurrentObjectStackCache();
 	$var($List, response, $new($LinkedList));
 	$var($Iterator, iterator, $nc(request)->iterator());
 	if (!$nc(iterator)->hasNext()) {
@@ -758,6 +771,7 @@ void DummyWebSocketServer::lambda$serve$1($SocketChannel* channel) {
 }
 
 void DummyWebSocketServer::lambda$new$0($BiFunction* mapping, $DummyWebSocketServer$Credentials* credentials) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		try {

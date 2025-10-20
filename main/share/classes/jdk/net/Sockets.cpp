@@ -254,6 +254,7 @@ $Set* Sockets::supportedOptions($Class* socketType) {
 
 void Sockets::checkValueType(Object$* value, $Class* type) {
 	$init(Sockets);
+	$useLocalCurrentObjectStackCache();
 	if (!$nc(type)->isAssignableFrom($nc($of(value))->getClass())) {
 		$var($String, var$0, $$str({"Found: "_s, $($nc($of(value))->getClass()->toString()), " Expected: "_s}));
 		$var($String, s, $concat(var$0, $(type->toString())));
@@ -263,6 +264,7 @@ void Sockets::checkValueType(Object$* value, $Class* type) {
 
 bool Sockets::isReusePortAvailable() {
 	$init(Sockets);
+	$useLocalCurrentObjectStackCache();
 	if (!Sockets::checkedReusePort) {
 		$var($Set, s, $$new($Socket)->supportedOptions());
 		$init($StandardSocketOptions);
@@ -274,6 +276,7 @@ bool Sockets::isReusePortAvailable() {
 
 $Map* Sockets::optionSets() {
 	$init(Sockets);
+	$useLocalCurrentObjectStackCache();
 	$var($Map, options, $new($HashMap));
 	bool incomingNapiIdsupported = $nc($($ExtendedSocketOptions$PlatformSocketOptions::get()))->incomingNapiIdSupported();
 	bool reuseportsupported = isReusePortAvailable();

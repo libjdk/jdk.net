@@ -45,6 +45,7 @@ void Connect::init$() {
 }
 
 void Connect::main($StringArray* s) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($URL, url, $new($URL, "file:azwe.txt"_s));
 		$var($URLConnection, urlConnection, url->openConnection());

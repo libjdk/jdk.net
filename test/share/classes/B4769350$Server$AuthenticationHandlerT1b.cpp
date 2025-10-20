@@ -82,6 +82,7 @@ void B4769350$Server$AuthenticationHandlerT1b::init$($B4769350$Server* this$1) {
 }
 
 void B4769350$Server$AuthenticationHandlerT1b::handle($HttpExchange* exchange) {
+	$useLocalCurrentObjectStackCache();
 	++this->count;
 	try {
 		switch (this->count) {

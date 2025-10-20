@@ -141,6 +141,7 @@ void InterruptedBlockingSend::init$() {
 }
 
 void InterruptedBlockingSend::main($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpClient, client, $HttpClient::newHttpClient());
 	{
 		$var($ServerSocket, ss, $new($ServerSocket));
@@ -198,6 +199,7 @@ void InterruptedBlockingSend::main($StringArray* args) {
 }
 
 void InterruptedBlockingSend::lambda$main$0($HttpClient* client, $HttpRequest* request) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(client)->send(request, $($HttpResponse$BodyHandlers::discarding()));
 	} catch ($InterruptedException&) {

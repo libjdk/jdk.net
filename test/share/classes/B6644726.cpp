@@ -68,6 +68,7 @@ void B6644726::main($StringArray* args) {
 }
 
 void B6644726::testCookieStore() {
+	$useLocalCurrentObjectStackCache();
 	$var($CookieManager, cm, $new($CookieManager));
 	$var($CookieStore, cs, cm->getCookieStore());
 	$var($URI, uri, $new($URI, "http://www.s1.sun.com/dir/foo/doc.html"_s));
@@ -206,6 +207,7 @@ void B6644726::testCookieStore() {
 }
 
 bool B6644726::isIn($List* lst, $String* cookie) {
+	$useLocalCurrentObjectStackCache();
 	if (lst == nullptr || $nc(lst)->isEmpty()) {
 		return false;
 	}

@@ -73,6 +73,7 @@ $HeadersTest2$CompareTest* HeadersTest2::test(bool s, $List* l1, $List* l2) {
 
 void HeadersTest2::main($StringArray* args) {
 	$init(HeadersTest2);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($HeadersTest2$CompareTestArray, arr$, HeadersTest2::compareTests);
 		int32_t len$ = $nc(arr$)->length;
@@ -87,6 +88,7 @@ void HeadersTest2::main($StringArray* args) {
 }
 
 void clinit$HeadersTest2($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(HeadersTest2::uri, $URI::create("http://www.foo.com/"_s));
 		$var($List, var$0, $List::of("Dontent-length"_s, "99"_s));
 		$var($List, var$1, $List::of("Dontent-length"_s, "99"_s));

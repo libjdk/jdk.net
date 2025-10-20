@@ -98,6 +98,7 @@ void HandshakeFailureTest$AbstractServer::finalize() {
 }
 
 void HandshakeFailureTest$AbstractServer::init$($String* name, $ServerSocket* ss) {
+	$useLocalCurrentObjectStackCache();
 	$Thread::init$(name);
 	$nc(ss)->setReuseAddress(false);
 	ss->bind($$new($InetSocketAddress, $($InetAddress::getLoopbackAddress()), 0));
@@ -110,6 +111,7 @@ int32_t HandshakeFailureTest$AbstractServer::getPort() {
 }
 
 $String* HandshakeFailureTest$AbstractServer::getAuthority() {
+	$useLocalCurrentObjectStackCache();
 	$var($String, address, $nc($($nc(this->ss)->getInetAddress()))->getHostAddress());
 	if ($nc(address)->contains(":"_s)) {
 		$assign(address, $str({"["_s, address, "]"_s}));

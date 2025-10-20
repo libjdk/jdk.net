@@ -1201,6 +1201,7 @@ void HttpRequestBuilderTest::init$() {
 
 void HttpRequestBuilderTest::main($StringArray* args) {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	$load($IllegalStateException);
 	test0("newBuilder().build()"_s, static_cast<$Runnable*>($$new(HttpRequestBuilderTest$$Lambda$lambda$main$0)), $$new($ClassArray, {$IllegalStateException::class$}));
 	$load($NullPointerException);
@@ -1337,16 +1338,19 @@ bool HttpRequestBuilderTest::shouldFail($ClassArray* exceptions) {
 
 $String* HttpRequestBuilderTest::expectedNames($ClassArray* exceptions) {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	return $cast($String, $nc($($nc($($Stream::of(exceptions)))->map(static_cast<$Function*>($$new(HttpRequestBuilderTest$$Lambda$getSimpleName$28)))))->collect($($Collectors::joining("|"_s))));
 }
 
 bool HttpRequestBuilderTest::isExpected($Exception* x, $ClassArray* expected) {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	return expected != nullptr && $nc($($nc($($nc($($Stream::of(expected)))->filter(static_cast<$Predicate*>($$new(HttpRequestBuilderTest$$Lambda$lambda$isExpected$19$29, x)))))->findAny()))->isPresent();
 }
 
 void HttpRequestBuilderTest::method($String* name, $Supplier* supplier, $String* expectedMethod) {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest, request, $nc(($cast($HttpRequest$Builder, $($nc(supplier)->get()))))->build());
 	$var($String, method, $nc(request)->method());
 	bool var$0 = $nc($(request->method()))->equals("GET"_s);
@@ -1363,6 +1367,7 @@ void HttpRequestBuilderTest::method($String* name, $Supplier* supplier, $String*
 
 void HttpRequestBuilderTest::test0($String* name, $Runnable* r, $ClassArray* ex) {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(r)->run();
 		if (!shouldFail(ex)) {
@@ -1385,6 +1390,7 @@ void HttpRequestBuilderTest::test0($String* name, $Runnable* r, $ClassArray* ex)
 
 $Object* HttpRequestBuilderTest::test1($String* name, Object$* receiver, $Function* m, Object$* arg, $ClassArray* ex) {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	$var($String, argMessage, arg == nullptr ? "null"_s : $nc($of(arg))->toString());
 	if ($instanceOf($StringArray, arg)) {
 		$assign(argMessage, $nc($of($($Arrays::asList($cast($StringArray, arg)))))->toString());
@@ -1413,6 +1419,7 @@ $Object* HttpRequestBuilderTest::test1($String* name, Object$* receiver, $Functi
 
 $Object* HttpRequestBuilderTest::test2($String* name, Object$* receiver, $BiFunction* m, Object$* arg1, Object$* arg2, $ClassArray* ex) {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($Object, result, $nc(m)->apply(arg1, arg2));
 		if (!shouldFail(ex)) {
@@ -1442,16 +1449,19 @@ bool HttpRequestBuilderTest::lambda$isExpected$19($Exception* x, $Class* c) {
 
 $HttpRequest$Builder* HttpRequestBuilderTest::lambda$main$18() {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($HttpRequest::newBuilder(HttpRequestBuilderTest::TEST_URI)))->GET()))->DELETE();
 }
 
 $HttpRequest$Builder* HttpRequestBuilderTest::lambda$main$17() {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($HttpRequest::newBuilder(HttpRequestBuilderTest::TEST_URI)))->GET()))->PUT($($HttpRequest$BodyPublishers::ofString(""_s)));
 }
 
 $HttpRequest$Builder* HttpRequestBuilderTest::lambda$main$16() {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($HttpRequest::newBuilder(HttpRequestBuilderTest::TEST_URI)))->GET()))->POST($($HttpRequest$BodyPublishers::ofString(""_s)));
 }
 
@@ -1462,26 +1472,31 @@ $HttpRequest$Builder* HttpRequestBuilderTest::lambda$main$15() {
 
 $HttpRequest$Builder* HttpRequestBuilderTest::lambda$main$14() {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($HttpRequest::newBuilder(HttpRequestBuilderTest::TEST_URI)))->PUT($($HttpRequest$BodyPublishers::ofString(""_s)));
 }
 
 $HttpRequest$Builder* HttpRequestBuilderTest::lambda$main$13() {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($HttpRequest::newBuilder(HttpRequestBuilderTest::TEST_URI)))->POST($($HttpRequest$BodyPublishers::ofString(""_s)));
 }
 
 $HttpRequest$Builder* HttpRequestBuilderTest::lambda$main$12() {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($HttpRequest::newBuilder(HttpRequestBuilderTest::TEST_URI)))->DELETE()))->GET();
 }
 
 $HttpRequest$Builder* HttpRequestBuilderTest::lambda$main$11() {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($HttpRequest::newBuilder(HttpRequestBuilderTest::TEST_URI)))->PUT($($HttpRequest$BodyPublishers::ofString(""_s)))))->GET();
 }
 
 $HttpRequest$Builder* HttpRequestBuilderTest::lambda$main$10() {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	return $nc($($nc($($HttpRequest::newBuilder(HttpRequestBuilderTest::TEST_URI)))->POST($($HttpRequest$BodyPublishers::ofString(""_s)))))->GET();
 }
 
@@ -1497,6 +1512,7 @@ $HttpRequest$Builder* HttpRequestBuilderTest::lambda$main$8() {
 
 void HttpRequestBuilderTest::lambda$main$7() {
 	$init(HttpRequestBuilderTest);
+	$useLocalCurrentObjectStackCache();
 	$nc($($nc($($HttpRequest::newBuilder(HttpRequestBuilderTest::TEST_URI)))->DELETE()))->build();
 }
 

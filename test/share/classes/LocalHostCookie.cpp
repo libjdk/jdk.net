@@ -81,6 +81,7 @@ void LocalHostCookie::main($StringArray* args) {
 }
 
 void LocalHostCookie::runTest() {
+	$useLocalCurrentObjectStackCache();
 	$var($LocalHostCookie$Server, s, nullptr);
 	{
 		$var($Throwable, var$0, nullptr);

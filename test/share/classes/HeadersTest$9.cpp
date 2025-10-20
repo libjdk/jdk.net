@@ -109,6 +109,7 @@ $Optional* HeadersTest$9::version() {
 }
 
 $HttpHeaders* HeadersTest$9::headers() {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, map, $Map::of("x-good"_s, $($List::of($of("foo"_s)))));
 	$init($HeadersTest);
 	return $HttpHeaders::of(map, $HeadersTest::ACCEPT_ALL);

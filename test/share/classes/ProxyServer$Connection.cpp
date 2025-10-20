@@ -427,6 +427,7 @@ $Object* allocate$ProxyServer$Connection($Class* clazz) {
 }
 
 void ProxyServer$Connection::init$($ProxyServer* this$0, $SocketChannel* s, int32_t id) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, this$0, this$0);
 	this->id = id;
 	$set(this, clientSocket, s);
@@ -435,6 +436,7 @@ void ProxyServer$Connection::init$($ProxyServer* this$0, $SocketChannel* s, int3
 }
 
 $bytes* ProxyServer$Connection::readHeaders($InputStream* is) {
+	$useLocalCurrentObjectStackCache();
 	$var($bytes, outbuffer, $new($bytes, 8000));
 	int32_t crlfcount = 0;
 	int32_t bytecount = 0;
@@ -532,6 +534,7 @@ int32_t ProxyServer$Connection::findCRLF($bytes* b) {
 }
 
 bool ProxyServer$Connection::authorized($ProxyServer$Credentials* credentials, $List* requestHeaders) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, authorization, $cast($List, $nc($($nc($($nc(requestHeaders)->stream()))->filter(static_cast<$Predicate*>($$new(ProxyServer$Connection$$Lambda$lambda$authorized$0)))))->collect($($Collectors::toList()))));
 	if ($nc(authorization)->isEmpty()) {
 		return false;
@@ -564,6 +567,7 @@ bool ProxyServer$Connection::authorized($ProxyServer$Credentials* credentials, $
 }
 
 void ProxyServer$Connection::init() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($bytes, buf, nullptr);
 		$var($String, host, nullptr);
@@ -640,12 +644,14 @@ void ProxyServer$Connection::init() {
 }
 
 $String* ProxyServer$Connection::findFirst($List* headers, $String* key) {
+	$useLocalCurrentObjectStackCache();
 	$init($Locale);
 	$var($String, h, $str({$($nc(key)->toLowerCase($Locale::ROOT)), ": "_s}));
 	return $cast($String, $nc($($nc($($nc($($nc($($nc($($nc(headers)->stream()))->filter(static_cast<$Predicate*>($$new(ProxyServer$Connection$$Lambda$lambda$findFirst$1$1, h)))))->findFirst()))->map(static_cast<$Function*>($$new(ProxyServer$Connection$$Lambda$lambda$findFirst$2$2, h)))))->map(static_cast<$Function*>($$new(ProxyServer$Connection$$Lambda$trim$3)))))->orElse(nullptr));
 }
 
 int64_t ProxyServer$Connection::drain($SocketChannel* socket) {
+	$useLocalCurrentObjectStackCache();
 	bool isBlocking = $nc(socket)->isBlocking();
 	if (isBlocking) {
 		socket->configureBlocking(false);
@@ -684,6 +690,7 @@ int64_t ProxyServer$Connection::drain($SocketChannel* socket) {
 }
 
 void ProxyServer$Connection::closeConnection() {
+	$useLocalCurrentObjectStackCache();
 	if (this->this$0->debug) {
 		$init($StandardSocketOptions);
 		$var($Integer, linger, $cast($Integer, $nc(this->clientSocket)->getOption($StandardSocketOptions::SO_LINGER)));
@@ -713,6 +720,7 @@ void ProxyServer$Connection::closeConnection() {
 }
 
 bool ProxyServer$Connection::shouldCloseAfter407($List* headers) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, te, findFirst(headers, "transfer-encoding"_s));
 	if (te != nullptr) {
 		if (this->this$0->debug) {
@@ -769,6 +777,7 @@ bool ProxyServer$Connection::shouldCloseAfter407($List* headers) {
 }
 
 void ProxyServer$Connection::doProxy($String* dest$renamed, $String* cmdLine$renamed, $List* headers, $String* host, bool authorized) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, cmdLine, cmdLine$renamed);
 	$var($String, dest, dest$renamed);
 	try {
@@ -836,6 +845,7 @@ void ProxyServer$Connection::doProxy($String* dest$renamed, $String* cmdLine$ren
 
 void ProxyServer$Connection::commonInit($String* dest, int32_t defaultPort) {
 	$synchronized(this) {
+		$useLocalCurrentObjectStackCache();
 		if (this->closing) {
 			return;
 		}
@@ -862,6 +872,7 @@ void ProxyServer$Connection::commonInit($String* dest, int32_t defaultPort) {
 
 void ProxyServer$Connection::proxyCommon(bool log) {
 	$synchronized(this) {
+		$useLocalCurrentObjectStackCache();
 		if (this->closing) {
 			return;
 		}
@@ -890,6 +901,7 @@ $String* ProxyServer$Connection::toString() {
 }
 
 void ProxyServer$Connection::lambda$proxyCommon$4(bool log) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($bytes, bb, $new($bytes, 8000));
 		int32_t n = 0;
@@ -921,6 +933,7 @@ void ProxyServer$Connection::lambda$proxyCommon$4(bool log) {
 }
 
 void ProxyServer$Connection::lambda$proxyCommon$3(bool log) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($bytes, bb, $new($bytes, 8000));
 		int32_t n = 0;

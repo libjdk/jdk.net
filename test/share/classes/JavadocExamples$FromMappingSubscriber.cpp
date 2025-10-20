@@ -169,6 +169,7 @@ void JavadocExamples$FromMappingSubscriber::init$() {
 }
 
 $HttpResponse$BodySubscriber* JavadocExamples$FromMappingSubscriber::asJSON($Class* targetType) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpResponse$BodySubscriber, upstream, $HttpResponse$BodySubscribers::ofInputStream());
 	$var($HttpResponse$BodySubscriber, downstream, $HttpResponse$BodySubscribers::mapping(upstream, static_cast<$Function*>($$new(JavadocExamples$FromMappingSubscriber$$Lambda$lambda$asJSON$1, targetType))));
 	return downstream;
@@ -179,6 +180,7 @@ $Supplier* JavadocExamples$FromMappingSubscriber::lambda$asJSON$1($Class* target
 }
 
 $Object* JavadocExamples$FromMappingSubscriber::lambda$asJSON$0($InputStream* is, $Class* targetType) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($InputStream, stream, is);
 		{

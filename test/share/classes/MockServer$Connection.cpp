@@ -131,6 +131,7 @@ void MockServer$Connection::init$($MockServer* this$0, $Socket* s) {
 }
 
 void MockServer$Connection::run() {
+	$useLocalCurrentObjectStackCache();
 	$var($bytes, buf, $new($bytes, 256));
 	$var($String, s, ""_s);
 	try {
@@ -179,6 +180,7 @@ $String* MockServer$Connection::toString() {
 }
 
 void MockServer$Connection::sendHttpResponse(int32_t code, $String* body, $StringArray* headers) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, r1, $str({"HTTP/1.1 "_s, $($Integer::toString(code)), " status"_s, MockServer$Connection::CRLF}));
 	for (int32_t i = 0; i < $nc(headers)->length; i += 2) {
 		$plusAssign(r1, $$str({headers->get(i), ": "_s, headers->get(i + 1), MockServer$Connection::CRLF}));
@@ -194,6 +196,7 @@ void MockServer$Connection::sendHttpResponse(int32_t code, $String* body, $Strin
 }
 
 void MockServer$Connection::sendIncompleteHttpResponseBody(int32_t code) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, body, "Hello World Helloworld Goodbye World"_s);
 	$var($String, r1, $str({"HTTP/1.1 "_s, $($Integer::toString(code)), " status"_s, MockServer$Connection::CRLF}));
 	$init($StandardCharsets);
@@ -207,11 +210,13 @@ void MockServer$Connection::sendIncompleteHttpResponseBody(int32_t code) {
 }
 
 void MockServer$Connection::sendIncompleteHttpResponseHeaders(int32_t code) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, r1, $str({"HTTP/1.1 "_s, $($Integer::toString(code)), " status"_s, MockServer$Connection::CRLF}));
 	send(r1);
 }
 
 void MockServer$Connection::send($String* r) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$init($StandardCharsets);
 		$nc(this->os)->write($($nc(r)->getBytes($StandardCharsets::ISO_8859_1)));
@@ -235,6 +240,7 @@ void MockServer$Connection::close() {
 }
 
 $String* MockServer$Connection::nextInput(int64_t timeout, $TimeUnit* unit) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, result, ""_s);
 	while (poll()) {
 		try {

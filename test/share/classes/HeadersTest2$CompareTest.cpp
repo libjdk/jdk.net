@@ -81,6 +81,7 @@ void HeadersTest2$CompareTest::init$(bool succeed, $List* l1, $List* l2) {
 }
 
 void HeadersTest2$CompareTest::run() {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest, r1, getRequest(this->nameValues1));
 	$var($HttpRequest, r2, getRequest(this->nameValues2));
 	$var($HttpHeaders, h1, $nc(r1)->headers());
@@ -108,6 +109,7 @@ void HeadersTest2$CompareTest::run() {
 }
 
 void HeadersTest2$CompareTest::print($List* list) {
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::err)->print("{"_s);
 	{
@@ -123,6 +125,7 @@ void HeadersTest2$CompareTest::print($List* list) {
 }
 
 $HttpRequest* HeadersTest2$CompareTest::getRequest($List* headers) {
+	$useLocalCurrentObjectStackCache();
 	$init($HeadersTest2);
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder($HeadersTest2::uri));
 	$var($Iterator, iterator, $nc(headers)->iterator());

@@ -89,6 +89,7 @@ bool MockListener$OnClose::equals(Object$* o) {
 }
 
 int32_t MockListener$OnClose::hashCode() {
+	$useLocalCurrentObjectStackCache();
 	return $Objects::hash($$new($ObjectArray, {
 		$($of($Integer::valueOf(this->statusCode))),
 		$of(this->reason),
@@ -97,6 +98,7 @@ int32_t MockListener$OnClose::hashCode() {
 }
 
 $String* MockListener$OnClose::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("onClose(%s, %s, %s)"_s, $$new($ObjectArray, {
 		$of(this->webSocket),
 		$($of($Integer::valueOf(this->statusCode))),

@@ -120,6 +120,7 @@ void EmptyAuthenticate::init$() {
 }
 
 void EmptyAuthenticate::main($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	int32_t port = 0;
 	$var($HttpServer, server, $HttpServer::create($$new($InetSocketAddress, port), 0));
 	port = $nc($($nc(server)->getAddress()))->getPort();
@@ -154,6 +155,7 @@ void EmptyAuthenticate::main($StringArray* args) {
 }
 
 void EmptyAuthenticate::lambda$main$0($HttpExchange* exchange) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, response, "test body"_s);
 	$nc($($nc(exchange)->getResponseHeaders()))->add("www-authenticate"_s, ""_s);
 	exchange->sendResponseHeaders(401, response->length());

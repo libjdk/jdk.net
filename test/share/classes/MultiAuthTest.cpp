@@ -134,6 +134,7 @@ void MultiAuthTest::init$() {
 
 $HttpServer* MultiAuthTest::createServer($ExecutorService* e, $BasicAuthenticator* sa) {
 	$init(MultiAuthTest);
+	$useLocalCurrentObjectStackCache();
 	$var($InetSocketAddress, addr, $new($InetSocketAddress, $($InetAddress::getLoopbackAddress()), 0));
 	$var($HttpServer, server, $HttpServer::create(addr, 10));
 	$var($MultiAuthTest$Handler, h, $new($MultiAuthTest$Handler));
@@ -146,6 +147,7 @@ $HttpServer* MultiAuthTest::createServer($ExecutorService* e, $BasicAuthenticato
 
 void MultiAuthTest::main($StringArray* args) {
 	$init(MultiAuthTest);
+	$useLocalCurrentObjectStackCache();
 	$var($ExecutorService, e, $Executors::newCachedThreadPool());
 	$var($MultiAuthTest$ServerAuth, sa, $new($MultiAuthTest$ServerAuth, "foo realm"_s));
 	$var($HttpServer, server, createServer(e, sa));
@@ -219,6 +221,7 @@ void MultiAuthTest::main($StringArray* args) {
 
 void MultiAuthTest::test($HttpClient* client, $MultiAuthTest$ClientAuth* ca, $URI* uri, int32_t expectCount, $Class* expectFailure) {
 	$init(MultiAuthTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest, req, $nc($($nc($($HttpRequest::newBuilder(uri)))->GET()))->build());
 	$var($HttpResponse, resp, nullptr);
 	try {

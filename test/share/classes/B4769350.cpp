@@ -135,6 +135,7 @@ void B4769350::read($InputStream* is) {
 
 void B4769350::doServerTests($String* authority, $B4769350$Server* server) {
 	$init(B4769350);
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::out)->println("Doing Server tests"_s);
 	$nc($System::out)->println("T1"_s);
@@ -179,6 +180,7 @@ void B4769350::doServerTests($String* authority, $B4769350$Server* server) {
 
 void B4769350::doProxyTests($String* authority, $B4769350$Server* server) {
 	$init(B4769350);
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::out)->println("Doing Proxy tests"_s);
 	$assignStatic(B4769350::c7, $new($B4769350$Client, authority, "/test/realm4/t3a"_s, false));
@@ -207,6 +209,7 @@ void B4769350::main($StringArray* args) {
 }
 
 void B4769350::runTest(bool proxy) {
+	$useLocalCurrentObjectStackCache();
 	$System::setProperty("http.maxRedirects"_s, $($Integer::toString(B4769350::redirects)));
 	$System::setProperty("http.auth.serializeRequests"_s, "true"_s);
 	$Authenticator::setDefault(B4769350::auth);
@@ -250,6 +253,7 @@ void B4769350::runTest(bool proxy) {
 
 $String* B4769350::authority(int32_t port) {
 	$init(B4769350);
+	$useLocalCurrentObjectStackCache();
 	$var($InetAddress, loopback, $InetAddress::getLoopbackAddress());
 	$var($String, hoststr, $nc(loopback)->getHostAddress());
 	if ($nc(hoststr)->indexOf((int32_t)u':') > -1) {

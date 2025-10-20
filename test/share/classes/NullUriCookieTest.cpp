@@ -66,6 +66,7 @@ void NullUriCookieTest::main($StringArray* args) {
 
 void NullUriCookieTest::checkCookieNullUri() {
 	$init(NullUriCookieTest);
+	$useLocalCurrentObjectStackCache();
 	$var($CookieStore, cookieStore, ($$new($CookieManager))->getCookieStore());
 	if ($nc(cookieStore)->removeAll()) {
 		NullUriCookieTest::fail = true;

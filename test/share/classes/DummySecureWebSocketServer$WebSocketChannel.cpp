@@ -297,6 +297,7 @@ void DummySecureWebSocketServer$WebSocketChannel::setOption($SocketOption* optio
 
 DummySecureWebSocketServer$WebSocketChannel* DummySecureWebSocketServer$WebSocketChannel::of($Socket* s) {
 	$init(DummySecureWebSocketServer$WebSocketChannel);
+	$useLocalCurrentObjectStackCache();
 	$var($DummySecureWebSocketServer$WebSocketChannel$Reader, reader, static_cast<$DummySecureWebSocketServer$WebSocketChannel$Reader*>($new(DummySecureWebSocketServer$WebSocketChannel$$Lambda$lambda$of$0, s)));
 	$var($DummySecureWebSocketServer$WebSocketChannel$Writer, writer, static_cast<$DummySecureWebSocketServer$WebSocketChannel$Writer*>($new(DummySecureWebSocketServer$WebSocketChannel$$Lambda$lambda$of$1$1, s)));
 	$var($AutoCloseable, var$0, static_cast<$AutoCloseable*>(s));

@@ -78,6 +78,7 @@ void TestUtil::init$() {
 
 $Path* TestUtil::getAFile(int32_t size) {
 	$init(TestUtil);
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, tempFile());
 	$var($BufferedWriter, writer, $Files::newBufferedWriter(p, $$new($OpenOptionArray, 0)));
 	int32_t len = $nc(TestUtil::fileContent)->length();
@@ -93,6 +94,7 @@ $Path* TestUtil::getAFile(int32_t size) {
 
 $Path* TestUtil::tempFile() {
 	$init(TestUtil);
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($Path, p, $Files::createTempFile(TestUtil::CWD, "TestUtil_tmp_"_s, "_HTTPClient"_s, $$new($FileAttributeArray, 0)));
 		return p;
@@ -105,6 +107,7 @@ $Path* TestUtil::tempFile() {
 
 $Void* TestUtil::compareFiles($Path* path1, $Path* path2) {
 	$init(TestUtil);
+	$useLocalCurrentObjectStackCache();
 	try {
 		int64_t size1 = $Files::size(path1);
 		int64_t size2 = $Files::size(path2);
@@ -124,6 +127,7 @@ $Void* TestUtil::compareFiles($Path* path1, $Path* path2) {
 
 void TestUtil::compareContents($Path* path1, $Path* path2) {
 	$init(TestUtil);
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($bytes, b1, $Files::readAllBytes(path1));
 		$var($bytes, b2, $Files::readAllBytes(path2));

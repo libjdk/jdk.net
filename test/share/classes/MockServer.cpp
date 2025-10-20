@@ -134,6 +134,7 @@ void MockServer::finalize() {
 }
 
 $MockServer$Connection* MockServer::activity() {
+	$useLocalCurrentObjectStackCache();
 	for (int32_t i = 0; i < 80 * 100; ++i) {
 		doRemovalsAndAdditions();
 		{
@@ -166,6 +167,7 @@ $MockServer$Connection* MockServer::activity() {
 }
 
 void MockServer::doRemovalsAndAdditions() {
+	$useLocalCurrentObjectStackCache();
 	$synchronized(this->removals) {
 		$var($Iterator, i, $nc(this->removals)->iterator());
 		while ($nc(i)->hasNext()) {
@@ -189,6 +191,7 @@ void MockServer::doRemovalsAndAdditions() {
 }
 
 void MockServer::reset() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc(this->sockets)->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -201,6 +204,7 @@ void MockServer::reset() {
 }
 
 void MockServer::init$(int32_t port, $ServerSocketFactory* factory, $String* root) {
+	$useLocalCurrentObjectStackCache();
 	$Thread::init$();
 	$set(this, counter, $new($AtomicInteger, 0));
 	$set(this, ss, $nc(factory)->createServerSocket());
@@ -231,11 +235,13 @@ int32_t MockServer::port() {
 }
 
 $String* MockServer::serverAuthority() {
+	$useLocalCurrentObjectStackCache();
 	$var($String, var$0, $$str({$($nc($($InetAddress::getLoopbackAddress()))->getHostName()), ":"_s}));
 	return $concat(var$0, $$str(port()));
 }
 
 $String* MockServer::getURL() {
+	$useLocalCurrentObjectStackCache();
 	if ($instanceOf($SSLServerSocket, this->ss)) {
 		return $str({"https://"_s, $(serverAuthority()), "/foo/"_s});
 	} else {
@@ -244,6 +250,7 @@ $String* MockServer::getURL() {
 }
 
 void MockServer::close() {
+	$useLocalCurrentObjectStackCache();
 	this->closed = true;
 	try {
 		$nc(this->ss)->close();
@@ -263,6 +270,7 @@ void MockServer::close() {
 }
 
 void MockServer::run() {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		bool return$1 = false;

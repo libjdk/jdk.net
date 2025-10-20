@@ -115,6 +115,7 @@ $Optional* HeadersTest$3::version() {
 }
 
 $HttpHeaders* HeadersTest$3::headers() {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, map, $new($HashMap));
 	map->put(nullptr, $($List::of($of("foo"_s))));
 	$init($HeadersTest);

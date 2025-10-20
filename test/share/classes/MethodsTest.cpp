@@ -99,6 +99,7 @@ void MethodsTest::init$() {
 
 void MethodsTest::bad($String* name) {
 	$init(MethodsTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(MethodsTest::TEST_URI));
 	try {
 		$nc(builder)->method(name, $($HttpRequest$BodyPublishers::noBody()));
@@ -121,6 +122,7 @@ void MethodsTest::bad($String* name) {
 
 void MethodsTest::good($String* name) {
 	$init(MethodsTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(MethodsTest::TEST_URI));
 	try {
 		$nc(builder)->method(name, $($HttpRequest$BodyPublishers::noBody()));
@@ -132,6 +134,7 @@ void MethodsTest::good($String* name) {
 
 void MethodsTest::main($StringArray* args) {
 	$init(MethodsTest);
+	$useLocalCurrentObjectStackCache();
 	bad("bad:method"_s);
 	bad("Foo\n"_s);
 	good("X-Foo!"_s);
@@ -158,6 +161,7 @@ void MethodsTest::main($StringArray* args) {
 }
 
 void clinit$MethodsTest($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(MethodsTest::FORBIDDEN, "()<>@,;:\\\"/[]?={} \t\r\n"_s);
 	$assignStatic(MethodsTest::TEST_URI, $URI::create("http://www.foo.com/"_s));
 	$init($HttpClient$Builder);

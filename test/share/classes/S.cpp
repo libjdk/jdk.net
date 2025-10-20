@@ -173,6 +173,7 @@ $List* S::listOfBuffersFromBufferOfNBytes(int32_t nBytes) {
 
 $List* S::scatterBuffer($ByteBuffer* src) {
 	$init(S);
+	$useLocalCurrentObjectStackCache();
 	$var($List, buffers, $new($ArrayList));
 	while ($nc(src)->hasRemaining()) {
 		int32_t capacity = $nc(S::RANDOM)->nextInt(src->remaining()) + 1;
@@ -210,6 +211,7 @@ $bytes* S::arrayOfNRandomBytes(int64_t nBytes) {
 
 $ByteBuffer* S::bufferOfNRandomASCIIBytes(int32_t capacity) {
 	$init(S);
+	$useLocalCurrentObjectStackCache();
 	$var($String, alphaNumeric, "abcdefghijklmnopqrstuvwxyz1234567890"_s);
 	$var($StringBuilder, builder, $new($StringBuilder, capacity));
 	for (int32_t i = 0; i < capacity; ++i) {
@@ -245,6 +247,7 @@ $Flow$Publisher* S::publisherOfStream($Stream* stream) {
 
 void S::lambda$newErroredPublisher$0($Flow$Subscriber* subscriber) {
 	$init(S);
+	$useLocalCurrentObjectStackCache();
 	$nc(subscriber)->onSubscribe($$new($S$2));
 	subscriber->onError($$new($IOException));
 }

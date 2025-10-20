@@ -74,6 +74,7 @@ void RestrictedHeadersTest::main($StringArray* args) {
 
 void RestrictedHeadersTest::runDefaultTest() {
 	$init(RestrictedHeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::out)->println("DEFAULT TEST: no property set"_s);
 	{
@@ -91,6 +92,7 @@ void RestrictedHeadersTest::runDefaultTest() {
 
 void RestrictedHeadersTest::checkHeader($String* name, $String* value, bool succeed) {
 	$init(RestrictedHeadersTest);
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($HttpRequest, request, $nc($($nc($($nc($($HttpRequest::newBuilder($($URI::create("https://foo.com/"_s)))))->header(name, value)))->GET()))->build());
 		if (!succeed) {
@@ -118,6 +120,7 @@ void RestrictedHeadersTest::checkHeader($String* name, $String* value, bool succ
 
 void RestrictedHeadersTest::runTest($Set* args) {
 	$init(RestrictedHeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::out)->print("RUNTEST: allowed headers set in property: "_s);
 	{

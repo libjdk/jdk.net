@@ -584,6 +584,7 @@ void FlowAdaptersCompileOnly::init$() {
 
 void FlowAdaptersCompileOnly::makesSureDifferentGenericSignaturesCompile() {
 	$init(FlowAdaptersCompileOnly);
+	$useLocalCurrentObjectStackCache();
 	$HttpRequest$BodyPublishers::fromPublisher($$new($FlowAdaptersCompileOnly$BBPublisher));
 	$HttpRequest$BodyPublishers::fromPublisher($$new($FlowAdaptersCompileOnly$MBBPublisher));
 	$HttpResponse$BodyHandlers::fromSubscriber($$new($FlowAdaptersCompileOnly$ListSubscriber));
@@ -616,6 +617,7 @@ void FlowAdaptersCompileOnly::makesSureDifferentGenericSignaturesCompile() {
 
 void FlowAdaptersCompileOnly::makesSureDifferentGenericFunctionSignaturesCompile() {
 	$init(FlowAdaptersCompileOnly);
+	$useLocalCurrentObjectStackCache();
 	$var($Flow$Subscriber, var$0, static_cast<$Flow$Subscriber*>($new($FlowAdaptersCompileOnly$ListSubscriber)));
 	$var($HttpResponse$BodyHandler, bh01, $HttpResponse$BodyHandlers::fromSubscriber(var$0, static_cast<$Function*>($$new(FlowAdaptersCompileOnly$$Lambda$lambda$makesSureDifferentGenericFunctionSignaturesCompile$4$7))));
 	$var($Flow$Subscriber, var$1, static_cast<$Flow$Subscriber*>($new($FlowAdaptersCompileOnly$ListSubscriber)));
@@ -653,6 +655,7 @@ void FlowAdaptersCompileOnly::makesSureDifferentGenericFunctionSignaturesCompile
 }
 
 void FlowAdaptersCompileOnly::makesSureDifferentGenericSubscriberSignaturesCompile() {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpClient, client, nullptr);
 	$var($HttpRequest, request, nullptr);
 	$var($FlowAdaptersCompileOnly$IntegerSubscriber, sub1, $new($FlowAdaptersCompileOnly$IntegerSubscriber));

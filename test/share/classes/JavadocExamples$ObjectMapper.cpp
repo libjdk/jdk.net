@@ -72,6 +72,7 @@ $Object* JavadocExamples$ObjectMapper::readValue($InputStream* is, $Class* targe
 
 $Object* JavadocExamples$ObjectMapper::map($bytes* bytes, $Class* targetType) {
 	$load(JavadocExamples$ObjectMapper);
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	try {
 		$load($bytes);

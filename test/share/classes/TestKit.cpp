@@ -1760,6 +1760,7 @@ void TestKit::assertNotThrows($TestKit$ThrowingProcedure* code) {
 }
 
 $Object* TestKit::assertNotThrows($TestKit$ThrowingFunction* code) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull($of(code), "code"_s);
 	try {
 		return $of($nc(code)->run());
@@ -1771,6 +1772,7 @@ $Object* TestKit::assertNotThrows($TestKit$ThrowingFunction* code) {
 }
 
 $Throwable* TestKit::assertThrows($Class* clazz, $TestKit$ThrowingProcedure* code) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull($of(clazz), "clazz"_s);
 	$Objects::requireNonNull($of(code), "code"_s);
 	try {
@@ -1788,6 +1790,7 @@ $Throwable* TestKit::assertThrows($Class* clazz, $TestKit$ThrowingProcedure* cod
 }
 
 $Throwable* TestKit::assertThrows($Class* clazz, $String* messageRegex, $TestKit$ThrowingProcedure* code) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull($of(messageRegex), "messagePattern"_s);
 	$var($Throwable, t, assertThrows(clazz, code));
 	$var($String, m, $nc(t)->getMessage());
@@ -1808,6 +1811,7 @@ void TestKit::assertUnmodifiableCollection($Collection* collection) {
 }
 
 void TestKit::assertUnmodifiableCollection($Collection* collection, $Supplier* elementsFactory) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull($of(collection), "collection"_s);
 	$Objects::requireNonNull($of(elementsFactory), "elementsFactory"_s);
 	$var($Object, e, $nc(elementsFactory)->get());
@@ -1842,6 +1846,7 @@ void TestKit::assertUnmodifiableList($List* list, $Supplier* elementsFactory) {
 }
 
 void TestKit::assertUnmodifiableList($List* list, $Supplier* elementsFactory, int32_t depth) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull($of(list), "list"_s);
 	$Objects::requireNonNull($of(elementsFactory), "elementsFactory"_s);
 	if (depth < 0) {
@@ -1874,6 +1879,7 @@ void TestKit::assertUnmodifiableMap($Map* map) {
 }
 
 void TestKit::assertUnmodifiableMap($Map* map, $Supplier* entriesFactory) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull($of(map), "map"_s);
 	$Objects::requireNonNull($of(entriesFactory), "entriesFactory"_s);
 	assertUOE(static_cast<$TestKit$ThrowingProcedure*>($$new(TestKit$$Lambda$clear$21, static_cast<$Map*>($nc(map)))));

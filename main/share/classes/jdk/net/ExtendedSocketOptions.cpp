@@ -141,6 +141,7 @@ void ExtendedSocketOptions::init$() {
 
 $Set* ExtendedSocketOptions::options() {
 	$init(ExtendedSocketOptions);
+	$useLocalCurrentObjectStackCache();
 	$var($Set, options, $new($HashSet));
 	if (ExtendedSocketOptions::quickAckSupported) {
 		options->add(ExtendedSocketOptions::TCP_QUICKACK);

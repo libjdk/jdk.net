@@ -97,6 +97,7 @@ void Frame$Reader::init$() {
 }
 
 void Frame$Reader::readFrame($ByteBuffer* input, $Frame$Consumer* consumer) {
+	$useLocalCurrentObjectStackCache();
 	bool loop$continue = false;
 	bool loop$break = false;
 	while (true) {
@@ -239,11 +240,13 @@ void Frame$Reader::readFrame($ByteBuffer* input, $Frame$Consumer* consumer) {
 
 $IllegalArgumentException* Frame$Reader::negativePayload(int64_t payloadLength) {
 	$init(Frame$Reader);
+	$useLocalCurrentObjectStackCache();
 	return $new($IllegalArgumentException, $$str({"Negative payload length: "_s, $$str(payloadLength)}));
 }
 
 $IllegalArgumentException* Frame$Reader::notMinimalEncoding(int64_t payloadLength) {
 	$init(Frame$Reader);
+	$useLocalCurrentObjectStackCache();
 	return $new($IllegalArgumentException, $$str({"Not minimally-encoded payload length:"_s, $$str(payloadLength)}));
 }
 

@@ -74,6 +74,7 @@ void Channels::init$() {
 }
 
 $SelectableChannel* Channels::readWriteSelectableChannel($FileDescriptor* fd, $Channels$SelectableChannelCloser* closer) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull(closer);
 	if (!$nc(fd)->valid()) {
 		$throwNew($IllegalArgumentException, "file descriptor is not valid"_s);

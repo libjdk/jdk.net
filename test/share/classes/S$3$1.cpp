@@ -97,6 +97,7 @@ void S$3$1::init$($S$3* this$0, $Flow$Subscriber* val$subscriber) {
 }
 
 void S$3$1::request(int64_t n) {
+	$useLocalCurrentObjectStackCache();
 	this->demand = this->demand + n < 0 ? $Long::MAX_VALUE : this->demand + n;
 	if (this->inOnNext) {
 		return;

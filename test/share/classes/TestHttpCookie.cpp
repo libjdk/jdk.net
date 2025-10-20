@@ -102,6 +102,7 @@ TestHttpCookie* TestHttpCookie::test($String* cookieHeader) {
 }
 
 void TestHttpCookie::init$($String* cHeader) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, cHeader, nullptr);
 	$set(this, cookies, nullptr);
 	$set(this, cHeader, cHeader);
@@ -115,6 +116,7 @@ void TestHttpCookie::init$($String* cHeader) {
 }
 
 TestHttpCookie* TestHttpCookie::n(int32_t index, $String* n) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpCookie, cookie, $cast($HttpCookie, $nc(this->cookies)->get(index)));
 	if (cookie == nullptr || !$nc(n)->equalsIgnoreCase($($nc(cookie)->getName()))) {
 		raiseError("name"_s, $($nc(cookie)->getName()), n);
@@ -127,6 +129,7 @@ TestHttpCookie* TestHttpCookie::n($String* n) {
 }
 
 TestHttpCookie* TestHttpCookie::v(int32_t index, $String* v) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpCookie, cookie, $cast($HttpCookie, $nc(this->cookies)->get(index)));
 	if (cookie == nullptr || !$nc(v)->equals($($nc(cookie)->getValue()))) {
 		raiseError("value"_s, $($nc(cookie)->getValue()), v);
@@ -139,6 +142,7 @@ TestHttpCookie* TestHttpCookie::v($String* v) {
 }
 
 TestHttpCookie* TestHttpCookie::ver(int32_t index, int32_t ver) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpCookie, cookie, $cast($HttpCookie, $nc(this->cookies)->get(index)));
 	if (cookie == nullptr || (ver != $nc(cookie)->getVersion())) {
 		$var($String, var$0, "version"_s);
@@ -153,6 +157,7 @@ TestHttpCookie* TestHttpCookie::ver(int32_t ver) {
 }
 
 TestHttpCookie* TestHttpCookie::p(int32_t index, $String* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpCookie, cookie, $cast($HttpCookie, $nc(this->cookies)->get(index)));
 	if (cookie == nullptr || !$nc(p)->equals($($nc(cookie)->getPath()))) {
 		raiseError("path"_s, $($nc(cookie)->getPath()), p);
@@ -172,6 +177,7 @@ TestHttpCookie* TestHttpCookie::nil() {
 }
 
 TestHttpCookie* TestHttpCookie::c(int32_t index, $String* c) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpCookie, cookie, $cast($HttpCookie, $nc(this->cookies)->get(index)));
 	if (cookie == nullptr || !$nc(c)->equals($($nc(cookie)->getComment()))) {
 		raiseError("comment"_s, $($nc(cookie)->getComment()), c);
@@ -184,6 +190,7 @@ TestHttpCookie* TestHttpCookie::c($String* c) {
 }
 
 TestHttpCookie* TestHttpCookie::cu(int32_t index, $String* cu) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpCookie, cookie, $cast($HttpCookie, $nc(this->cookies)->get(index)));
 	if (cookie == nullptr || !$nc(cu)->equals($($nc(cookie)->getCommentURL()))) {
 		raiseError("comment url"_s, $($nc(cookie)->getCommentURL()), cu);
@@ -196,6 +203,7 @@ TestHttpCookie* TestHttpCookie::cu($String* cu) {
 }
 
 TestHttpCookie* TestHttpCookie::dsc(int32_t index, bool dsc) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpCookie, cookie, $cast($HttpCookie, $nc(this->cookies)->get(index)));
 	if (cookie == nullptr || (dsc != $nc(cookie)->getDiscard())) {
 		$var($String, var$0, "discard"_s);
@@ -210,6 +218,7 @@ TestHttpCookie* TestHttpCookie::dsc(bool dsc) {
 }
 
 TestHttpCookie* TestHttpCookie::d(int32_t index, $String* d) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpCookie, cookie, $cast($HttpCookie, $nc(this->cookies)->get(index)));
 	if (cookie == nullptr || !$nc(d)->equalsIgnoreCase($($nc(cookie)->getDomain()))) {
 		raiseError("domain"_s, $($nc(cookie)->getDomain()), d);
@@ -222,6 +231,7 @@ TestHttpCookie* TestHttpCookie::d($String* d) {
 }
 
 TestHttpCookie* TestHttpCookie::a(int32_t index, int64_t a) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpCookie, cookie, $cast($HttpCookie, $nc(this->cookies)->get(index)));
 	if (cookie == nullptr || (a != $nc(cookie)->getMaxAge())) {
 		$var($String, var$0, "max-age"_s);
@@ -236,6 +246,7 @@ TestHttpCookie* TestHttpCookie::a(int64_t a) {
 }
 
 TestHttpCookie* TestHttpCookie::port(int32_t index, $String* p) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpCookie, cookie, $cast($HttpCookie, $nc(this->cookies)->get(index)));
 	if (cookie == nullptr || !$nc(p)->equals($($nc(cookie)->getPortlist()))) {
 		raiseError("portlist"_s, $($nc(cookie)->getPortlist()), p);
@@ -248,6 +259,7 @@ TestHttpCookie* TestHttpCookie::port($String* p) {
 }
 
 TestHttpCookie* TestHttpCookie::httpOnly(int32_t index, bool b) {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpCookie, cookie, $cast($HttpCookie, $nc(this->cookies)->get(index)));
 	if (cookie == nullptr || b != $nc(cookie)->isHttpOnly()) {
 		$var($String, var$0, "HttpOnly"_s);
@@ -263,6 +275,7 @@ TestHttpCookie* TestHttpCookie::httpOnly(bool b) {
 
 void TestHttpCookie::eq($HttpCookie* ck1, $HttpCookie* ck2, bool same) {
 	$init(TestHttpCookie);
+	$useLocalCurrentObjectStackCache();
 	++TestHttpCookie::testCount;
 	if ($nc(ck1)->equals(ck2) != same) {
 		raiseError($$str({"Comparison inconsistent: "_s, ck1, " "_s, ck2, " should "_s, (same ? "equal"_s : "not equal"_s)}));
@@ -283,6 +296,7 @@ void TestHttpCookie::dm($String* domain, $String* host, bool matches) {
 }
 
 void TestHttpCookie::raiseError($String* attr, $String* realValue, $String* expectedValue) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	sb->append("Cookie "_s)->append(attr)->append(" is "_s)->append(realValue)->append(", should be "_s)->append(expectedValue)->append(" ("_s)->append(this->cHeader)->append(")"_s);
 	$throwNew($RuntimeException, $(sb->toString()));
@@ -302,6 +316,7 @@ void TestHttpCookie::runTests() {
 
 void TestHttpCookie::rfc2965() {
 	$init(TestHttpCookie);
+	$useLocalCurrentObjectStackCache();
 	header("Test using rfc 2965 syntax"_s);
 	$nc($($nc($($nc($($nc($(test("set-cookie2: Customer=\"WILE_E_COYOTE\"; Version=\"1\"; Path=\"/acme\""_s)))->n("Customer"_s)))->v("WILE_E_COYOTE"_s)))->ver(1)))->p("/acme"_s);
 	$nc($($nc($($nc($($nc($(test("set-cookie2: Customer = \"WILE_E_COYOTE\"; Version = \"1\"; Path = \"/acme\""_s)))->n("Customer"_s)))->v("WILE_E_COYOTE"_s)))->ver(1)))->p("/acme"_s);
@@ -324,6 +339,7 @@ void TestHttpCookie::rfc2965() {
 
 void TestHttpCookie::netscape() {
 	$init(TestHttpCookie);
+	$useLocalCurrentObjectStackCache();
 	header("Test using netscape cookie syntax"_s);
 	$nc($($nc($($nc($($nc($(test("set-cookie: CUSTOMER=WILE_E_COYOTE; path=/; expires=Wednesday, 09-Nov-99 23:12:40 GMT"_s)))->n("CUSTOMER"_s)))->v("WILE_E_COYOTE"_s)))->p("/"_s)))->ver(0);
 	$nc($($nc($($nc($($nc($(test("CUSTOMER=WILE_E_COYOTE; path=/; expires=Wednesday, 09-Nov-99 23:12:40 GMT"_s)))->n("CUSTOMER"_s)))->v("WILE_E_COYOTE"_s)))->p("/"_s)))->ver(0);
@@ -335,6 +351,7 @@ void TestHttpCookie::netscape() {
 
 void TestHttpCookie::misc() {
 	$init(TestHttpCookie);
+	$useLocalCurrentObjectStackCache();
 	header("Test equals()"_s);
 	$var($HttpCookie, c1, $new($HttpCookie, "Customer"_s, "WILE_E_COYOTE"_s));
 	c1->setDomain(".coyote.org"_s);
@@ -376,6 +393,7 @@ void TestHttpCookie::header($String* prompt) {
 
 void TestHttpCookie::main($StringArray* args) {
 	$init(TestHttpCookie);
+	$useLocalCurrentObjectStackCache();
 	runTests();
 	$init($System);
 	$nc($System::out)->println($$str({"Succeeded in running "_s, $$str(TestHttpCookie::testCount), " tests."_s}));

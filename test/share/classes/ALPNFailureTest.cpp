@@ -107,6 +107,7 @@ void ALPNFailureTest::init$() {
 }
 
 void ALPNFailureTest::main($StringArray* args$renamed) {
+	$useLocalCurrentObjectStackCache();
 	$var($StringArray, args, args$renamed);
 	if (args == nullptr || $nc(args)->length == 0) {
 		$init($HttpClient$Version);
@@ -117,6 +118,7 @@ void ALPNFailureTest::main($StringArray* args$renamed) {
 }
 
 void ALPNFailureTest::test($ServerSocket* socket, $SSLContext* context, $ProxySelector* ps, $StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::out)->println("Tests a race condition in SSLTube/SSLFlowDelegate"_s);
 	$nc($System::out)->println("This test will timeout if the ALPN CF is not completed when a \'Connection reset by peer\' exception is raised during the handshake - see 8217094."_s);

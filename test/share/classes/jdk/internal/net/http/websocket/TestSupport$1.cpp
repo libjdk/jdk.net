@@ -94,6 +94,7 @@ bool TestSupport$1::hasNext() {
 }
 
 $Object* TestSupport$1::next() {
+	$useLocalCurrentObjectStackCache();
 	if (!this->hasNext$) {
 		$throwNew($NoSuchElementException);
 	}

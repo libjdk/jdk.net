@@ -190,6 +190,7 @@ void Timeout::main($StringArray* args) {
 
 void Timeout::test(bool async) {
 	$init(Timeout);
+	$useLocalCurrentObjectStackCache();
 	$System::setProperty("javax.net.ssl.keyStore"_s, Timeout::KEYSTORE);
 	$System::setProperty("javax.net.ssl.keyStorePassword"_s, Timeout::PASSWORD);
 	$System::setProperty("javax.net.ssl.trustStore"_s, Timeout::KEYSTORE);
@@ -245,6 +246,7 @@ void Timeout::test(bool async) {
 
 void Timeout::connect($String* server) {
 	$init(Timeout);
+	$useLocalCurrentObjectStackCache();
 	try {
 		$init($HttpClient$Version);
 		$var($HttpClient, client, $nc($($nc($($HttpClient::newBuilder()))->version($HttpClient$Version::HTTP_2)))->build());
@@ -262,6 +264,7 @@ void Timeout::connect($String* server) {
 
 void Timeout::connectAsync($String* server) {
 	$init(Timeout);
+	$useLocalCurrentObjectStackCache();
 	try {
 		$init($HttpClient$Version);
 		$var($HttpClient, client, $nc($($nc($($HttpClient::newBuilder()))->version($HttpClient$Version::HTTP_2)))->build());
@@ -283,6 +286,7 @@ void Timeout::connectAsync($String* server) {
 
 void Timeout::lambda$test$0($SSLServerSocket* ssocket) {
 	$init(Timeout);
+	$useLocalCurrentObjectStackCache();
 	while (true) {
 		$init($System);
 		$nc($System::out)->println("server: ready"_s);

@@ -75,6 +75,7 @@ void LocalHostCookie$Server::init$($LocalHostCookie* this$0) {
 }
 
 void LocalHostCookie$Server::startServer() {
+	$useLocalCurrentObjectStackCache();
 	$var($InetSocketAddress, addr, $new($InetSocketAddress, 0));
 	try {
 		$set(this, server, $HttpServer::create(addr, 0));

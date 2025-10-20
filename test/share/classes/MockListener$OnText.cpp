@@ -91,6 +91,7 @@ bool MockListener$OnText::equals(Object$* o) {
 }
 
 int32_t MockListener$OnText::hashCode() {
+	$useLocalCurrentObjectStackCache();
 	return $Objects::hash($$new($ObjectArray, {
 		$of(this->text),
 		$($of($Boolean::valueOf(this->last))),
@@ -99,6 +100,7 @@ int32_t MockListener$OnText::hashCode() {
 }
 
 $String* MockListener$OnText::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("onText(%s, message.length=%s, %s)"_s, $$new($ObjectArray, {
 		$of(this->webSocket),
 		$($of($Integer::valueOf($nc(this->text)->length()))),

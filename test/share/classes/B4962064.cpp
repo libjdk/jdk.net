@@ -113,6 +113,7 @@ void B4962064::init$() {
 }
 
 void B4962064::handle($HttpExchange* req) {
+	$useLocalCurrentObjectStackCache();
 	try {
 		switch (B4962064::count) {
 		case 0:
@@ -185,6 +186,7 @@ void B4962064::read($InputStream* is) {
 
 void B4962064::client($String* u) {
 	$init(B4962064);
+	$useLocalCurrentObjectStackCache();
 	$var($URL, url, $new($URL, u));
 	$init($System);
 	$nc($System::out)->println($$str({"client opening connection to: "_s, u}));
@@ -196,6 +198,7 @@ void B4962064::client($String* u) {
 
 void B4962064::main($StringArray* args) {
 	$init(B4962064);
+	$useLocalCurrentObjectStackCache();
 	$var(B4962064, b4962064, $new(B4962064));
 	try {
 		$var($InetAddress, address, $InetAddress::getLoopbackAddress());

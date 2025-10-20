@@ -165,6 +165,7 @@ $Optional* MethodsTest$1::version() {
 }
 
 $HttpHeaders* MethodsTest$1::headers() {
+	$useLocalCurrentObjectStackCache();
 	$var($Map, var$0, $Map::of());
 	return $HttpHeaders::of(var$0, static_cast<$BiPredicate*>($$new(MethodsTest$1$$Lambda$lambda$headers$0)));
 }

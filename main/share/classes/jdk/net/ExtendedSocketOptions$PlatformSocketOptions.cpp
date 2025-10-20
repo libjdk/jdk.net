@@ -96,6 +96,7 @@ void ExtendedSocketOptions$PlatformSocketOptions::init$() {
 
 ExtendedSocketOptions$PlatformSocketOptions* ExtendedSocketOptions$PlatformSocketOptions::newInstance($String* cn) {
 	$init(ExtendedSocketOptions$PlatformSocketOptions);
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$Class* c = nullptr;
 	try {
@@ -110,6 +111,7 @@ ExtendedSocketOptions$PlatformSocketOptions* ExtendedSocketOptions$PlatformSocke
 
 ExtendedSocketOptions$PlatformSocketOptions* ExtendedSocketOptions$PlatformSocketOptions::create() {
 	$init(ExtendedSocketOptions$PlatformSocketOptions);
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$var($String, osname, $cast($String, $AccessController::doPrivileged(static_cast<$PrivilegedAction*>($$new($ExtendedSocketOptions$PlatformSocketOptions$1)))));
 	if ("Linux"_s->equals(osname)) {

@@ -201,6 +201,7 @@ void ByteArrayPublishers::init$() {
 
 void ByteArrayPublishers::main($StringArray* args) {
 	$init(ByteArrayPublishers);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpServer, server, nullptr);
 	{
 		$var($Throwable, var$0, nullptr);
@@ -239,6 +240,7 @@ void ByteArrayPublishers::main($StringArray* args) {
 
 $HttpRequest* ByteArrayPublishers::createRequest($URI* uri) {
 	$init(ByteArrayPublishers);
+	$useLocalCurrentObjectStackCache();
 	$init($HttpClient$Version);
 	$var($HttpRequest$Builder, builder, $nc($($nc($($HttpRequest::newBuilder(uri)))->method("POST"_s, ByteArrayPublishers::BODY_PUBLISHER)))->version($HttpClient$Version::HTTP_1_1));
 	$nc(builder)->header("content-type"_s, "text/plain"_s);
@@ -247,6 +249,7 @@ $HttpRequest* ByteArrayPublishers::createRequest($URI* uri) {
 
 $HttpClient* ByteArrayPublishers::createClient() {
 	$init(ByteArrayPublishers);
+	$useLocalCurrentObjectStackCache();
 	$init($HttpClient$Version);
 	return $nc($($nc($($HttpClient::newBuilder()))->version($HttpClient$Version::HTTP_1_1)))->build();
 }
@@ -263,6 +266,7 @@ $HttpResponse* ByteArrayPublishers::lambda$main$1($LinkedBlockingQueue* results,
 
 void ByteArrayPublishers::lambda$main$0($HttpExchange* e) {
 	$init(ByteArrayPublishers);
+	$useLocalCurrentObjectStackCache();
 	$nc($($nc(e)->getRequestBody()))->readAllBytes();
 	$var($String, response, "Hello world"_s);
 	e->sendResponseHeaders(200, response->length());

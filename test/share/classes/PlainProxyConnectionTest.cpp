@@ -146,6 +146,7 @@ void PlainProxyConnectionTest::init$() {
 
 $HttpServer* PlainProxyConnectionTest::createHttpsServer() {
 	$init(PlainProxyConnectionTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpServer, server, $HttpServer::create());
 	$var($HttpContext, context, $nc(server)->createContext(PlainProxyConnectionTest::PATH));
 	$nc(context)->setHandler($$new($PlainProxyConnectionTest$1));
@@ -156,6 +157,7 @@ $HttpServer* PlainProxyConnectionTest::createHttpsServer() {
 
 void PlainProxyConnectionTest::main($StringArray* args) {
 	$init(PlainProxyConnectionTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpServer, server, createHttpsServer());
 	$nc(server)->start();
 	{
@@ -179,6 +181,7 @@ void PlainProxyConnectionTest::main($StringArray* args) {
 
 void PlainProxyConnectionTest::performSanityTest($HttpServer* server, $URI* uri, $URI* proxiedURI) {
 	$init(PlainProxyConnectionTest);
+	$useLocalCurrentObjectStackCache();
 	$nc(PlainProxyConnectionTest::connections)->clear();
 	$init($System);
 	$nc($System::out)->println("Verifying communication with server"_s);
@@ -291,6 +294,7 @@ void PlainProxyConnectionTest::performSanityTest($HttpServer* server, $URI* uri,
 
 void PlainProxyConnectionTest::test($HttpServer* server, $HttpClient$Version* version) {
 	$init(PlainProxyConnectionTest);
+	$useLocalCurrentObjectStackCache();
 	$nc(PlainProxyConnectionTest::connections)->clear();
 	$init($System);
 	$nc($System::out)->println($$str({"\n===== Testing with "_s, version}));

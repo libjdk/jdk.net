@@ -81,11 +81,13 @@ void WebSocketExample::init$() {
 }
 
 void WebSocketExample::newBuilderExample0() {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpClient, client, $HttpClient::newHttpClient());
 	$var($CompletableFuture, ws, $nc($($nc(client)->newWebSocketBuilder()))->buildAsync($($URI::create("ws://websocket.example.com"_s)), this->listener));
 }
 
 void WebSocketExample::newBuilderExample1() {
+	$useLocalCurrentObjectStackCache();
 	$var($InetSocketAddress, addr, $new($InetSocketAddress, "proxy.example.com"_s, 80));
 	$var($HttpClient, client, $nc($($nc($($HttpClient::newBuilder()))->proxy($($ProxySelector::of(addr)))))->build());
 	$var($CompletableFuture, ws, $nc($($nc(client)->newWebSocketBuilder()))->buildAsync($($URI::create("ws://websocket.example.com"_s)), this->listener));

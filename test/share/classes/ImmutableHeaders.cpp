@@ -106,6 +106,7 @@ void ImmutableHeaders::init$() {
 
 void ImmutableHeaders::main($StringArray* args) {
 	$init(ImmutableHeaders);
+	$useLocalCurrentObjectStackCache();
 	$var($InetSocketAddress, addr, $new($InetSocketAddress, $($InetAddress::getLoopbackAddress()), 0));
 	$var($HttpServer, server, $HttpServer::create(addr, 10));
 	$var($ExecutorService, serverExecutor, $Executors::newCachedThreadPool());

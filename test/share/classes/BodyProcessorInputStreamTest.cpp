@@ -277,6 +277,7 @@ void BodyProcessorInputStreamTest::init$() {
 
 $Optional* BodyProcessorInputStreamTest::getCharset($HttpHeaders* headers) {
 	$init(BodyProcessorInputStreamTest);
+	$useLocalCurrentObjectStackCache();
 	$var($Optional, contentType, $nc(headers)->firstValue("Content-Type"_s));
 	$var($Optional, charset, $Optional::empty());
 	if ($nc(contentType)->isPresent()) {
@@ -290,6 +291,7 @@ $Optional* BodyProcessorInputStreamTest::getCharset($HttpHeaders* headers) {
 
 void BodyProcessorInputStreamTest::main($StringArray* args) {
 	$init(BodyProcessorInputStreamTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpClient, client, $HttpClient::newHttpClient());
 	$var($HttpRequest, request, $nc($($nc($($HttpRequest::newBuilder($$new($URI, "http://hg.openjdk.java.net/jdk9/sandbox/jdk/shortlog/http-client-branch/"_s))))->GET()))->build());
 	$var($CompletableFuture, handle, $nc(client)->sendAsync(request, $($HttpResponse$BodyHandlers::ofInputStream())));

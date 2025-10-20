@@ -62,6 +62,7 @@ void AbstractRandomTest::init$() {
 
 $Long* AbstractRandomTest::getSystemSeed() {
 	$init(AbstractRandomTest);
+	$useLocalCurrentObjectStackCache();
 	$var($Long, seed, nullptr);
 	try {
 		$assign(seed, $Long::valueOf($($System::getProperty("seed"_s))));
@@ -73,6 +74,7 @@ $Long* AbstractRandomTest::getSystemSeed() {
 
 int64_t AbstractRandomTest::getSeed() {
 	$init(AbstractRandomTest);
+	$useLocalCurrentObjectStackCache();
 	$var($Long, seed, getSystemSeed());
 	if (seed == nullptr) {
 		$assign(seed, $Long::valueOf(($$new($Random))->nextLong()));

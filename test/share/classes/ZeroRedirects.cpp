@@ -115,6 +115,7 @@ void ZeroRedirects::init$() {
 }
 
 void ZeroRedirects::main($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	initServer();
 	$init(ZeroRedirects);
 	$init($HttpClient$Redirect);
@@ -136,6 +137,7 @@ void ZeroRedirects::main($StringArray* args) {
 }
 
 void ZeroRedirects::test() {
+	$useLocalCurrentObjectStackCache();
 	$System::setProperty("java.net.http.redirects.retrylimit"_s, "0"_s);
 	$init(ZeroRedirects);
 	$var($HttpRequest, r, $nc($($nc($($HttpRequest::newBuilder(ZeroRedirects::uri)))->GET()))->build());
@@ -147,6 +149,7 @@ void ZeroRedirects::test() {
 }
 
 void ZeroRedirects::initServer() {
+	$useLocalCurrentObjectStackCache();
 	$var($InetSocketAddress, addr, $new($InetSocketAddress, $($InetAddress::getLoopbackAddress()), 0));
 	$init(ZeroRedirects);
 	$assignStatic(ZeroRedirects::s1, $HttpServer::create(addr, 0));

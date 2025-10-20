@@ -125,6 +125,7 @@ void ShortRequestBody$Server::finalize() {
 $String* ShortRequestBody$Server::RESPONSE = nullptr;
 
 void ShortRequestBody$Server::init$() {
+	$useLocalCurrentObjectStackCache();
 	$Thread::init$("Test-Server"_s);
 	$set(this, ss, $new($ServerSocket));
 	$nc(this->ss)->setReuseAddress(false);
@@ -137,6 +138,7 @@ int32_t ShortRequestBody$Server::getPort() {
 }
 
 void ShortRequestBody$Server::run() {
+	$useLocalCurrentObjectStackCache();
 	int32_t count = 0;
 	int32_t offset = 0;
 	while (!this->closed) {

@@ -91,6 +91,7 @@ bool MockListener$OnBinary::equals(Object$* o) {
 }
 
 int32_t MockListener$OnBinary::hashCode() {
+	$useLocalCurrentObjectStackCache();
 	return $Objects::hash($$new($ObjectArray, {
 		$of(this->data),
 		$($of($Boolean::valueOf(this->last))),
@@ -99,6 +100,7 @@ int32_t MockListener$OnBinary::hashCode() {
 }
 
 $String* MockListener$OnBinary::toString() {
+	$useLocalCurrentObjectStackCache();
 	return $String::format("onBinary(%s, %s, %s)"_s, $$new($ObjectArray, {
 		$of(this->webSocket),
 		$of(this->data),

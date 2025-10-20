@@ -209,6 +209,7 @@ void ProxyServer::init$($Integer* port, $Boolean* debug) {
 }
 
 void ProxyServer::init$($Integer* port, $Boolean* debug, $ProxyServer$Credentials* credentials) {
+	$useLocalCurrentObjectStackCache();
 	$Thread::init$();
 	this->debug = $nc(debug)->booleanValue();
 	$set(this, listener, $ServerSocketChannel::open());
@@ -239,6 +240,7 @@ $InetSocketAddress* ProxyServer::getProxyAddress() {
 }
 
 void ProxyServer::close() {
+	$useLocalCurrentObjectStackCache();
 	if (this->debug) {
 		$init($System);
 		$nc($System::out)->println("Proxy: closing server"_s);
@@ -267,6 +269,7 @@ void ProxyServer::run() {
 }
 
 void ProxyServer::execute() {
+	$useLocalCurrentObjectStackCache();
 	int32_t id = 0;
 	try {
 		while (!this->done) {
@@ -292,6 +295,7 @@ void ProxyServer::execute() {
 
 void ProxyServer::main($StringArray* args) {
 	$init(ProxyServer);
+	$useLocalCurrentObjectStackCache();
 	int32_t port = $Integer::parseInt($nc(args)->get(0));
 	bool debug = $nc(args)->length > 1 && $nc(args->get(1))->equals("-debug"_s);
 	$init($System);
@@ -310,6 +314,7 @@ $String* ProxyServer::lambda$static$0() {
 }
 
 void clinit$ProxyServer($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	{
 		$var($PrivilegedAction, action, static_cast<$PrivilegedAction*>($new(ProxyServer$$Lambda$lambda$static$0)));

@@ -71,7 +71,7 @@ void jdk$net$LibEventAction(int32_t eventType, void* eventData) {
 		jdk$net$PreloadClass(eventData);
 	}
 	if (eventType == JCPP_LIB_EVENT_TYPE_THREAD_START) {
-		$setCurrentObjectStack();
+		$onLibThreadStart(eventData);
 	}
 }
 

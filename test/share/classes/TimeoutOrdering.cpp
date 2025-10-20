@@ -220,6 +220,7 @@ void TimeoutOrdering::init$() {
 
 void TimeoutOrdering::main($StringArray* args) {
 	$init(TimeoutOrdering);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpClient, client, $HttpClient::newHttpClient());
 	{
 		$var($ServerSocket, ss, $new($ServerSocket));
@@ -283,6 +284,7 @@ void TimeoutOrdering::main($StringArray* args) {
 
 void TimeoutOrdering::checkReturnOrder($HttpRequestArray* requests) {
 	$init(TimeoutOrdering);
+	$useLocalCurrentObjectStackCache();
 	for (int32_t j = 0; j < $nc(TimeoutOrdering::TIMEOUTS)->length; ++j) {
 		$var($HttpRequest, req, $cast($HttpRequest, $nc(TimeoutOrdering::queue)->take()));
 		$init($System);
@@ -331,6 +333,7 @@ void TimeoutOrdering::checkReturnOrder($HttpRequestArray* requests) {
 
 $String* TimeoutOrdering::getRequest($HttpRequest* req, $HttpRequestArray* requests) {
 	$init(TimeoutOrdering);
+	$useLocalCurrentObjectStackCache();
 	for (int32_t i = 0; i < $nc(requests)->length; ++i) {
 		if (req == requests->get(i)) {
 			return $str({"r"_s, $$str(i)});
@@ -341,6 +344,7 @@ $String* TimeoutOrdering::getRequest($HttpRequest* req, $HttpRequestArray* reque
 
 void TimeoutOrdering::lambda$main$1($HttpClient* client, $HttpRequest* req, int32_t j) {
 	$init(TimeoutOrdering);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Throwable, var$0, nullptr);
 		try {
@@ -381,6 +385,7 @@ void TimeoutOrdering::lambda$main$1($HttpClient* client, $HttpRequest* req, int3
 
 void TimeoutOrdering::lambda$main$0(int32_t j, $HttpRequest* req, $HttpResponse* r, $Throwable* t) {
 	$init(TimeoutOrdering);
+	$useLocalCurrentObjectStackCache();
 	if (r != nullptr) {
 		$init($System);
 		$nc($System::out)->println($$str({"Unexpected response for r"_s, $$str(j), ": "_s, r}));

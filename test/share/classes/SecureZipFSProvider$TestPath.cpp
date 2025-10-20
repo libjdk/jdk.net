@@ -157,14 +157,17 @@ $Path* SecureZipFSProvider$TestPath::normalize() {
 }
 
 $Path* SecureZipFSProvider$TestPath::resolve($Path* other) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(this->fs)->wrap($($nc(this->delegate)->resolve($($nc(this->fs)->wrap(other)))));
 }
 
 $Path* SecureZipFSProvider$TestPath::relativize($Path* other) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(this->fs)->wrap($($nc(this->delegate)->relativize($($nc(this->fs)->wrap(other)))));
 }
 
 $URI* SecureZipFSProvider$TestPath::toUri() {
+	$useLocalCurrentObjectStackCache();
 	$var($String, ssp, $nc($($nc(this->delegate)->toUri()))->getSchemeSpecificPart());
 	return $URI::create($$str({$($nc($($nc(this->fs)->provider()))->getScheme()), ":"_s, ssp}));
 }

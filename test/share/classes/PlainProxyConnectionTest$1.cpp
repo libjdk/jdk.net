@@ -76,6 +76,7 @@ void PlainProxyConnectionTest$1::init$() {
 }
 
 void PlainProxyConnectionTest$1::handle($HttpExchange* he) {
+	$useLocalCurrentObjectStackCache();
 	$init($PlainProxyConnectionTest);
 	$nc($PlainProxyConnectionTest::connections)->add($($nc(he)->getRemoteAddress()));
 	$nc($($nc(he)->getResponseHeaders()))->add("encoding"_s, "UTF-8"_s);

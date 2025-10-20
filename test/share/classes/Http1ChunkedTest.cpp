@@ -131,6 +131,7 @@ void Http1ChunkedTest::init$() {
 
 void Http1ChunkedTest::main($StringArray* args) {
 	$init(Http1ChunkedTest);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Iterator, i$, $nc($($List::of($($Http1ChunkedTest$Responses::values()))))->iterator());
 		for (; $nc(i$)->hasNext();) {
@@ -144,6 +145,7 @@ void Http1ChunkedTest::main($StringArray* args) {
 
 void Http1ChunkedTest::test($String* name, $String* headers, $List* body, int64_t delay) {
 	$init(Http1ChunkedTest);
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($ServerSocket, server, $new($ServerSocket));
 		{
@@ -270,6 +272,7 @@ void Http1ChunkedTest::test($String* name, $String* headers, $List* body, int64_
 
 void Http1ChunkedTest::validate($String* response) {
 	$init(Http1ChunkedTest);
+	$useLocalCurrentObjectStackCache();
 	for (int32_t i = 0; i < $nc(response)->length(); ++i) {
 		char16_t var$0 = response->charAt(i);
 		if (var$0 != $nc(Http1ChunkedTest::LOREM)->charAt($mod(i, $nc(Http1ChunkedTest::LOREM)->length()))) {

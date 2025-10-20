@@ -66,6 +66,7 @@ void GetAuthenticatorTest::init$() {
 
 void GetAuthenticatorTest::main($StringArray* args) {
 	$load(GetAuthenticatorTest);
+	$useLocalCurrentObjectStackCache();
 	$beforeCallerSensitive();
 	$var($Authenticator, defaultAuth, $Authenticator::getDefault());
 	if (defaultAuth != nullptr) {

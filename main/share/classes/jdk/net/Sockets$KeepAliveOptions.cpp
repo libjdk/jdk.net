@@ -76,6 +76,7 @@ void Sockets$KeepAliveOptions::init$() {
 }
 
 void clinit$Sockets$KeepAliveOptions($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Set, s, $$new($Socket)->supportedOptions());
 		$init($ExtendedSocketOptions);

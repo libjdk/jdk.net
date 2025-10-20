@@ -79,6 +79,7 @@ void TcpKeepAliveTest::init$() {
 }
 
 void TcpKeepAliveTest::main($StringArray* args) {
+	$useLocalCurrentObjectStackCache();
 	$var($InetAddress, loopback, $InetAddress::getLoopbackAddress());
 	{
 		$var($ServerSocket, ss, boundServer(loopback));
@@ -240,6 +241,7 @@ void TcpKeepAliveTest::main($StringArray* args) {
 }
 
 $ServerSocket* TcpKeepAliveTest::boundServer($InetAddress* address) {
+	$useLocalCurrentObjectStackCache();
 	$var($InetSocketAddress, socketAddress, $new($InetSocketAddress, address, 0));
 	$var($ServerSocket, server, $new($ServerSocket));
 	server->bind(socketAddress);

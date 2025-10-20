@@ -78,6 +78,7 @@ void HandshakeFailureTest$ExceptionChecker::check($Throwable* expected) {
 }
 
 void HandshakeFailureTest$ExceptionChecker::check(int32_t max) {
+	$useLocalCurrentObjectStackCache();
 	if (this->count > max) {
 		$init($System);
 		$nc($System::out)->println($$str({"WSAECONNABORTED received too many times: "_s, $$str(this->count)}));

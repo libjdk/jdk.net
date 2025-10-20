@@ -290,6 +290,7 @@ void HttpInputStreamTest::init$() {
 
 $Optional* HttpInputStreamTest::getCharset($HttpHeaders* headers) {
 	$init(HttpInputStreamTest);
+	$useLocalCurrentObjectStackCache();
 	$var($Optional, contentType, $nc(headers)->firstValue("Content-Type"_s));
 	$var($Optional, charset, $Optional::empty());
 	if ($nc(contentType)->isPresent()) {
@@ -303,6 +304,7 @@ $Optional* HttpInputStreamTest::getCharset($HttpHeaders* headers) {
 
 void HttpInputStreamTest::main($StringArray* args) {
 	$init(HttpInputStreamTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpClient, client, $HttpClient::newHttpClient());
 	$var($HttpRequest, request, $nc($($nc($($HttpRequest::newBuilder($$new($URI, "http://hg.openjdk.java.net/jdk9/sandbox/jdk/shortlog/http-client-branch/"_s))))->GET()))->build());
 	$var($CompletableFuture, handle, $nc(client)->sendAsync(request, $$new($HttpInputStreamTest$HttpInputStreamHandler, 3)));

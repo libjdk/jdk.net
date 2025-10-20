@@ -110,6 +110,7 @@ $HttpClient$Version* FixedHttpResponse::version() {
 }
 
 $String* FixedHttpResponse::toString() {
+	$useLocalCurrentObjectStackCache();
 	$var($StringBuilder, sb, $new($StringBuilder));
 	return sb->append($($HttpResponse::toString()))->append(" [ "_s)->append("status code: "_s)->append(this->statusCode$)->append(", request: "_s)->append($of(this->request$))->append(", headers: "_s)->append($of(this->headers$))->append(" ]"_s)->toString();
 }

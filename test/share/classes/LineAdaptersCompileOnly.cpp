@@ -355,6 +355,7 @@ void LineAdaptersCompileOnly::main($StringArray* args) {
 
 void LineAdaptersCompileOnly::makesSureDifferentGenericSignaturesCompile() {
 	$init(LineAdaptersCompileOnly);
+	$useLocalCurrentObjectStackCache();
 	$HttpResponse$BodyHandlers::fromLineSubscriber($$new($LineAdaptersCompileOnly$StringSubscriber));
 	$HttpResponse$BodyHandlers::fromLineSubscriber($$new($LineAdaptersCompileOnly$CharSequenceSubscriber));
 	$HttpResponse$BodyHandlers::fromLineSubscriber($$new($LineAdaptersCompileOnly$ObjectSubscriber));
@@ -390,6 +391,7 @@ void LineAdaptersCompileOnly::makesSureDifferentGenericSignaturesCompile() {
 
 void LineAdaptersCompileOnly::makesSureDifferentGenericFunctionSignaturesCompile() {
 	$init(LineAdaptersCompileOnly);
+	$useLocalCurrentObjectStackCache();
 	$var($Flow$Subscriber, var$0, static_cast<$Flow$Subscriber*>($new($LineAdaptersCompileOnly$StringSubscriber)));
 	$var($HttpResponse$BodyHandler, bh01, $HttpResponse$BodyHandlers::fromLineSubscriber(var$0, static_cast<$Function*>($$new(LineAdaptersCompileOnly$$Lambda$lambda$makesSureDifferentGenericFunctionSignaturesCompile$4$4)), "\n"_s));
 	$var($Flow$Subscriber, var$1, static_cast<$Flow$Subscriber*>($new($LineAdaptersCompileOnly$StringSubscriber)));

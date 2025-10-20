@@ -66,6 +66,7 @@ void LocalHostCookie$MyCookieHandler::init$($LocalHostCookie* this$0) {
 }
 
 void LocalHostCookie$MyCookieHandler::handle($HttpExchange* exchange) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, requestMethod, $nc(exchange)->getRequestMethod());
 	if ($nc(requestMethod)->equalsIgnoreCase("GET"_s)) {
 		$var($Headers, responseHeaders, exchange->getResponseHeaders());

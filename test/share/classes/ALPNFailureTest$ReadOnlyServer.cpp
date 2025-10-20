@@ -121,6 +121,7 @@ void ALPNFailureTest$ReadOnlyServer::init$($ServerSocket* socket) {
 }
 
 void ALPNFailureTest$ReadOnlyServer::run() {
+	$useLocalCurrentObjectStackCache();
 	int32_t count = 0;
 	int32_t all = 0;
 	{
@@ -209,6 +210,7 @@ void ALPNFailureTest$ReadOnlyServer::run() {
 }
 
 void ALPNFailureTest$ReadOnlyServer::close() {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(this->closing)->getAndSet(true)) {
 		return;
 	}

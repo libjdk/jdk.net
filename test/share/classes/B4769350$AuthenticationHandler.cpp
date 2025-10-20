@@ -62,6 +62,7 @@ void B4769350$AuthenticationHandler::init$() {
 }
 
 void B4769350$AuthenticationHandler::errorReply($HttpExchange* exchange, $String* reply) {
+	$useLocalCurrentObjectStackCache();
 	$nc($($nc(exchange)->getResponseHeaders()))->add("Connection"_s, "close"_s);
 	$nc($(exchange->getResponseHeaders()))->add("WWW-Authenticate"_s, reply);
 	exchange->sendResponseHeaders(401, 0);
@@ -74,6 +75,7 @@ void B4769350$AuthenticationHandler::proxyReply($HttpExchange* exchange, $String
 }
 
 void B4769350$AuthenticationHandler::okReply($HttpExchange* exchange) {
+	$useLocalCurrentObjectStackCache();
 	$nc($($nc(exchange)->getResponseHeaders()))->add("Connection"_s, "close"_s);
 	$var($String, response, "Hello ."_s);
 	exchange->sendResponseHeaders(200, $(response->getBytes())->length);

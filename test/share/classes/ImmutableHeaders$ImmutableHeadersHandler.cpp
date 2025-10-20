@@ -66,6 +66,7 @@ void ImmutableHeaders$ImmutableHeadersHandler::init$() {
 }
 
 void ImmutableHeaders$ImmutableHeadersHandler::handle($HttpExchange* he) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, method, $nc(he)->getRequestMethod());
 	$var($InputStream, is, he->getRequestBody());
 	$var($Headers, h, he->getResponseHeaders());

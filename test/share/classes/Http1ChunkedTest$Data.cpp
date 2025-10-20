@@ -81,6 +81,7 @@ void Http1ChunkedTest$Data::init$() {
 }
 
 void clinit$Http1ChunkedTest$Data($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(Http1ChunkedTest$Data::RESPONSE_HEADERS, "HTTP/1.1 200 OK\r\ncontent-type: application/text; charset=UTF-8\r\ntransfer-encoding: chunked\r\n\r\n"_s);
 	$assignStatic(Http1ChunkedTest$Data::REQ0_RESPONSE_BODY, $List::of($$new($StringArray, {
 		"26 \r\n"_s,

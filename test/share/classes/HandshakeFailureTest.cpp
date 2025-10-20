@@ -142,6 +142,7 @@ void HandshakeFailureTest::init$() {
 
 void HandshakeFailureTest::main($StringArray* args) {
 	$init(HandshakeFailureTest);
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(HandshakeFailureTest::tlsProtocol, $nc(args)->get(0));
 	HandshakeFailureTest::maxWsaeConnAborted = 0;
 	$var(HandshakeFailureTest, test, $new(HandshakeFailureTest));
@@ -201,12 +202,14 @@ void HandshakeFailureTest::main($StringArray* args) {
 
 $HttpClient* HandshakeFailureTest::getClient() {
 	$init(HandshakeFailureTest);
+	$useLocalCurrentObjectStackCache();
 	$var($SSLParameters, params, $new($SSLParameters));
 	params->setProtocols($$new($StringArray, {HandshakeFailureTest::tlsProtocol}));
 	return $nc($($nc($($HttpClient::newBuilder()))->sslParameters(params)))->build();
 }
 
 void HandshakeFailureTest::testSyncSameClient($URI* uri, $HttpClient$Version* version) {
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::out)->printf("%n--- testSyncSameClient %s ---%n"_s, $$new($ObjectArray, {$of(version)}));
 	$var($HttpClient, client, getClient());
@@ -228,6 +231,7 @@ void HandshakeFailureTest::testSyncSameClient($URI* uri, $HttpClient$Version* ve
 }
 
 void HandshakeFailureTest::testSyncDiffClient($URI* uri, $HttpClient$Version* version) {
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::out)->printf("%n--- testSyncDiffClient %s ---%n"_s, $$new($ObjectArray, {$of(version)}));
 	$var($HandshakeFailureTest$ExceptionChecker, exceptionChecker, $new($HandshakeFailureTest$ExceptionChecker));
@@ -249,6 +253,7 @@ void HandshakeFailureTest::testSyncDiffClient($URI* uri, $HttpClient$Version* ve
 }
 
 void HandshakeFailureTest::testAsyncSameClient($URI* uri, $HttpClient$Version* version) {
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::out)->printf("%n--- testAsyncSameClient %s ---%n"_s, $$new($ObjectArray, {$of(version)}));
 	$var($HttpClient, client, getClient());
@@ -272,6 +277,7 @@ void HandshakeFailureTest::testAsyncSameClient($URI* uri, $HttpClient$Version* v
 }
 
 void HandshakeFailureTest::testAsyncDiffClient($URI* uri, $HttpClient$Version* version) {
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$nc($System::out)->printf("%n--- testAsyncDiffClient %s ---%n"_s, $$new($ObjectArray, {$of(version)}));
 	$var($HandshakeFailureTest$ExceptionChecker, exceptionChecker, $new($HandshakeFailureTest$ExceptionChecker));
@@ -302,6 +308,7 @@ bool HandshakeFailureTest::isWsaeConnAborted($Throwable* t) {
 
 $HandshakeFailureTest$ExpectedExceptionType* HandshakeFailureTest::checkExceptionOrCause($Throwable* t$renamed) {
 	$init(HandshakeFailureTest);
+	$useLocalCurrentObjectStackCache();
 	$var($Throwable, t, t$renamed);
 	$var($Throwable, original, t);
 	do {
@@ -325,6 +332,7 @@ $HandshakeFailureTest$ExpectedExceptionType* HandshakeFailureTest::checkExceptio
 }
 
 void clinit$HandshakeFailureTest($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(HandshakeFailureTest::WSAECONNABORTED_MSG, "An established connection was aborted by the software in your host machine"_s);
 	$init($Locale);
 	HandshakeFailureTest::isWindows = $($nc($($System::getProperty("os.name"_s, ""_s)))->toLowerCase($Locale::ROOT))->contains("win"_s);

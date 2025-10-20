@@ -160,6 +160,7 @@ $CompletionStage* HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputSt
 }
 
 $ByteBuffer* HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream::current() {
+	$useLocalCurrentObjectStackCache();
 	while (this->currentBuffer == nullptr || !$nc(this->currentBuffer)->hasRemaining()) {
 		if (this->closed || this->failed != nullptr) {
 			$throwNew($IOException, "closed"_s, this->failed);
@@ -237,6 +238,7 @@ int32_t HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream::read
 }
 
 void HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream::onSubscribe($Flow$Subscription* s) {
+	$useLocalCurrentObjectStackCache();
 	if (this->subscription != nullptr) {
 		$nc(s)->cancel();
 		return;

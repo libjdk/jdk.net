@@ -66,6 +66,7 @@ $Object* allocate$Frame($Class* clazz) {
 }
 
 void Frame::init$($Frame$Opcode* opcode, $ByteBuffer* data, bool last) {
+	$useLocalCurrentObjectStackCache();
 	$set(this, opcode, opcode);
 	$set(this, data, $nc($($nc($($ByteBuffer::allocate($nc(data)->remaining())))->put($($nc(data)->slice()))))->flip());
 	this->last = last;

@@ -717,6 +717,7 @@ void JavadocExamples::init$() {
 }
 
 void JavadocExamples::fromHttpClientClasslevelDescription() {
+	$useLocalCurrentObjectStackCache();
 	$init($HttpClient$Version);
 	$init($HttpClient$Redirect);
 	$var($HttpClient, client, $nc($($nc($($nc($($nc($($nc($($nc($($HttpClient::newBuilder()))->version($HttpClient$Version::HTTP_1_1)))->followRedirects($HttpClient$Redirect::NORMAL)))->connectTimeout($($Duration::ofSeconds(20)))))->proxy($($ProxySelector::of($$new($InetSocketAddress, "proxy.example.com"_s, 80))))))->authenticator($($Authenticator::getDefault()))))->build());
@@ -729,6 +730,7 @@ void JavadocExamples::fromHttpClientClasslevelDescription() {
 }
 
 void JavadocExamples::fromHttpRequest() {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpClient, client, $HttpClient::newHttpClient());
 	$var($HttpRequest, request, $nc($($nc($($HttpRequest::newBuilder()))->uri($($URI::create("http://foo.com/"_s)))))->build());
 	$init($System);
@@ -742,6 +744,7 @@ void JavadocExamples::fromHttpRequest() {
 }
 
 void JavadocExamples::fromHttpResponse() {
+	$useLocalCurrentObjectStackCache();
 	$var($HttpResponse, response, $nc(this->client)->send(this->request, $($HttpResponse$BodyHandlers::ofString())));
 	$var($HttpRequest, request, $nc($($nc($($HttpRequest::newBuilder()))->uri($($URI::create("http://www.foo.com/"_s)))))->build());
 	$init($System);
@@ -762,12 +765,14 @@ void JavadocExamples::fromHttpResponse() {
 }
 
 void JavadocExamples::fromLineSubscriber1() {
+	$useLocalCurrentObjectStackCache();
 	$init($System);
 	$var($JavadocExamples$PrintSubscriber, subscriber, $new($JavadocExamples$PrintSubscriber, $System::out));
 	$nc($($cast($CompletableFuture, $nc($($nc(this->client)->sendAsync(this->request, $($HttpResponse$BodyHandlers::fromLineSubscriber(subscriber)))))->thenApply(static_cast<$Function*>($$new(JavadocExamples$$Lambda$statusCode$12))))))->thenAccept(static_cast<$Consumer*>($$new(JavadocExamples$$Lambda$lambda$fromLineSubscriber1$9$13)));
 }
 
 void JavadocExamples::fromLineSubscriber2() {
+	$useLocalCurrentObjectStackCache();
 	$var($Pattern, pattern, this->p);
 	$var($JavadocExamples$LineParserSubscriber, subscriber, $new($JavadocExamples$LineParserSubscriber, pattern));
 	$var($HttpResponse, response, $nc(this->client)->send(this->request, $($HttpResponse$BodyHandlers::fromLineSubscriber(subscriber, static_cast<$Function*>($$new(JavadocExamples$$Lambda$lambda$fromLineSubscriber2$10$14)), "\n"_s))));
@@ -794,6 +799,7 @@ $HttpResponse$BodySubscriber* JavadocExamples::lambda$fromHttpResponse$8($HttpRe
 }
 
 $HttpResponse$BodySubscriber* JavadocExamples::lambda$fromHttpResponse$7($HttpResponse$ResponseInfo* responseInfo) {
+	$useLocalCurrentObjectStackCache();
 	$init($StandardCharsets);
 	$var($HttpResponse$BodySubscriber, var$0, $HttpResponse$BodySubscribers::ofString($StandardCharsets::UTF_8));
 	return $HttpResponse$BodySubscribers::mapping(var$0, static_cast<$Function*>($$new(JavadocExamples$$Lambda$getBytes$15)));
@@ -808,10 +814,12 @@ $HttpResponse$BodySubscriber* JavadocExamples::lambda$fromHttpResponse$5($HttpRe
 }
 
 $HttpResponse$BodySubscriber* JavadocExamples::lambda$fromHttpResponse$4($HttpResponse$ResponseInfo* responseInfo) {
+	$useLocalCurrentObjectStackCache();
 	return $HttpResponse$BodySubscribers::ofFile($($Paths::get("example.html"_s, $$new($StringArray, 0))));
 }
 
 $HttpResponse$BodySubscriber* JavadocExamples::lambda$fromHttpResponse$3($HttpResponse$ResponseInfo* info) {
+	$useLocalCurrentObjectStackCache();
 	return $nc(info)->statusCode() == 200 ? $HttpResponse$BodySubscribers::ofFile($($Paths::get("/tmp/f"_s, $$new($StringArray, 0)))) : $HttpResponse$BodySubscribers::replacing($($Paths::get("/NULL"_s, $$new($StringArray, 0))));
 }
 

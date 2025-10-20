@@ -88,6 +88,7 @@ void HandshakeFailureTest$PlainServer::init$() {
 }
 
 void HandshakeFailureTest$PlainServer::run() {
+	$useLocalCurrentObjectStackCache();
 	while (!this->closed) {
 		try {
 			$var($Socket, s, $nc(this->ss)->accept());

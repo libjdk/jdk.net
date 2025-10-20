@@ -116,6 +116,7 @@ $String* B4769350$Server::getAddress() {
 }
 
 void B4769350$Server::startServer() {
+	$useLocalCurrentObjectStackCache();
 	$var($InetAddress, loopback, $InetAddress::getLoopbackAddress());
 	$var($InetSocketAddress, addr, $new($InetSocketAddress, loopback, 0));
 	try {

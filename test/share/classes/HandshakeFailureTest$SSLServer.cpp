@@ -100,6 +100,7 @@ $ServerSocketFactory* HandshakeFailureTest$SSLServer::factory = nullptr;
 
 $SSLContext* HandshakeFailureTest$SSLServer::createUntrustingContext() {
 	$init(HandshakeFailureTest$SSLServer);
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($SSLContext, sslContext, $SSLContext::getInstance("TLS"_s));
 		$nc(sslContext)->init(nullptr, nullptr, nullptr);
@@ -116,6 +117,7 @@ void HandshakeFailureTest$SSLServer::init$() {
 }
 
 void HandshakeFailureTest$SSLServer::run() {
+	$useLocalCurrentObjectStackCache();
 	while (!this->closed) {
 		try {
 			$var($SSLSocket, s, $cast($SSLSocket, $nc(this->ss)->accept()));

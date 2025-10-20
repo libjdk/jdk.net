@@ -88,6 +88,7 @@ void ExtendedSocketOptions$1::init$($Set* arg0) {
 }
 
 void ExtendedSocketOptions$1::setOption($FileDescriptor* fd, $SocketOption* option, Object$* value) {
+	$useLocalCurrentObjectStackCache();
 	if (fd == nullptr || !$nc(fd)->valid()) {
 		$throwNew($SocketException, "socket closed"_s);
 	}

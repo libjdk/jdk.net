@@ -82,6 +82,7 @@ void B4769350$Client::init$($String* authority, $String* path, bool allowerror) 
 }
 
 void B4769350$Client::run() {
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($URI, u, $new($URI, "http"_s, this->authority, this->path, nullptr, nullptr));
 		$var($URL, url, u->toURL());

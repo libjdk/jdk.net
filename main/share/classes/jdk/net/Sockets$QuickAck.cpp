@@ -71,6 +71,7 @@ void Sockets$QuickAck::init$() {
 }
 
 void clinit$Sockets$QuickAck($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	{
 		$var($Set, s, $$new($Socket)->supportedOptions());
 		$init($ExtendedSocketOptions);

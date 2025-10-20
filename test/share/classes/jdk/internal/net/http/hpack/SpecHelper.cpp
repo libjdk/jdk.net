@@ -72,6 +72,7 @@ void SpecHelper::init$() {
 }
 
 $ByteBuffer* SpecHelper::toBytes($String* hexdump) {
+	$useLocalCurrentObjectStackCache();
 	$var($Pattern, hexByte, $Pattern::compile("[0-9a-fA-F]{2}"_s));
 	$var($List, bytes, $new($ArrayList));
 	$var($Matcher, matcher, $nc(hexByte)->matcher(hexdump));
@@ -93,6 +94,7 @@ $ByteBuffer* SpecHelper::toBytes($String* hexdump) {
 }
 
 $String* SpecHelper::toHexdump($ByteBuffer* bb) {
+	$useLocalCurrentObjectStackCache();
 	$var($List, words, $new($ArrayList));
 	int32_t i = 0;
 	while ($nc(bb)->hasRemaining()) {

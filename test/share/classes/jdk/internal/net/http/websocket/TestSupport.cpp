@@ -452,26 +452,31 @@ void TestSupport::init$() {
 }
 
 $Iterator* TestSupport::cartesianIterator($List* a, $List* b, $TestSupport$F2* f2) {
+	$useLocalCurrentObjectStackCache();
 	$var($TestSupport$F, t, static_cast<$TestSupport$F*>($new(TestSupport$$Lambda$lambda$cartesianIterator$0, f2)));
 	return cartesianIterator($($List::of(a, b)), t);
 }
 
 $Iterator* TestSupport::cartesianIterator($List* a, $List* b, $List* c, $TestSupport$F3* f3) {
+	$useLocalCurrentObjectStackCache();
 	$var($TestSupport$F, t, static_cast<$TestSupport$F*>($new(TestSupport$$Lambda$lambda$cartesianIterator$1$1, f3)));
 	return cartesianIterator($($List::of(a, b, c)), t);
 }
 
 $Iterator* TestSupport::cartesianIterator($List* a, $List* b, $List* c, $List* d, $TestSupport$F4* f4) {
+	$useLocalCurrentObjectStackCache();
 	$var($TestSupport$F, t, static_cast<$TestSupport$F*>($new(TestSupport$$Lambda$lambda$cartesianIterator$2$2, f4)));
 	return cartesianIterator($($List::of(a, b, c, d)), t);
 }
 
 $Iterator* TestSupport::cartesianIterator($List* a, $List* b, $List* c, $List* d, $List* e, $TestSupport$F5* f5) {
+	$useLocalCurrentObjectStackCache();
 	$var($TestSupport$F, t, static_cast<$TestSupport$F*>($new(TestSupport$$Lambda$lambda$cartesianIterator$3$3, f5)));
 	return cartesianIterator($($List::of(a, b, c, d, e)), t);
 }
 
 $Iterator* TestSupport::cartesianIterator($List* params, $TestSupport$F* function) {
+	$useLocalCurrentObjectStackCache();
 	if ($nc(params)->isEmpty()) {
 		return $Collections::emptyIterator();
 	}
@@ -502,6 +507,7 @@ $Iterator* TestSupport::limit(int32_t maxElements, $Iterator* elements) {
 }
 
 $ByteBuffer* TestSupport::fullCopy($ByteBuffer* src) {
+	$useLocalCurrentObjectStackCache();
 	$var($ByteBuffer, copy, $ByteBuffer::allocate($nc(src)->capacity()));
 	int32_t p = $nc(src)->position();
 	int32_t l = src->limit();
@@ -521,6 +527,7 @@ void TestSupport::forEachPartition(int32_t n, $Consumer* action) {
 }
 
 void TestSupport::forEachPartition(int32_t n, $Stack* path, $Consumer* action) {
+	$useLocalCurrentObjectStackCache();
 	if (n == 0) {
 		$nc(action)->accept(path);
 	} else {
@@ -559,6 +566,7 @@ void TestSupport::swap($ints* a, int32_t i, int32_t j) {
 }
 
 $Throwable* TestSupport::assertThrows($Class* clazz, $TestSupport$ThrowingProcedure* code) {
+	$useLocalCurrentObjectStackCache();
 	$var($Throwable, t, assertThrows(static_cast<$Predicate*>($$new(TestSupport$$Lambda$isInstance$5, static_cast<$Class*>($nc(clazz)))), code));
 	return t;
 }
@@ -570,6 +578,7 @@ $Throwable* TestSupport::assertThrows($Class* clazz, $String* messageRegex, $Tes
 }
 
 $Throwable* TestSupport::assertThrows($Predicate* predicate, $TestSupport$ThrowingProcedure* code) {
+	$useLocalCurrentObjectStackCache();
 	$Objects::requireNonNull($of(predicate), "predicate"_s);
 	$Objects::requireNonNull($of(code), "code"_s);
 	$var($Throwable, caught, nullptr);
@@ -596,6 +605,7 @@ bool TestSupport::lambda$assertThrows$5($Class* clazz, $String* messageRegex, $T
 }
 
 void TestSupport::lambda$forEachBufferPartition$4($ByteBuffer* src, $Consumer* action, $Iterable* lengths) {
+	$useLocalCurrentObjectStackCache();
 	int32_t end = $nc(src)->position();
 	$var($List, buffers, $new($LinkedList));
 	{

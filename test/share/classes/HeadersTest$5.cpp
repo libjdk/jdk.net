@@ -115,6 +115,7 @@ $Optional* HeadersTest$5::version() {
 }
 
 $HttpHeaders* HeadersTest$5::headers() {
+	$useLocalCurrentObjectStackCache();
 	$var($List, values, $new($ArrayList));
 	values->add("foo"_s);
 	values->add(nullptr);

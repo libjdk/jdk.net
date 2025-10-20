@@ -60,6 +60,7 @@ void ZeroRedirects$Handler::init$() {
 
 void ZeroRedirects$Handler::handle($HttpExchange* t) {
 	$synchronized(this) {
+		$useLocalCurrentObjectStackCache();
 		$var($String, reply, "Hello world"_s);
 		int32_t len = reply->length();
 		$init($System);

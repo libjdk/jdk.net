@@ -207,6 +207,7 @@ $FileSystem* SecureZipFSProvider::newFileSystem($FileSystem* fs) {
 }
 
 $FileSystem* SecureZipFSProvider::newFileSystem($URI* uri, $Map* env) {
+	$useLocalCurrentObjectStackCache();
 	$var($FileSystem, fs, $nc(this->defaultProvider)->newFileSystem(uri, env));
 	return $cast($FileSystem, $nc(this->map)->computeIfAbsent(fs, static_cast<$Function*>($$new(SecureZipFSProvider$$Lambda$lambda$newFileSystem$0, this, fs))));
 }
@@ -216,11 +217,13 @@ $FileSystem* SecureZipFSProvider::getFileSystem($URI* uri) {
 }
 
 $Path* SecureZipFSProvider::getPath($URI* uri) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc(this->defaultProvider)->getPath(uri));
 	return $nc(($cast($SecureZipFSProvider$SecureZipFS, $($nc(this->map)->get($($nc(this->defaultProvider)->getFileSystem(uri)))))))->wrap(p);
 }
 
 $InputStream* SecureZipFSProvider::newInputStream($Path* path, $OpenOptionArray* options) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	$var($SecurityManager, sm, $System::getSecurityManager());
 	if (sm != nullptr) {
@@ -231,11 +234,13 @@ $InputStream* SecureZipFSProvider::newInputStream($Path* path, $OpenOptionArray*
 }
 
 $SeekableByteChannel* SecureZipFSProvider::newByteChannel($Path* path, $Set* options, $FileAttributeArray* attrs) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	return $nc(this->defaultProvider)->newByteChannel(p, options, attrs);
 }
 
 $FileChannel* SecureZipFSProvider::newFileChannel($Path* path, $Set* options, $FileAttributeArray* attrs) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	return $nc(this->defaultProvider)->newFileChannel(p, options, attrs);
 }
@@ -246,64 +251,76 @@ $DirectoryStream* SecureZipFSProvider::newDirectoryStream($Path* dir, $Directory
 }
 
 void SecureZipFSProvider::createDirectory($Path* dir, $FileAttributeArray* attrs) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(dir)))->unwrap());
 	$nc(this->defaultProvider)->createDirectory(p, attrs);
 }
 
 void SecureZipFSProvider::delete$($Path* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	$nc(this->defaultProvider)->delete$(p);
 }
 
 void SecureZipFSProvider::copy($Path* source, $Path* target, $CopyOptionArray* options) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, sp, $nc($(toTestPath(source)))->unwrap());
 	$var($Path, tp, $nc($(toTestPath(target)))->unwrap());
 	$nc(this->defaultProvider)->copy(sp, tp, options);
 }
 
 void SecureZipFSProvider::move($Path* source, $Path* target, $CopyOptionArray* options) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, sp, $nc($(toTestPath(source)))->unwrap());
 	$var($Path, tp, $nc($(toTestPath(target)))->unwrap());
 	$nc(this->defaultProvider)->move(sp, tp, options);
 }
 
 bool SecureZipFSProvider::isSameFile($Path* path, $Path* path2) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	$var($Path, p2, $nc($(toTestPath(path2)))->unwrap());
 	return $nc(this->defaultProvider)->isSameFile(p, p2);
 }
 
 bool SecureZipFSProvider::isHidden($Path* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	return $nc(this->defaultProvider)->isHidden(p);
 }
 
 $FileStore* SecureZipFSProvider::getFileStore($Path* path) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	return $nc(this->defaultProvider)->getFileStore(p);
 }
 
 void SecureZipFSProvider::checkAccess($Path* path, $AccessModeArray* modes) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	$nc(this->defaultProvider)->checkAccess(p, modes);
 }
 
 $FileAttributeView* SecureZipFSProvider::getFileAttributeView($Path* path, $Class* type, $LinkOptionArray* options) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	return $nc(this->defaultProvider)->getFileAttributeView(p, type, options);
 }
 
 $BasicFileAttributes* SecureZipFSProvider::readAttributes($Path* path, $Class* type, $LinkOptionArray* options) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	return $nc(this->defaultProvider)->readAttributes(p, type, options);
 }
 
 $Map* SecureZipFSProvider::readAttributes($Path* path, $String* attributes, $LinkOptionArray* options) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	return $nc(this->defaultProvider)->readAttributes(p, attributes, options);
 }
 
 void SecureZipFSProvider::setAttribute($Path* path, $String* attribute, Object$* value, $LinkOptionArray* options) {
+	$useLocalCurrentObjectStackCache();
 	$var($Path, p, $nc($(toTestPath(path)))->unwrap());
 	$nc(this->defaultProvider)->setAttribute(p, attribute, options, $$new($LinkOptionArray, 0));
 }

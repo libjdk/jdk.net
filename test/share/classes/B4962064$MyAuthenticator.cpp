@@ -71,6 +71,7 @@ void B4962064$MyAuthenticator::init$() {
 }
 
 $PasswordAuthentication* B4962064$MyAuthenticator::getPasswordAuthentication() {
+	$useLocalCurrentObjectStackCache();
 	$var($URL, url, getRequestingURL());
 	$init($B4962064);
 	if (!$nc(url)->equals($B4962064::urlsave)) {

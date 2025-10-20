@@ -194,6 +194,7 @@ void HeadersTest::init$() {
 
 void HeadersTest::bad($String* name) {
 	$init(HeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(HeadersTest::TEST_URI));
 	try {
 		$nc(builder)->header(name, "foo"_s);
@@ -216,6 +217,7 @@ void HeadersTest::bad($String* name) {
 
 void HeadersTest::badValue($String* value) {
 	$init(HeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(HeadersTest::TEST_URI));
 	try {
 		$nc(builder)->header("x-bad"_s, value);
@@ -238,6 +240,7 @@ void HeadersTest::badValue($String* value) {
 
 void HeadersTest::nullName() {
 	$init(HeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(HeadersTest::TEST_URI));
 	try {
 		$nc(builder)->header(nullptr, "foo"_s);
@@ -260,6 +263,7 @@ void HeadersTest::nullName() {
 
 void HeadersTest::nullValue() {
 	$init(HeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(HeadersTest::TEST_URI));
 	try {
 		$nc(builder)->header("x-bar"_s, nullptr);
@@ -291,6 +295,7 @@ void HeadersTest::nullValue() {
 
 void HeadersTest::nullHeaders() {
 	$init(HeadersTest);
+	$useLocalCurrentObjectStackCache();
 	try {
 		$var($HttpRequest, req, $new($HeadersTest$6));
 		$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
@@ -313,6 +318,7 @@ void HeadersTest::nullHeaders() {
 
 void HeadersTest::good($String* name) {
 	$init(HeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(HeadersTest::TEST_URI));
 	try {
 		$nc(builder)->header(name, "foo"_s);
@@ -324,6 +330,7 @@ void HeadersTest::good($String* name) {
 
 void HeadersTest::goodValue($String* value) {
 	$init(HeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(HeadersTest::TEST_URI));
 	try {
 		$nc(builder)->header("x-good"_s, value);
@@ -335,6 +342,7 @@ void HeadersTest::goodValue($String* value) {
 
 void HeadersTest::badURI() {
 	$init(HeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder());
 	$var($URI, uri, $URI::create($($nc($($nc(HeadersTest::TEST_URI)->toString()))->replace(static_cast<$CharSequence*>("http"_s), static_cast<$CharSequence*>("ftp"_s)))));
 	try {
@@ -366,6 +374,7 @@ void HeadersTest::badURI() {
 
 void HeadersTest::nullURI() {
 	$init(HeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder());
 	try {
 		$nc(builder)->uri(nullptr);
@@ -396,6 +405,7 @@ void HeadersTest::nullURI() {
 
 void HeadersTest::badTimeout() {
 	$init(HeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(HeadersTest::TEST_URI));
 	$var($Duration, zero, $Duration::ofSeconds(0));
 	$var($Duration, negative, $Duration::ofSeconds(-10));
@@ -428,6 +438,7 @@ void HeadersTest::badTimeout() {
 
 void HeadersTest::nullTimeout() {
 	$init(HeadersTest);
+	$useLocalCurrentObjectStackCache();
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(HeadersTest::TEST_URI));
 	try {
 		$nc(builder)->timeout(nullptr);
@@ -476,6 +487,7 @@ bool HeadersTest::lambda$static$0($String* x, $String* y) {
 }
 
 void clinit$HeadersTest($Class* class$) {
+	$useLocalCurrentObjectStackCache();
 	$assignStatic(HeadersTest::ACCEPT_ALL, static_cast<$BiPredicate*>($new(HeadersTest$$Lambda$lambda$static$0)));
 	$assignStatic(HeadersTest::TEST_URI, $URI::create("http://www.foo.com/"_s));
 	$init($HttpClient$Builder);

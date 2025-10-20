@@ -53,6 +53,7 @@ void B6277794::main($StringArray* args) {
 }
 
 void B6277794::testCookieStore() {
+	$useLocalCurrentObjectStackCache();
 	$var($CookieManager, cm, $new($CookieManager));
 	$var($CookieStore, cs, cm->getCookieStore());
 	$var($HttpCookie, c1, $new($HttpCookie, "COOKIE1"_s, "COOKIE1"_s));

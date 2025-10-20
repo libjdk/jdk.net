@@ -73,6 +73,7 @@ void BasicAuthTest$Handler::init$() {
 }
 
 void BasicAuthTest$Handler::handle($HttpExchange* he) {
+	$useLocalCurrentObjectStackCache();
 	$var($String, method, $nc(he)->getRequestMethod());
 	$var($InputStream, is, he->getRequestBody());
 	if ($nc(method)->equalsIgnoreCase("POST"_s)) {

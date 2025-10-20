@@ -344,6 +344,7 @@ $SocketAddress* DummySecureWebSocketServer$WebServerSocketChannel::getLocalAddre
 
 DummySecureWebSocketServer$WebServerSocketChannel* DummySecureWebSocketServer$WebServerSocketChannel::of($ServerSocket* ss) {
 	$init(DummySecureWebSocketServer$WebServerSocketChannel);
+	$useLocalCurrentObjectStackCache();
 	$var($DummySecureWebSocketServer$WebServerSocketChannel$Accepter, a, static_cast<$DummySecureWebSocketServer$WebServerSocketChannel$Accepter*>($new(DummySecureWebSocketServer$WebServerSocketChannel$$Lambda$lambda$of$0, ss)));
 	$var($AutoCloseable, var$0, static_cast<$AutoCloseable*>(ss));
 	$var($DummySecureWebSocketServer$WebServerSocketChannel$Accepter, var$1, a);

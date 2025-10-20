@@ -175,6 +175,7 @@ int32_t MacOSXSocketOptions::getTcpKeepAliveIntvl(int32_t fd) {
 }
 
 $UnixDomainPrincipal* MacOSXSocketOptions::getSoPeerCred(int32_t fd) {
+	$useLocalCurrentObjectStackCache();
 	int64_t l = getSoPeerCred0(fd);
 	int32_t uid = (int32_t)(l >> 32);
 	int32_t gid = (int32_t)l;
