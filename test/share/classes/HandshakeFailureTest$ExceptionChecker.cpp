@@ -2,18 +2,7 @@
 
 #include <HandshakeFailureTest$ExpectedExceptionType.h>
 #include <HandshakeFailureTest.h>
-#include <java/io/PrintStream.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 #undef WSAECONNABORTED
@@ -80,7 +69,6 @@ void HandshakeFailureTest$ExceptionChecker::check($Throwable* expected) {
 void HandshakeFailureTest$ExceptionChecker::check(int32_t max) {
 	$useLocalCurrentObjectStackCache();
 	if (this->count > max) {
-		$init($System);
 		$nc($System::out)->println($$str({"WSAECONNABORTED received too many times: "_s, $$str(this->count)}));
 		$nc(this->aborted)->printStackTrace($System::out);
 		$throwNew($AssertionError, $$str({"WSAECONNABORTED received too many times: "_s, $$str(this->count)}), this->aborted);

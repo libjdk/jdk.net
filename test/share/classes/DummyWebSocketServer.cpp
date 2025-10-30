@@ -3,39 +3,20 @@
 #include <DummyWebSocketServer$Credentials.h>
 #include <java/io/Closeable.h>
 #include <java/io/IOException.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
 #include <java/io/UncheckedIOException.h>
 #include <java/lang/AbstractStringBuilder.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
 #include <java/lang/AutoCloseable.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/InternalError.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/SocketAddress.h>
@@ -488,21 +469,21 @@ void DummyWebSocketServer::serve($SocketChannel* channel) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			reader->join();
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			reader->interrupt();
 			{
-				$var($Throwable, var$1, nullptr);
+				$var($Throwable, var$2, nullptr);
 				try {
 					writer->join();
-				} catch ($Throwable&) {
-					$assign(var$1, $catch());
+				} catch ($Throwable& var$3) {
+					$assign(var$2, var$3);
 				} /*finally*/ {
 					writer->interrupt();
 				}
-				if (var$1 != nullptr) {
-					$throw(var$1);
+				if (var$2 != nullptr) {
+					$throw(var$2);
 				}
 			}
 		}
@@ -527,7 +508,6 @@ void DummyWebSocketServer::setReceiveBufferSize(int32_t bufsize) {
 
 void DummyWebSocketServer::open() {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::err)->println("Starting"_s);
 	if (!$nc(this->started)->compareAndSet(false, true)) {
 		$throwNew($IllegalStateException, "Already started"_s);
@@ -541,16 +521,14 @@ void DummyWebSocketServer::open() {
 			try {
 				$init($StandardSocketOptions);
 				$nc(this->ssc)->setOption($StandardSocketOptions::SO_RCVBUF, $($Integer::valueOf(bufsize)));
-			} catch ($IOException&) {
-				$var($IOException, x, $catch());
+			} catch ($IOException& x) {
 				$nc($System::err)->printf("Failed to configure receive buffer size to %d%n"_s, $$new($ObjectArray, {$($of($Integer::valueOf(bufsize)))}));
 			}
 		}
 		$nc(this->ssc)->bind($$new($InetSocketAddress, $($InetAddress::getLoopbackAddress()), 0));
 		$set(this, address, $cast($InetSocketAddress, $nc(this->ssc)->getLocalAddress()));
 		$nc(this->thread)->start();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		close($$new($AutoCloseableArray, {static_cast<$AutoCloseable*>(static_cast<$Closeable*>(static_cast<$Channel*>(static_cast<$InterruptibleChannel*>(static_cast<$AbstractInterruptibleChannel*>(static_cast<$SelectableChannel*>(static_cast<$AbstractSelectableChannel*>(this->ssc)))))))}));
 		$throw(e);
 	}
@@ -559,7 +537,6 @@ void DummyWebSocketServer::open() {
 
 void DummyWebSocketServer::close() {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::err)->println($$str({"Stopping: "_s, $(getURI())}));
 	$nc(this->thread)->interrupt();
 	close($$new($AutoCloseableArray, {static_cast<$AutoCloseable*>(static_cast<$Closeable*>(static_cast<$Channel*>(static_cast<$InterruptibleChannel*>(static_cast<$AbstractInterruptibleChannel*>(static_cast<$SelectableChannel*>(static_cast<$AbstractSelectableChannel*>(this->ssc)))))))}));
@@ -582,8 +559,7 @@ bool DummyWebSocketServer::readRequest($SocketChannel* channel, $StringBuilder* 
 		try {
 			$init($StandardCharsets);
 			$assign(decoded, $nc($($nc($StandardCharsets::ISO_8859_1)->newDecoder()))->decode(buffer));
-		} catch ($CharacterCodingException&) {
-			$var($CharacterCodingException, e, $catch());
+		} catch ($CharacterCodingException& e) {
 			$throwNew($UncheckedIOException, e);
 		}
 		$nc(request)->append(static_cast<$CharSequence*>(decoded));
@@ -602,8 +578,7 @@ void DummyWebSocketServer::writeResponse($SocketChannel* channel, $List* respons
 	try {
 		$init($StandardCharsets);
 		$assign(encoded, $nc($($nc($StandardCharsets::ISO_8859_1)->newEncoder()))->encode($($CharBuffer::wrap(static_cast<$CharSequence*>(s)))));
-	} catch ($CharacterCodingException&) {
-		$var($CharacterCodingException, e, $catch());
+	} catch ($CharacterCodingException& e) {
 		$throwNew($UncheckedIOException, e);
 	}
 	while ($nc(encoded)->hasRemaining()) {
@@ -679,8 +654,7 @@ void DummyWebSocketServer::close($AutoCloseableArray* acs) {
 			{
 				try {
 					$nc(ac)->close();
-				} catch ($Exception&) {
-					$catch();
+				} catch ($Exception& ignored) {
 				}
 			}
 		}
@@ -731,8 +705,7 @@ $List* DummyWebSocketServer::lambda$defaultMapping$4($List* request, $DummyWebSo
 	$var($MessageDigest, sha1, nullptr);
 	try {
 		$assign(sha1, $MessageDigest::getInstance("SHA-1"_s));
-	} catch ($NoSuchAlgorithmException&) {
-		$var($NoSuchAlgorithmException, e, $catch());
+	} catch ($NoSuchAlgorithmException& e) {
 		$throwNew($InternalError, static_cast<$Throwable*>(e));
 	}
 	$var($String, x, $str({$cast($String, $($nc(key)->get(0))), "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"_s}));
@@ -757,16 +730,14 @@ $List* DummyWebSocketServer::lambda$defaultMapping$3($String* k) {
 void DummyWebSocketServer::lambda$serve$2($SocketChannel* channel) {
 	try {
 		write(channel);
-	} catch ($IOException&) {
-		$catch();
+	} catch ($IOException& ignored) {
 	}
 }
 
 void DummyWebSocketServer::lambda$serve$1($SocketChannel* channel) {
 	try {
 		read(channel);
-	} catch ($IOException&) {
-		$catch();
+	} catch ($IOException& ignored) {
 	}
 }
 
@@ -777,7 +748,6 @@ void DummyWebSocketServer::lambda$new$0($BiFunction* mapping, $DummyWebSocketSer
 		try {
 			try {
 				while (!$($Thread::currentThread())->isInterrupted()) {
-					$init($System);
 					$nc($System::err)->println($$str({"Accepting next connection at: "_s, this->ssc}));
 					$var($SocketChannel, channel, $nc(this->ssc)->accept());
 					$nc($System::err)->println($$str({"Accepted: "_s, channel}));
@@ -804,12 +774,11 @@ void DummyWebSocketServer::lambda$new$0($BiFunction* mapping, $DummyWebSocketSer
 										break;
 									}
 								}
-							} catch ($IOException&) {
-								$var($IOException, e, $catch());
+							} catch ($IOException& e) {
 								$nc($System::err)->println($$str({"Error in connection: "_s, channel, ", "_s, e}));
 							}
-						} catch ($Throwable&) {
-							$assign(var$1, $catch());
+						} catch ($Throwable& var$2) {
+							$assign(var$1, var$2);
 						} /*finally*/ {
 							$nc($System::err)->println($$str({"Closed: "_s, channel}));
 							closeChannel(channel);
@@ -820,18 +789,14 @@ void DummyWebSocketServer::lambda$new$0($BiFunction* mapping, $DummyWebSocketSer
 						}
 					}
 				}
-			} catch ($ClosedByInterruptException&) {
-				$catch();
-			} catch ($Exception&) {
-				$var($Exception, e, $catch());
-				$init($System);
+			} catch ($ClosedByInterruptException& ignored) {
+			} catch ($Exception& e) {
 				e->printStackTrace($System::err);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			close($$new($AutoCloseableArray, {static_cast<$AutoCloseable*>(static_cast<$Closeable*>(static_cast<$Channel*>(static_cast<$InterruptibleChannel*>(static_cast<$AbstractInterruptibleChannel*>(static_cast<$SelectableChannel*>(static_cast<$AbstractSelectableChannel*>(this->ssc)))))))}));
-			$init($System);
 			$nc($System::err)->println($$str({"Stopped at: "_s, $(getURI())}));
 		}
 		if (var$0 != nullptr) {

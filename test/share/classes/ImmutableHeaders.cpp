@@ -4,20 +4,7 @@
 #include <com/sun/net/httpserver/HttpContext.h>
 #include <com/sun/net/httpserver/HttpHandler.h>
 #include <com/sun/net/httpserver/HttpServer.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/UnsupportedOperationException.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/URI.h>
@@ -113,7 +100,6 @@ void ImmutableHeaders::main($StringArray* args) {
 	$var($ExecutorService, clientExecutor, $Executors::newCachedThreadPool());
 	$nc(server)->createContext("/test"_s, $$new($ImmutableHeaders$ImmutableHeadersHandler));
 	int32_t port = $nc($(server->getAddress()))->getPort();
-	$init($System);
 	$nc($System::out)->println($$str({"Server port = "_s, $$str(port)}));
 	server->setExecutor(serverExecutor);
 	server->start();
@@ -137,8 +123,7 @@ void ImmutableHeaders::main($StringArray* args) {
 				}
 				$nc(v)->add("XX"_s);
 				$throwNew($RuntimeException, "Test failed"_s);
-			} catch ($UnsupportedOperationException&) {
-				$catch();
+			} catch ($UnsupportedOperationException& ex) {
 			}
 			$var($HttpResponse, resp, $nc(client)->send(req, $($HttpResponse$BodyHandlers::discarding())));
 			try {
@@ -149,11 +134,10 @@ void ImmutableHeaders::main($StringArray* args) {
 				}
 				$nc(v)->add("XX"_s);
 				$throwNew($RuntimeException, "Test failed"_s);
-			} catch ($UnsupportedOperationException&) {
-				$catch();
+			} catch ($UnsupportedOperationException& ex) {
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(clientExecutor)->shutdownNow();
 			$nc(serverExecutor)->shutdownNow();

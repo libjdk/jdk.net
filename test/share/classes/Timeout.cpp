@@ -3,29 +3,13 @@
 #include <java/io/File.h>
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/ServerSocket.h>
@@ -218,20 +202,18 @@ void Timeout::test(bool async) {
 						$nc($System::out)->println($$str({uri, ": Trying to connect synchronously"_s}));
 						connect(uri);
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (ssocket != nullptr) {
 						try {
 							ssocket->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				if (ssocket != nullptr) {
 					ssocket->close();
@@ -252,12 +234,9 @@ void Timeout::connect($String* server) {
 		$var($HttpClient, client, $nc($($nc($($HttpClient::newBuilder()))->version($HttpClient$Version::HTTP_2)))->build());
 		$var($HttpRequest, request, $nc($($nc($($nc($($HttpRequest::newBuilder($$new($URI, server))))->timeout($($Duration::ofMillis(Timeout::TIMEOUT)))))->POST($($HttpRequest$BodyPublishers::ofString("body"_s)))))->build());
 		$var($HttpResponse, response, $nc(client)->send(request, $($HttpResponse$BodyHandlers::ofString())));
-		$init($System);
 		$nc($System::out)->println($$str({"Received unexpected reply: "_s, $$str($nc(response)->statusCode())}));
 		$throwNew($RuntimeException, "unexpected successful connection"_s);
-	} catch ($HttpTimeoutException&) {
-		$var($HttpTimeoutException, e, $catch());
-		$init($System);
+	} catch ($HttpTimeoutException& e) {
 		$nc($System::out)->println($$str({"expected exception: "_s, e}));
 	}
 }
@@ -270,13 +249,10 @@ void Timeout::connectAsync($String* server) {
 		$var($HttpClient, client, $nc($($nc($($HttpClient::newBuilder()))->version($HttpClient$Version::HTTP_2)))->build());
 		$var($HttpRequest, request, $nc($($nc($($nc($($HttpRequest::newBuilder($$new($URI, server))))->timeout($($Duration::ofMillis(Timeout::TIMEOUT)))))->POST($($HttpRequest$BodyPublishers::ofString("body"_s)))))->build());
 		$var($HttpResponse, response, $cast($HttpResponse, $nc($($nc(client)->sendAsync(request, $($HttpResponse$BodyHandlers::ofString()))))->join()));
-		$init($System);
 		$nc($System::out)->println($$str({"Received unexpected reply: "_s, $$str($nc(response)->statusCode())}));
 		$throwNew($RuntimeException, "unexpected successful connection"_s);
-	} catch ($CompletionException&) {
-		$var($CompletionException, e, $catch());
+	} catch ($CompletionException& e) {
 		if ($instanceOf($HttpTimeoutException, $(e->getCause()))) {
-			$init($System);
 			$nc($System::out)->println($$str({"expected exception: "_s, $(e->getCause())}));
 		} else {
 			$throwNew($RuntimeException, $$str({"Unexpected exception received: "_s, $(e->getCause())}), e);
@@ -288,7 +264,6 @@ void Timeout::lambda$test$0($SSLServerSocket* ssocket) {
 	$init(Timeout);
 	$useLocalCurrentObjectStackCache();
 	while (true) {
-		$init($System);
 		$nc($System::out)->println("server: ready"_s);
 		$var($SSLParameters, params, $nc(ssocket)->getSSLParameters());
 		$nc(params)->setApplicationProtocols($$new($StringArray, {"h2"_s}));
@@ -304,20 +279,18 @@ void Timeout::lambda$test$0($SSLServerSocket* ssocket) {
 						while (true) {
 							$nc($($nc(socket)->getInputStream()))->read();
 						}
-					} catch ($Throwable&) {
-						$var($Throwable, t$, $catch());
+					} catch ($Throwable& t$) {
 						if (socket != nullptr) {
 							try {
 								socket->close();
-							} catch ($Throwable&) {
-								$var($Throwable, x2, $catch());
+							} catch ($Throwable& x2) {
 								t$->addSuppressed(x2);
 							}
 						}
 						$throw(t$);
 					}
-				} catch ($Throwable&) {
-					$assign(var$0, $catch());
+				} catch ($Throwable& var$1) {
+					$assign(var$0, var$1);
 				} /*finally*/ {
 					if (socket != nullptr) {
 						socket->close();
@@ -327,8 +300,7 @@ void Timeout::lambda$test$0($SSLServerSocket* ssocket) {
 					$throw(var$0);
 				}
 			}
-		} catch ($IOException&) {
-			$var($IOException, e, $catch());
+		} catch ($IOException& e) {
 			$nc($System::out)->println($$str({"server: exception: "_s, e}));
 		}
 	}

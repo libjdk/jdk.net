@@ -1,31 +1,15 @@
 #include <TimeoutOrdering.h>
 
 #include <java/io/IOException.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/InterruptedException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/ServerSocket.h>
@@ -233,7 +217,6 @@ void TimeoutOrdering::main($StringArray* args) {
 					int32_t port = ss->getLocalPort();
 					$var($URI, uri, $new($URI, $$str({"http://localhost:"_s, $$str(port), "/"_s})));
 					$var($HttpRequestArray, requests, $new($HttpRequestArray, $nc(TimeoutOrdering::TIMEOUTS)->length));
-					$init($System);
 					$nc($System::out)->println("--- TESTING Async"_s);
 					for (int32_t i = 0; i < $nc(TimeoutOrdering::TIMEOUTS)->length; ++i) {
 						requests->set(i, $($nc($($nc($($nc($($HttpRequest::newBuilder(uri)))->timeout($($Duration::ofSeconds($nc(TimeoutOrdering::TIMEOUTS)->get(i))))))->GET()))->build()));
@@ -260,18 +243,16 @@ void TimeoutOrdering::main($StringArray* args) {
 					if (TimeoutOrdering::error) {
 						$throwNew($RuntimeException, "Failed. Check output"_s);
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					try {
 						ss->close();
-					} catch ($Throwable&) {
-						$var($Throwable, x2, $catch());
+					} catch ($Throwable& x2) {
 						t$->addSuppressed(x2);
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				ss->close();
 			}
@@ -287,7 +268,6 @@ void TimeoutOrdering::checkReturnOrder($HttpRequestArray* requests) {
 	$useLocalCurrentObjectStackCache();
 	for (int32_t j = 0; j < $nc(TimeoutOrdering::TIMEOUTS)->length; ++j) {
 		$var($HttpRequest, req, $cast($HttpRequest, $nc(TimeoutOrdering::queue)->take()));
-		$init($System);
 		$var($String, var$0, $$str({"Got request from queue "_s, req, ", order: "_s}));
 		$nc($System::out)->println($$concat(var$0, $(getRequest(req, requests))));
 		switch (j) {
@@ -327,7 +307,6 @@ void TimeoutOrdering::checkReturnOrder($HttpRequestArray* requests) {
 			}
 		}
 	}
-	$init($System);
 	$nc($System::out)->println("Return order ok"_s);
 }
 
@@ -350,30 +329,23 @@ void TimeoutOrdering::lambda$main$1($HttpClient* client, $HttpRequest* req, int3
 		try {
 			try {
 				$var($HttpResponse, r, $nc(client)->send(req, $($HttpResponse$BodyHandlers::replacing(nullptr))));
-				$init($System);
 				$nc($System::out)->println($$str({"Unexpected response for r"_s, $$str(j), ": "_s, r}));
 				TimeoutOrdering::error = true;
-			} catch ($HttpTimeoutException&) {
-				$var($HttpTimeoutException, e, $catch());
-				$init($System);
+			} catch ($HttpTimeoutException& e) {
 				$nc($System::out)->println($$str({"Caught expected timeout for r"_s, $$str(j), ": "_s, e}));
-			} catch ($IOException&) {
-				$var($Exception, ee, $catch());
+			} catch ($IOException& ee) {
 				$var($Throwable, c, ee->getCause() == nullptr ? static_cast<$Throwable*>(ee) : ee->getCause());
-				$init($System);
 				$nc($System::out)->println($$str({"Wrong exception type for r"_s, $$str(j), ": "_s, $($nc(c)->toString())}));
 				$nc(c)->printStackTrace();
 				TimeoutOrdering::error = true;
-			} catch ($InterruptedException&) {
-				$var($Exception, ee, $catch());
+			} catch ($InterruptedException& ee) {
 				$var($Throwable, c, ee->getCause() == nullptr ? static_cast<$Throwable*>(ee) : ee->getCause());
-				$init($System);
 				$nc($System::out)->println($$str({"Wrong exception type for r"_s, $$str(j), ": "_s, $($nc(c)->toString())}));
 				$nc(c)->printStackTrace();
 				TimeoutOrdering::error = true;
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(TimeoutOrdering::queue)->offer(req);
 		}
@@ -387,19 +359,16 @@ void TimeoutOrdering::lambda$main$0(int32_t j, $HttpRequest* req, $HttpResponse*
 	$init(TimeoutOrdering);
 	$useLocalCurrentObjectStackCache();
 	if (r != nullptr) {
-		$init($System);
 		$nc($System::out)->println($$str({"Unexpected response for r"_s, $$str(j), ": "_s, r}));
 		TimeoutOrdering::error = true;
 	}
 	if (t != nullptr) {
 		if (!($instanceOf($HttpTimeoutException, $(t->getCause())))) {
-			$init($System);
 			$nc($System::out)->println($$str({"Wrong exception type for r"_s, $$str(j), ": "_s, $(t->toString())}));
 			$var($Throwable, c, t->getCause() == nullptr ? t : t->getCause());
 			$nc(c)->printStackTrace();
 			TimeoutOrdering::error = true;
 		} else {
-			$init($System);
 			$nc($System::out)->println($$str({"Caught expected timeout for r"_s, $$str(j), ": "_s, $(t->getCause())}));
 		}
 	}

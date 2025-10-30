@@ -1,17 +1,6 @@
 #include <jdk/internal/net/http/AbstractRandomTest.h>
 
-#include <java/io/PrintStream.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/NumberFormatException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/Random.h>
 #include <jcpp.h>
 
@@ -66,8 +55,7 @@ $Long* AbstractRandomTest::getSystemSeed() {
 	$var($Long, seed, nullptr);
 	try {
 		$assign(seed, $Long::valueOf($($System::getProperty("seed"_s))));
-	} catch ($NumberFormatException&) {
-		$catch();
+	} catch ($NumberFormatException& e) {
 	}
 	return seed;
 }
@@ -79,7 +67,6 @@ int64_t AbstractRandomTest::getSeed() {
 	if (seed == nullptr) {
 		$assign(seed, $Long::valueOf(($$new($Random))->nextLong()));
 	}
-	$init($System);
 	$nc($System::out)->println($$str({"Seed from AbstractRandomTest.getSeed = "_s, seed, "L"_s}));
 	return $nc(seed)->longValue();
 }

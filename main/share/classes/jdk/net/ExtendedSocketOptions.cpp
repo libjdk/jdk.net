@@ -1,16 +1,6 @@
 #include <jdk/net/ExtendedSocketOptions.h>
 
 #include <java/io/FileDescriptor.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/SocketOption.h>
 #include <java/util/AbstractSet.h>
 #include <java/util/Collection.h>
@@ -116,17 +106,11 @@ $Object* allocate$ExtendedSocketOptions($Class* clazz) {
 	return $of($alloc(ExtendedSocketOptions));
 }
 
-
 $SocketOption* ExtendedSocketOptions::TCP_QUICKACK = nullptr;
-
 $SocketOption* ExtendedSocketOptions::TCP_KEEPIDLE = nullptr;
-
 $SocketOption* ExtendedSocketOptions::TCP_KEEPINTERVAL = nullptr;
-
 $SocketOption* ExtendedSocketOptions::TCP_KEEPCOUNT = nullptr;
-
 $SocketOption* ExtendedSocketOptions::SO_INCOMING_NAPI_ID = nullptr;
-
 $SocketOption* ExtendedSocketOptions::SO_PEERCRED = nullptr;
 $ExtendedSocketOptions$PlatformSocketOptions* ExtendedSocketOptions::platformSocketOptions = nullptr;
 bool ExtendedSocketOptions::quickAckSupported = false;

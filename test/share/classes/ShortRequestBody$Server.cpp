@@ -4,22 +4,8 @@
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/UncheckedIOException.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/ServerSocket.h>
@@ -142,7 +128,6 @@ void ShortRequestBody$Server::run() {
 	int32_t count = 0;
 	int32_t offset = 0;
 	while (!this->closed) {
-		$init($System);
 		$nc($System::err)->println("Server: waiting for connection"_s);
 		try {
 			$var($Socket, s, $nc(this->ss)->accept());
@@ -160,8 +145,7 @@ void ShortRequestBody$Server::run() {
 								continue$1 = true;
 								goto $finally;
 							}
-						} catch ($SocketException&) {
-							$var($SocketException, ex, $catch());
+						} catch ($SocketException& ex) {
 							$nc($System::err)->println($$str({"Ignoring unexpected exception while reading headers: "_s, ex}));
 							ex->printStackTrace($System::err);
 						}
@@ -177,8 +161,8 @@ void ShortRequestBody$Server::run() {
 							try {
 								read = $nc(is)->readNBytes(ba, 0, length);
 								$nc($System::err)->println($$str({"Server: actually read "_s, $$str(read), " bytes"_s}));
-							} catch ($Throwable&) {
-								$assign(var$2, $catch());
+							} catch ($Throwable& var$3) {
+								$assign(var$2, var$3);
 							} /*finally*/ {
 								++count;
 								if (count % 6 == 0) {
@@ -203,20 +187,18 @@ void ShortRequestBody$Server::run() {
 							$nc($System::err)->println($$str({"Server: writing "_s, $$str($($nc(ShortRequestBody$Server::RESPONSE)->getBytes($StandardCharsets::US_ASCII))->length), " bytes"_s}));
 							$nc(os)->write($($nc(ShortRequestBody$Server::RESPONSE)->getBytes($StandardCharsets::US_ASCII)));
 						}
-					} catch ($Throwable&) {
-						$var($Throwable, t$, $catch());
+					} catch ($Throwable& t$) {
 						if (s != nullptr) {
 							try {
 								s->close();
-							} catch ($Throwable&) {
-								$var($Throwable, x2, $catch());
+							} catch ($Throwable& x2) {
 								t$->addSuppressed(x2);
 							}
 						}
 						$throw(t$);
 					}
-				} catch ($Throwable&) {
-					$assign(var$0, $catch());
+				} catch ($Throwable& var$4) {
+					$assign(var$0, var$4);
 				} $finally: {
 					if (s != nullptr) {
 						s->close();
@@ -229,8 +211,7 @@ void ShortRequestBody$Server::run() {
 					continue;
 				}
 			}
-		} catch ($Throwable&) {
-			$var($Throwable, e, $catch());
+		} catch ($Throwable& e) {
 			if (!this->closed) {
 				$nc($System::err)->println($$str({"Unexpected: "_s, e}));
 				e->printStackTrace();
@@ -246,8 +227,7 @@ void ShortRequestBody$Server::close() {
 	this->closed = true;
 	try {
 		$nc(this->ss)->close();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($UncheckedIOException, "Unexpected"_s, e);
 	}
 }

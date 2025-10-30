@@ -2,20 +2,8 @@
 
 #include <MockServer$Connection.h>
 #include <java/io/IOException.h>
-#include <java/io/PrintStream.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/InterruptedException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/ServerSocket.h>
@@ -145,7 +133,6 @@ $MockServer$Connection* MockServer::activity() {
 					if ($nc(c)->poll()) {
 						if (this->root != nullptr) {
 							if (!$nc(c->statusLine)->contains(this->root)) {
-								$init($System);
 								$nc($System::out)->println($$str({"Bad statusLine: "_s, c->statusLine, " closing connection"_s}));
 								c->close();
 								continue;
@@ -158,8 +145,7 @@ $MockServer$Connection* MockServer::activity() {
 		}
 		try {
 			$Thread::sleep(250);
-		} catch ($InterruptedException&) {
-			$var($InterruptedException, e, $catch());
+		} catch ($InterruptedException& e) {
 			e->printStackTrace();
 		}
 	}
@@ -172,7 +158,6 @@ void MockServer::doRemovalsAndAdditions() {
 		$var($Iterator, i, $nc(this->removals)->iterator());
 		while ($nc(i)->hasNext()) {
 			$var($MockServer$Connection, c, $cast($MockServer$Connection, i->next()));
-			$init($System);
 			$nc($System::out)->println($$str({"socket removed: "_s, c}));
 			$nc(this->sockets)->remove($of(c));
 		}
@@ -182,7 +167,6 @@ void MockServer::doRemovalsAndAdditions() {
 		$var($Iterator, i, $nc(this->additions)->iterator());
 		while ($nc(i)->hasNext()) {
 			$var($MockServer$Connection, c, $cast($MockServer$Connection, i->next()));
-			$init($System);
 			$nc($System::out)->println($$str({"socket added: "_s, c}));
 			$nc(this->sockets)->add(c);
 		}
@@ -254,8 +238,7 @@ void MockServer::close() {
 	this->closed = true;
 	try {
 		$nc(this->ss)->close();
-	} catch ($Throwable&) {
-		$var($Throwable, e, $catch());
+	} catch ($Throwable& e) {
 		e->printStackTrace();
 	}
 	{
@@ -278,7 +261,6 @@ void MockServer::run() {
 			try {
 				while (!this->closed) {
 					try {
-						$init($System);
 						$nc($System::out)->println("Server waiting for connection"_s);
 						$var($Socket, s, $nc(this->ss)->accept());
 						$var($MockServer$Connection, c, $new($MockServer$Connection, this, s));
@@ -287,29 +269,23 @@ void MockServer::run() {
 						$synchronized(this->additions) {
 							$nc(this->additions)->add(c);
 						}
-					} catch ($IOException&) {
-						$var($IOException, e, $catch());
+					} catch ($IOException& e) {
 						if (this->closed) {
 							return;
 						}
-						$init($System);
 						e->printStackTrace($System::out);
 					}
 				}
-			} catch ($Throwable&) {
-				$var($Throwable, t, $catch());
-				$init($System);
+			} catch ($Throwable& t) {
 				$nc($System::out)->println($$str({"Unexpected exception in accept loop: "_s, t}));
 				t->printStackTrace($System::out);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$2) {
+			$assign(var$0, var$2);
 		} /*finally*/ {
 			if (this->closed) {
-				$init($System);
 				$nc($System::out)->println("Server closed: exiting accept loop"_s);
 			} else {
-				$init($System);
 				$nc($System::out)->println("Server not closed: exiting accept loop and closing"_s);
 				close();
 			}

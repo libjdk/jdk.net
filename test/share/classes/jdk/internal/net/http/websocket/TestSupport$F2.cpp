@@ -1,13 +1,5 @@
 #include <jdk/internal/net/http/websocket/TestSupport$F2.h>
 
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jdk/internal/net/http/websocket/TestSupport.h>
 #include <jcpp.h>
 
@@ -22,11 +14,11 @@ namespace jdk {
 		namespace net {
 			namespace http {
 				namespace websocket {
+
 $CompoundAttribute _TestSupport$F2_Annotations_[] = {
 	{"Ljava/lang/FunctionalInterface;", nullptr},
 	{}
 };
-
 
 $MethodInfo _TestSupport$F2_MethodInfo_[] = {
 	{"apply", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", "(TA;TB;)TR;", $PUBLIC | $ABSTRACT},

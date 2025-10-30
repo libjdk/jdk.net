@@ -25,8 +25,10 @@ public:
 	void init$($String* message, $Throwable* cause);
 	static const int64_t serialVersionUID = (int64_t)1;
 	TestSupport$AssertionFailedException(const TestSupport$AssertionFailedException& e);
-	TestSupport$AssertionFailedException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline TestSupport$AssertionFailedException* operator ->() {
+		return (TestSupport$AssertionFailedException*)throwing$;
+	}
 };
 
 				} // websocket

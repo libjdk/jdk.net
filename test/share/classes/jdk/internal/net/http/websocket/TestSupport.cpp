@@ -1,29 +1,13 @@
 #include <jdk/internal/net/http/websocket/TestSupport.h>
 
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/Iterable.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/ByteBuffer.h>
 #include <java/util/AbstractList.h>
 #include <java/util/AbstractSequentialList.h>
@@ -584,15 +568,13 @@ $Throwable* TestSupport::assertThrows($Predicate* predicate, $TestSupport$Throwi
 	$var($Throwable, caught, nullptr);
 	try {
 		$nc(code)->run();
-	} catch ($Throwable&) {
-		$var($Throwable, t, $catch());
+	} catch ($Throwable& t) {
 		$assign(caught, t);
 	}
 	if (caught == nullptr) {
 		$throwNew($TestSupport$AssertionFailedException, "No exception was thrown"_s);
 	}
 	if ($nc(predicate)->test(caught)) {
-		$init($System);
 		$nc($System::out)->println($$str({"Got expected exception: "_s, caught}));
 		return caught;
 	}

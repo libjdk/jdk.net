@@ -8,29 +8,13 @@
 #include <MockListener$OnPing.h>
 #include <MockListener$OnPong.h>
 #include <MockListener$OnText.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/http/WebSocket.h>
 #include <java/nio/ByteBuffer.h>
 #include <java/util/AbstractList.h>
@@ -211,7 +195,6 @@ bool MockListener::closeOrError($MockListener$Invocation* i) {
 
 void MockListener::onOpen($WebSocket* webSocket) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->printf("onOpen(%s)%n"_s, $$new($ObjectArray, {$of(webSocket)}));
 	$var($MockListener$OnOpen, inv, $new($MockListener$OnOpen, webSocket));
 	$synchronized(this->invocations$) {
@@ -226,14 +209,12 @@ void MockListener::onOpen($WebSocket* webSocket) {
 void MockListener::onOpen0($WebSocket* webSocket) {
 	$useLocalCurrentObjectStackCache();
 	this->count = this->bufferSize - this->bufferSize / 2;
-	$init($System);
 	$nc($System::out)->printf("request(%d)%n"_s, $$new($ObjectArray, {$($of($Long::valueOf(this->bufferSize)))}));
 	$nc(webSocket)->request(this->bufferSize);
 }
 
 $CompletionStage* MockListener::onText($WebSocket* webSocket, $CharSequence* message, bool last) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->printf("onText(%s, message.length=%s, %s)%n"_s, $$new($ObjectArray, {
 		$of(webSocket),
 		$($of($Integer::valueOf($nc(message)->length()))),
@@ -256,7 +237,6 @@ $CompletionStage* MockListener::onText0($WebSocket* webSocket, $CharSequence* me
 
 $CompletionStage* MockListener::onBinary($WebSocket* webSocket, $ByteBuffer* message, bool last) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->printf("onBinary(%s, %s, %s)%n"_s, $$new($ObjectArray, {
 		$of(webSocket),
 		$of(message),
@@ -279,7 +259,6 @@ $CompletionStage* MockListener::onBinary0($WebSocket* webSocket, $ByteBuffer* me
 
 $CompletionStage* MockListener::onPing($WebSocket* webSocket, $ByteBuffer* message) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->printf("onPing(%s, %s)%n"_s, $$new($ObjectArray, {
 		$of(webSocket),
 		$of(message)
@@ -301,7 +280,6 @@ $CompletionStage* MockListener::onPing0($WebSocket* webSocket, $ByteBuffer* mess
 
 $CompletionStage* MockListener::onPong($WebSocket* webSocket, $ByteBuffer* message) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->printf("onPong(%s, %s)%n"_s, $$new($ObjectArray, {
 		$of(webSocket),
 		$of(message)
@@ -323,7 +301,6 @@ $CompletionStage* MockListener::onPong0($WebSocket* webSocket, $ByteBuffer* mess
 
 $CompletionStage* MockListener::onClose($WebSocket* webSocket, int32_t statusCode, $String* reason) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->printf("onClose(%s, %s, %s)%n"_s, $$new($ObjectArray, {
 		$of(webSocket),
 		$($of($Integer::valueOf(statusCode))),
@@ -345,7 +322,6 @@ $CompletionStage* MockListener::onClose0($WebSocket* webSocket, int32_t statusCo
 
 void MockListener::onError($WebSocket* webSocket, $Throwable* error) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->printf("onError(%s, %s)%n"_s, $$new($ObjectArray, {
 		$of(webSocket),
 		$of(error)
@@ -382,7 +358,6 @@ void MockListener::replenish($WebSocket* webSocket) {
 	if (--this->count <= 0) {
 		this->count = this->bufferSize - this->bufferSize / 2;
 		$nc(webSocket)->request(this->count);
-		$init($System);
 		$nc($System::out)->printf("request(%d)%n"_s, $$new($ObjectArray, {$($of($Long::valueOf(this->count)))}));
 	}
 }

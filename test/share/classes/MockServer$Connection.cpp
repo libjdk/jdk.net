@@ -4,23 +4,7 @@
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/InterruptedException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/ServerSocket.h>
 #include <java/net/Socket.h>
 #include <java/nio/charset/Charset.h>
@@ -147,7 +131,6 @@ void MockServer$Connection::run() {
 			int32_t i = 0;
 			while ((i = $nc(s)->indexOf(MockServer$Connection::CRLF)) != -1) {
 				$var($String, s1, s->substring(0, i + 2));
-				$init($System);
 				$nc($System::out)->println($$str({"Server got: "_s, $(s1->substring(0, i))}));
 				if (this->statusLine == nullptr) {
 					$set(this, statusLine, s1->substring(0, i));
@@ -160,15 +143,11 @@ void MockServer$Connection::run() {
 				$assign(s, s->substring(i + 2));
 			}
 		}
-	} catch ($IOException&) {
-		$var($Exception, e1, $catch());
+	} catch ($IOException& e1) {
 		cleanup();
-	} catch ($InterruptedException&) {
-		$var($Exception, e1, $catch());
+	} catch ($InterruptedException& e1) {
 		cleanup();
-	} catch ($Throwable&) {
-		$var($Throwable, t, $catch());
-		$init($System);
+	} catch ($Throwable& t) {
 		$nc($System::out)->println($$str({"Exception: "_s, t}));
 		t->printStackTrace();
 		cleanup();
@@ -220,12 +199,10 @@ void MockServer$Connection::send($String* r) {
 	try {
 		$init($StandardCharsets);
 		$nc(this->os)->write($($nc(r)->getBytes($StandardCharsets::ISO_8859_1)));
-	} catch ($IOException&) {
-		$var($IOException, x, $catch());
+	} catch ($IOException& x) {
 		$var($String, var$0, $$str({"MockServer["_s, $$str($nc(this->this$0->ss)->getLocalPort()), "] Failed while writing bytes: "_s}));
 		$var($IOException, suppressed, $new($IOException, $$concat(var$0, $(x->getMessage()))));
 		x->addSuppressed(suppressed);
-		$init($System);
 		$nc($System::err)->println($$str({"WARNING: "_s, suppressed}));
 		$throw(x);
 	}
@@ -250,8 +227,7 @@ $String* MockServer$Connection::nextInput(int64_t timeout, $TimeUnit* unit) {
 			} else {
 				$plusAssign(result, s);
 			}
-		} catch ($InterruptedException&) {
-			$var($InterruptedException, e, $catch());
+		} catch ($InterruptedException& e) {
 			return nullptr;
 		}
 	}
@@ -279,8 +255,7 @@ void MockServer$Connection::cleanup() {
 	}
 	try {
 		$nc(this->socket)->close();
-	} catch ($Throwable&) {
-		$catch();
+	} catch ($Throwable& e) {
 	}
 	$synchronized(this->this$0->removals) {
 		$nc(this->this$0->removals)->add(this);

@@ -1,17 +1,10 @@
 #include <org/reactivestreams/tck/flow/support/NonFatal.h>
 
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/InterruptedException.h>
 #include <java/lang/LinkageError.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/StackOverflowError.h>
-#include <java/lang/String.h>
 #include <java/lang/ThreadDeath.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/VirtualMachineError.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ClassInfo = ::java::lang::ClassInfo;

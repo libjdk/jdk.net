@@ -4,26 +4,12 @@
 #include <JavadocExamples$FromMappingSubscriber.h>
 #include <JavadocExamples$LineParserSubscriber.h>
 #include <JavadocExamples$PrintSubscriber.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/Authenticator.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/ProxySelector.h>
@@ -722,7 +708,6 @@ void JavadocExamples::fromHttpClientClasslevelDescription() {
 	$init($HttpClient$Redirect);
 	$var($HttpClient, client, $nc($($nc($($nc($($nc($($nc($($nc($($HttpClient::newBuilder()))->version($HttpClient$Version::HTTP_1_1)))->followRedirects($HttpClient$Redirect::NORMAL)))->connectTimeout($($Duration::ofSeconds(20)))))->proxy($($ProxySelector::of($$new($InetSocketAddress, "proxy.example.com"_s, 80))))))->authenticator($($Authenticator::getDefault()))))->build());
 	$var($HttpResponse, response, $nc(client)->send(this->request, $($HttpResponse$BodyHandlers::ofString())));
-	$init($System);
 	$nc($System::out)->println($nc(response)->statusCode());
 	$nc($System::out)->println($cast($String, $($nc(response)->body())));
 	$var($HttpRequest, request, $nc($($nc($($nc($($nc($($nc($($HttpRequest::newBuilder()))->uri($($URI::create("https://foo.com/"_s)))))->timeout($($Duration::ofMinutes(2)))))->header("Content-Type"_s, "application/json"_s)))->POST($($HttpRequest$BodyPublishers::ofFile($($Paths::get("file.json"_s, $$new($StringArray, 0))))))))->build());
@@ -733,7 +718,6 @@ void JavadocExamples::fromHttpRequest() {
 	$useLocalCurrentObjectStackCache();
 	$var($HttpClient, client, $HttpClient::newHttpClient());
 	$var($HttpRequest, request, $nc($($nc($($HttpRequest::newBuilder()))->uri($($URI::create("http://foo.com/"_s)))))->build());
-	$init($System);
 	$nc($($cast($CompletableFuture, $nc($($cast($CompletableFuture, $nc($($nc(client)->sendAsync(request, $($HttpResponse$BodyHandlers::ofString()))))->thenApply(static_cast<$Function*>($$new(JavadocExamples$$Lambda$body))))))->thenAccept(static_cast<$Consumer*>($$new(JavadocExamples$$Lambda$println$1, static_cast<$PrintStream*>($nc($System::out))))))))->join();
 	$var($HttpRequest, request1, $nc($($nc($($nc($($nc($($HttpRequest::newBuilder()))->uri($($URI::create("https://foo.com/"_s)))))->header("Content-Type"_s, "text/plain; charset=UTF-8"_s)))->POST($($HttpRequest$BodyPublishers::ofString("some body text"_s)))))->build());
 	$var($HttpRequest, request2, $nc($($nc($($nc($($nc($($HttpRequest::newBuilder()))->uri($($URI::create("https://foo.com/"_s)))))->header("Content-Type"_s, "application/json"_s)))->POST($($HttpRequest$BodyPublishers::ofFile($($Paths::get("file.json"_s, $$new($StringArray, 0))))))))->build());
@@ -747,7 +731,6 @@ void JavadocExamples::fromHttpResponse() {
 	$useLocalCurrentObjectStackCache();
 	$var($HttpResponse, response, $nc(this->client)->send(this->request, $($HttpResponse$BodyHandlers::ofString())));
 	$var($HttpRequest, request, $nc($($nc($($HttpRequest::newBuilder()))->uri($($URI::create("http://www.foo.com/"_s)))))->build());
-	$init($System);
 	$nc($($cast($CompletableFuture, $nc($($nc(this->client)->sendAsync(request, $($HttpResponse$BodyHandlers::ofFile($($Paths::get("/tmp/f"_s, $$new($StringArray, 0))))))))->thenApply(static_cast<$Function*>($$new(JavadocExamples$$Lambda$body))))))->thenAccept(static_cast<$Consumer*>($$new(JavadocExamples$$Lambda$println$5, static_cast<$PrintStream*>($nc($System::out)))));
 	$var($HttpRequest, request1, $nc($($nc($($HttpRequest::newBuilder()))->uri($($URI::create("http://www.foo.com/"_s)))))->build());
 	$var($HttpResponse$BodyHandler, bodyHandler, static_cast<$HttpResponse$BodyHandler*>($new(JavadocExamples$$Lambda$lambda$fromHttpResponse$3$6)));
@@ -766,7 +749,6 @@ void JavadocExamples::fromHttpResponse() {
 
 void JavadocExamples::fromLineSubscriber1() {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$var($JavadocExamples$PrintSubscriber, subscriber, $new($JavadocExamples$PrintSubscriber, $System::out));
 	$nc($($cast($CompletableFuture, $nc($($nc(this->client)->sendAsync(this->request, $($HttpResponse$BodyHandlers::fromLineSubscriber(subscriber)))))->thenApply(static_cast<$Function*>($$new(JavadocExamples$$Lambda$statusCode$12))))))->thenAccept(static_cast<$Consumer*>($$new(JavadocExamples$$Lambda$lambda$fromLineSubscriber1$9$13)));
 }
@@ -777,7 +759,6 @@ void JavadocExamples::fromLineSubscriber2() {
 	$var($JavadocExamples$LineParserSubscriber, subscriber, $new($JavadocExamples$LineParserSubscriber, pattern));
 	$var($HttpResponse, response, $nc(this->client)->send(this->request, $($HttpResponse$BodyHandlers::fromLineSubscriber(subscriber, static_cast<$Function*>($$new(JavadocExamples$$Lambda$lambda$fromLineSubscriber2$10$14)), "\n"_s))));
 	if ($nc(response)->statusCode() != 200) {
-		$init($System);
 		$nc($System::err)->printf("ERROR: %d status received%n"_s, $$new($ObjectArray, {$($of($Integer::valueOf(response->statusCode())))}));
 	}
 }
@@ -788,7 +769,6 @@ $List* JavadocExamples::lambda$fromLineSubscriber2$10($JavadocExamples$LineParse
 
 void JavadocExamples::lambda$fromLineSubscriber1$9($Integer* status) {
 	if ($nc(status)->intValue() != 200) {
-		$init($System);
 		$nc($System::err)->printf("ERROR: %d status received%n"_s, $$new($ObjectArray, {$of(status)}));
 	}
 }

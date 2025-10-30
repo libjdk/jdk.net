@@ -1,18 +1,7 @@
 #include <GetAuthenticatorTest.h>
 
 #include <GetAuthenticatorTest$MyAuthenticator.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
 #include <java/lang/SecurityManager.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/Authenticator.h>
 #include <java/net/NetPermission.h>
 #include <java/security/AccessControlException.h>
@@ -82,8 +71,7 @@ void GetAuthenticatorTest::main($StringArray* args) {
 	try {
 		$assign(defaultAuth, $Authenticator::getDefault());
 		$throwNew($RuntimeException, "Expected security exception not raised"_s);
-	} catch ($AccessControlException&) {
-		$var($AccessControlException, s, $catch());
+	} catch ($AccessControlException& s) {
 		$nc($System::out)->println($$str({"Got expected exception: "_s, s}));
 		if (!$nc($(s->getPermission()))->equals($$new($NetPermission, "requestPasswordAuthentication"_s))) {
 			$throwNew($RuntimeException, $$str({"Unexpected permission check: "_s, $(s->getPermission())}));

@@ -4,20 +4,6 @@
 #include <com/sun/net/httpserver/HttpContext.h>
 #include <com/sun/net/httpserver/HttpHandler.h>
 #include <com/sun/net/httpserver/HttpServer.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/URI.h>
@@ -124,8 +110,8 @@ void ZeroRedirects::main($StringArray* args) {
 		$var($Throwable, var$0, nullptr);
 		try {
 			test();
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			$nc(ZeroRedirects::s1)->stop(0);
 			$nc(ZeroRedirects::executor)->shutdownNow();
@@ -160,7 +146,6 @@ void ZeroRedirects::initServer() {
 	$nc(ZeroRedirects::s1)->start();
 	ZeroRedirects::port = $nc($($nc(ZeroRedirects::s1)->getAddress()))->getPort();
 	$assignStatic(ZeroRedirects::uri, $new($URI, $$str({"http://localhost:"_s, $$str(ZeroRedirects::port), "/foo"_s})));
-	$init($System);
 	$nc($System::out)->println($$str({"HTTP server port = "_s, $$str(ZeroRedirects::port)}));
 }
 

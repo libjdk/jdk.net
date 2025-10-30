@@ -1,16 +1,5 @@
 #include <jdk/net/Sockets.h>
 
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/CompoundAttribute.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NamedAttribute.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/DatagramSocket.h>
 #include <java/net/MulticastSocket.h>
 #include <java/net/ServerSocket.h>
@@ -82,6 +71,7 @@ $NamedAttribute Sockets_Attribute_var$0[] = {
 	{"since", 's', "16"},
 	{}
 };
+
 $CompoundAttribute _Sockets_Annotations_[] = {
 	{"Ljava/lang/Deprecated;", Sockets_Attribute_var$0},
 	{}
@@ -157,7 +147,6 @@ $CompoundAttribute _Sockets_MethodAnnotations_supportedOptions10[] = {
 	{"Ljava/lang/Deprecated;", Sockets_Attribute_var$7},
 	{}
 };
-
 
 $FieldInfo _Sockets_FieldInfo_[] = {
 	{"options", "Ljava/util/Map;", "Ljava/util/Map<Ljava/lang/Class<*>;Ljava/util/Set<Ljava/net/SocketOption<*>;>;>;", $PRIVATE | $STATIC | $FINAL, $staticField(Sockets, options)},

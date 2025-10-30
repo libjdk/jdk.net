@@ -1,14 +1,6 @@
 #include <Connect.h>
 
 #include <java/io/IOException.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/MalformedURLException.h>
 #include <java/net/URL.h>
 #include <java/net/URLConnection.h>
@@ -51,10 +43,8 @@ void Connect::main($StringArray* s) {
 		$var($URLConnection, urlConnection, url->openConnection());
 		$nc(urlConnection)->connect();
 		$throwNew($RuntimeException, "No FileNotFoundException thrown."_s);
-	} catch ($MalformedURLException&) {
-		$catch();
-	} catch ($IOException&) {
-		$catch();
+	} catch ($MalformedURLException& e) {
+	} catch ($IOException& e) {
 	}
 }
 

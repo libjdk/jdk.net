@@ -1,16 +1,6 @@
 #include <GetAuthenticatorTest$MyAuthenticator.h>
 
 #include <GetAuthenticatorTest.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/Authenticator.h>
 #include <java/net/PasswordAuthentication.h>
 #include <jcpp.h>
@@ -59,7 +49,6 @@ void GetAuthenticatorTest$MyAuthenticator::init$() {
 }
 
 $PasswordAuthentication* GetAuthenticatorTest$MyAuthenticator::getPasswordAuthentication() {
-	$init($System);
 	$nc($System::out)->println("Auth called"_s);
 	return ($new($PasswordAuthentication, "user"_s, $("passwordNotCheckedAnyway"_s->toCharArray())));
 }

@@ -8,20 +8,6 @@
 #include <com/sun/net/httpserver/HttpContext.h>
 #include <com/sun/net/httpserver/HttpHandler.h>
 #include <com/sun/net/httpserver/HttpServer.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/Authenticator.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
@@ -132,7 +118,6 @@ void BasicAuthTest::main($StringArray* args) {
 	$var($BasicAuthTest$Handler, h, $new($BasicAuthTest$Handler));
 	$var($HttpContext, serverContext, $nc(server)->createContext("/test"_s, h));
 	int32_t port = $nc($(server->getAddress()))->getPort();
-	$init($System);
 	$nc($System::out)->println($$str({"Server port = "_s, $$str(port)}));
 	$var($BasicAuthTest$ClientAuth, ca, $new($BasicAuthTest$ClientAuth));
 	$var($BasicAuthTest$ServerAuth, sa, $new($BasicAuthTest$ServerAuth, "foo realm"_s));
@@ -163,8 +148,8 @@ void BasicAuthTest::main($StringArray* args) {
 			if (!BasicAuthTest::ok || ca->count != 1) {
 				$throwNew($RuntimeException, "Test failed"_s);
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			server->stop(0);
 			$nc(e)->shutdownNow();

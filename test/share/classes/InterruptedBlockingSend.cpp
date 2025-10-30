@@ -1,30 +1,14 @@
 #include <InterruptedBlockingSend.h>
 
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/InterruptedException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/ServerSocket.h>
@@ -163,31 +147,26 @@ void InterruptedBlockingSend::main($StringArray* args) {
 					if (!($instanceOf($InterruptedException, InterruptedBlockingSend::throwable))) {
 						$throwNew($RuntimeException, $$str({"Expected InterruptedException, got "_s, InterruptedBlockingSend::throwable}));
 					} else {
-						$init($System);
 						$nc($System::out)->println($$str({"Caught expected InterruptedException: "_s, InterruptedBlockingSend::throwable}));
 					}
-					$init($System);
 					$nc($System::out)->println("Interrupting before send"_s);
 					try {
 						$($Thread::currentThread())->interrupt();
 						$nc(client)->send(request, $($HttpResponse$BodyHandlers::discarding()));
 						$throwNew($AssertionError, $of("Expected InterruptedException not thrown"_s));
-					} catch ($InterruptedException&) {
-						$var($InterruptedException, x, $catch());
+					} catch ($InterruptedException& x) {
 						$nc($System::out)->println($$str({"Got expected exception: "_s, x}));
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					try {
 						ss->close();
-					} catch ($Throwable&) {
-						$var($Throwable, x2, $catch());
+					} catch ($Throwable& x2) {
 						t$->addSuppressed(x2);
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				ss->close();
 			}
@@ -199,15 +178,12 @@ void InterruptedBlockingSend::main($StringArray* args) {
 }
 
 void InterruptedBlockingSend::lambda$main$0($HttpClient* client, $HttpRequest* request) {
-	$useLocalCurrentObjectStackCache();
 	try {
 		$nc(client)->send(request, $($HttpResponse$BodyHandlers::discarding()));
-	} catch ($InterruptedException&) {
-		$var($InterruptedException, e, $catch());
+	} catch ($InterruptedException& e) {
 		$init(InterruptedBlockingSend);
 		$assignStatic(InterruptedBlockingSend::throwable, e);
-	} catch ($Throwable&) {
-		$var($Throwable, th, $catch());
+	} catch ($Throwable& th) {
 		$init(InterruptedBlockingSend);
 		$assignStatic(InterruptedBlockingSend::throwable, th);
 	}

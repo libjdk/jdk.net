@@ -9,20 +9,6 @@
 #include <com/sun/net/httpserver/HttpHandler.h>
 #include <com/sun/net/httpserver/HttpServer.h>
 #include <java/io/IOException.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/Authenticator.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
@@ -152,7 +138,6 @@ void MultiAuthTest::main($StringArray* args) {
 	$var($MultiAuthTest$ServerAuth, sa, $new($MultiAuthTest$ServerAuth, "foo realm"_s));
 	$var($HttpServer, server, createServer(e, sa));
 	int32_t port = $nc($($nc(server)->getAddress()))->getPort();
-	$init($System);
 	$nc($System::out)->println($$str({"Server port = "_s, $$str(port)}));
 	$var($MultiAuthTest$ClientAuth, ca, $new($MultiAuthTest$ClientAuth));
 	$var($HttpClient, client1, $nc($($nc($($HttpClient::newBuilder()))->authenticator(ca)))->build());
@@ -198,7 +183,7 @@ void MultiAuthTest::main($StringArray* args) {
 			test(client1, ca, uri, count + 1, nullptr);
 			$nc($System::out)->println("Testing with client #2, Authenticator #1"_s);
 			test(client2, ca, uri, count + 2, nullptr);
-			$set(sa, passwd, ($assignField(ca, passwd, "changed#2"_s)));
+			$set(sa, passwd, ($set(ca, passwd, "changed#2"_s)));
 			$nc($System::out)->println("\nChanged password on both sides\n"_s);
 			$nc($System::out)->println("Testing with client #1, Authenticator #1"_s);
 			test(client1, ca, uri, count + 3, nullptr);
@@ -206,8 +191,8 @@ void MultiAuthTest::main($StringArray* args) {
 			test(client1, ca, uri, count + 3, nullptr);
 			$nc($System::out)->println("Testing with client #2, Authenticator #1"_s);
 			test(client2, ca, uri, count + 4, nullptr);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			server->stop(0);
 			$nc(e)->shutdownNow();
@@ -235,11 +220,9 @@ void MultiAuthTest::test($HttpClient* client, $MultiAuthTest$ClientAuth* ca, $UR
 		if (expectFailure != nullptr) {
 			$throwNew($RuntimeException, $$str({"Expected "_s, $(expectFailure->getName()), " not raised"_s}));
 		}
-	} catch ($IOException&) {
-		$var($IOException, io, $catch());
+	} catch ($IOException& io) {
 		if (expectFailure != nullptr) {
 			if (expectFailure->isInstance(io)) {
-				$init($System);
 				$nc($System::out)->println($$str({"Got expected exception: "_s, io}));
 				return;
 			}

@@ -26,8 +26,10 @@ public:
 	void init$($String* message, $Throwable* cause);
 	void init$($Throwable* cause);
 	SubscriberBufferOverflowException(const SubscriberBufferOverflowException& e);
-	SubscriberBufferOverflowException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline SubscriberBufferOverflowException* operator ->() {
+		return (SubscriberBufferOverflowException*)throwing$;
+	}
 };
 
 				} // support

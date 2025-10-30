@@ -3,16 +3,6 @@
 #include <ZeroRedirects.h>
 #include <com/sun/net/httpserver/HttpExchange.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $ZeroRedirects = ::ZeroRedirects;
@@ -63,7 +53,6 @@ void ZeroRedirects$Handler::handle($HttpExchange* t) {
 		$useLocalCurrentObjectStackCache();
 		$var($String, reply, "Hello world"_s);
 		int32_t len = reply->length();
-		$init($System);
 		$nc($System::out)->printf("Sending response 200\n"_s, $$new($ObjectArray, 0));
 		$nc(t)->sendResponseHeaders(200, len);
 		$var($OutputStream, o, t->getResponseBody());

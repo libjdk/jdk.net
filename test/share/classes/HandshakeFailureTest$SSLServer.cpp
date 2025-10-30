@@ -4,22 +4,8 @@
 #include <HandshakeFailureTest.h>
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/ServerSocket.h>
 #include <java/net/Socket.h>
 #include <java/security/SecureRandom.h>
@@ -100,13 +86,11 @@ $ServerSocketFactory* HandshakeFailureTest$SSLServer::factory = nullptr;
 
 $SSLContext* HandshakeFailureTest$SSLServer::createUntrustingContext() {
 	$init(HandshakeFailureTest$SSLServer);
-	$useLocalCurrentObjectStackCache();
 	try {
 		$var($SSLContext, sslContext, $SSLContext::getInstance("TLS"_s));
 		$nc(sslContext)->init(nullptr, nullptr, nullptr);
 		return sslContext;
-	} catch ($Throwable&) {
-		$var($Throwable, t, $catch());
+	} catch ($Throwable& t) {
 		$throwNew($AssertionError, $of(t));
 	}
 	$shouldNotReachHere();
@@ -127,20 +111,18 @@ void HandshakeFailureTest$SSLServer::run() {
 					try {
 						$nc($($nc(s)->getInputStream()))->read();
 						$throwNew($AssertionError, $of("Should not reach here"_s));
-					} catch ($Throwable&) {
-						$var($Throwable, t$, $catch());
+					} catch ($Throwable& t$) {
 						if (s != nullptr) {
 							try {
 								s->close();
-							} catch ($Throwable&) {
-								$var($Throwable, x2, $catch());
+							} catch ($Throwable& x2) {
 								t$->addSuppressed(x2);
 							}
 						}
 						$throw(t$);
 					}
-				} catch ($Throwable&) {
-					$assign(var$0, $catch());
+				} catch ($Throwable& var$1) {
+					$assign(var$0, var$1);
 				} /*finally*/ {
 					if (s != nullptr) {
 						s->close();
@@ -150,30 +132,22 @@ void HandshakeFailureTest$SSLServer::run() {
 					$throw(var$0);
 				}
 			}
-		} catch ($SSLHandshakeException&) {
-			$var($SSLHandshakeException, expected, $catch());
-			$init($System);
+		} catch ($SSLHandshakeException& expected) {
 			$nc($System::out)->printf("SSLServer: caught expected exception: %s%n"_s, $$new($ObjectArray, {$of(expected)}));
-		} catch ($IOException&) {
-			$var($IOException, e, $catch());
+		} catch ($IOException& e) {
 			if (!this->closed) {
-				$init($System);
 				$nc($System::out)->println($$str({"SSLServer: unexpected "_s, e}));
 				e->printStackTrace($System::out);
 			}
-		} catch ($Error&) {
-			$var($Throwable, e, $catch());
+		} catch ($Error& e) {
 			if (!this->closed) {
-				$init($System);
 				$nc($System::out)->println($$str({"SSLServer: unexpected "_s, e}));
 				e->printStackTrace($System::out);
 				$throwNew($RuntimeException, e);
 			}
 			break;
-		} catch ($RuntimeException&) {
-			$var($Throwable, e, $catch());
+		} catch ($RuntimeException& e) {
 			if (!this->closed) {
-				$init($System);
 				$nc($System::out)->println($$str({"SSLServer: unexpected "_s, e}));
 				e->printStackTrace($System::out);
 				$throwNew($RuntimeException, e);

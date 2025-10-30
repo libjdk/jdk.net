@@ -3,20 +3,7 @@
 #include <java/io/File.h>
 #include <java/io/FileInputStream.h>
 #include <java/io/InputStream.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
 #include <java/lang/SecurityException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/security/GeneralSecurityException.h>
 #include <java/security/KeyManagementException.h>
 #include <java/security/KeyStore.h>
@@ -111,18 +98,16 @@ void SimpleSSLContext::init$() {
 								// break;
 								break$1 = true;
 								goto $finally;
-							} catch ($Throwable&) {
-								$var($Throwable, t$, $catch());
+							} catch ($Throwable& t$) {
 								try {
 									fis->close();
-								} catch ($Throwable&) {
-									$var($Throwable, x2, $catch());
+								} catch ($Throwable& x2) {
 									t$->addSuppressed(x2);
 								}
 								$throw(t$);
 							}
-						} catch ($Throwable&) {
-							$assign(var$0, $catch());
+						} catch ($Throwable& var$2) {
+							$assign(var$0, var$2);
 						} $finally: {
 							fis->close();
 						}
@@ -135,8 +120,7 @@ void SimpleSSLContext::init$() {
 					}
 				}
 			}
-		} catch ($SecurityException&) {
-			$var($SecurityException, e, $catch());
+		} catch ($SecurityException& e) {
 			securityExceptions = true;
 		}
 	}
@@ -160,20 +144,15 @@ $SSLContext* SimpleSSLContext::init($InputStream* i) {
 		$var($KeyManagerArray, var$0, kmf->getKeyManagers());
 		$nc(ssl)->init(var$0, $(tmf->getTrustManagers()), nullptr);
 		return ssl;
-	} catch ($KeyManagementException&) {
-		$var($GeneralSecurityException, e, $catch());
+	} catch ($KeyManagementException& e) {
 		$throwNew($RuntimeException, $(e->getMessage()));
-	} catch ($KeyStoreException&) {
-		$var($GeneralSecurityException, e, $catch());
+	} catch ($KeyStoreException& e) {
 		$throwNew($RuntimeException, $(e->getMessage()));
-	} catch ($UnrecoverableKeyException&) {
-		$var($GeneralSecurityException, e, $catch());
+	} catch ($UnrecoverableKeyException& e) {
 		$throwNew($RuntimeException, $(e->getMessage()));
-	} catch ($CertificateException&) {
-		$var($GeneralSecurityException, e, $catch());
+	} catch ($CertificateException& e) {
 		$throwNew($RuntimeException, $(e->getMessage()));
-	} catch ($NoSuchAlgorithmException&) {
-		$var($GeneralSecurityException, e, $catch());
+	} catch ($NoSuchAlgorithmException& e) {
 		$throwNew($RuntimeException, $(e->getMessage()));
 	}
 	$shouldNotReachHere();

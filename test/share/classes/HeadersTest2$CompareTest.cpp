@@ -1,17 +1,6 @@
 #include <HeadersTest2$CompareTest.h>
 
 #include <HeadersTest2.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/http/HttpHeaders.h>
 #include <java/net/http/HttpRequest$Builder.h>
@@ -88,13 +77,11 @@ void HeadersTest2$CompareTest::run() {
 	$var($HttpHeaders, h2, $nc(r2)->headers());
 	bool equal = $nc(h1)->equals(h2);
 	if (equal && !this->succeed) {
-		$init($System);
 		$nc($System::err)->println("Expected failure"_s);
 		print(this->nameValues1);
 		print(this->nameValues2);
 		$throwNew($RuntimeException);
 	} else if (!equal && this->succeed) {
-		$init($System);
 		$nc($System::err)->println("Expected success"_s);
 		print(this->nameValues1);
 		print(this->nameValues2);
@@ -110,7 +97,6 @@ void HeadersTest2$CompareTest::run() {
 
 void HeadersTest2$CompareTest::print($List* list) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::err)->print("{"_s);
 	{
 		$var($Iterator, i$, $nc(list)->iterator());

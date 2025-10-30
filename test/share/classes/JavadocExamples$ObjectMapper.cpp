@@ -2,19 +2,8 @@
 
 #include <JavadocExamples.h>
 #include <java/io/InputStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/lang/reflect/UndeclaredThrowableException.h>
 #include <jcpp.h>
 
@@ -77,14 +66,11 @@ $Object* JavadocExamples$ObjectMapper::map($bytes* bytes, $Class* targetType) {
 	try {
 		$load($bytes);
 		return $of($nc($($nc(targetType)->getConstructor($$new($ClassArray, {$getClass($bytes)}))))->newInstance($$new($ObjectArray, {$of(bytes)})));
-	} catch ($RuntimeException&) {
-		$var($Throwable, x, $catch());
+	} catch ($RuntimeException& x) {
 		$throw(x);
-	} catch ($Error&) {
-		$var($Throwable, x, $catch());
+	} catch ($Error& x) {
 		$throw(x);
-	} catch ($Exception&) {
-		$var($Exception, x, $catch());
+	} catch ($Exception& x) {
 		$throwNew($UndeclaredThrowableException, x);
 	}
 	$shouldNotReachHere();

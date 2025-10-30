@@ -1,22 +1,5 @@
 #include <TestHttpCookie.h>
 
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/Integer.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/HttpCookie.h>
 #include <java/util/List.h>
 #include <jcpp.h>
@@ -102,15 +85,13 @@ TestHttpCookie* TestHttpCookie::test($String* cookieHeader) {
 }
 
 void TestHttpCookie::init$($String* cHeader) {
-	$useLocalCurrentObjectStackCache();
 	$set(this, cHeader, nullptr);
 	$set(this, cookies, nullptr);
 	$set(this, cHeader, cHeader);
 	try {
 		$var($List, cookies, $HttpCookie::parse(cHeader));
 		$set(this, cookies, cookies);
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, ignored, $catch());
+	} catch ($IllegalArgumentException& ignored) {
 		$set(this, cookies, nullptr);
 	}
 }
@@ -326,8 +307,7 @@ void TestHttpCookie::rfc2965() {
 	$nc($(test(""_s)))->nil();
 	try {
 		test(nullptr);
-	} catch ($NullPointerException&) {
-		$catch();
+	} catch ($NullPointerException& ignored) {
 	}
 	$nc($($nc($($nc($($nc($($nc($($nc($($nc($($nc($(test("Set-Cookie2:Customer=\"dtftest\"; Discard; Secure; Domain=\".sun.com\"; Max-Age=\"100\"; Version=\"1\";  path=\"/www\"; Port=\"80\""_s)))->n("Customer"_s)))->v("dtftest"_s)))->ver(1)))->d(".sun.com"_s)))->p("/www"_s)))->port("80"_s)))->dsc(true)))->a(100);
 	$nc($($nc($($nc($($nc($($nc($($nc($($nc($($nc($(test("Set-Cookie2:Customer=\"dtftest\"; Discard; Secure; Domain=\".sun.com\"; Max-Age=\"100\"; Version=\"1\";  path=\"/www\"; Port=\"80\";Domain=\".java.sun.com\"; Max-Age=\"200\"; path=\"/javadoc\"; Port=\"8080\""_s)))->n("Customer"_s)))->v("dtftest"_s)))->ver(1)))->d(".sun.com"_s)))->p("/www"_s)))->port("80"_s)))->dsc(true)))->a(100);
@@ -377,8 +357,7 @@ void TestHttpCookie::misc() {
 	++TestHttpCookie::testCount;
 	try {
 		$assign(c1, $new($HttpCookie, ""_s, "whatever"_s));
-	} catch ($IllegalArgumentException&) {
-		$catch();
+	} catch ($IllegalArgumentException& ignored) {
 	}
 	$nc($(test("set-cookie: CUSTOMER=WILE_E_COYOTE;HttpOnly"_s)))->httpOnly(true);
 	$nc($(test("set-cookie: CUSTOMER=WILE_E_COYOTE"_s)))->httpOnly(false);
@@ -387,7 +366,6 @@ void TestHttpCookie::misc() {
 
 void TestHttpCookie::header($String* prompt) {
 	$init(TestHttpCookie);
-	$init($System);
 	$nc($System::out)->println($$str({"== "_s, prompt, " =="_s}));
 }
 
@@ -395,7 +373,6 @@ void TestHttpCookie::main($StringArray* args) {
 	$init(TestHttpCookie);
 	$useLocalCurrentObjectStackCache();
 	runTests();
-	$init($System);
 	$nc($System::out)->println($$str({"Succeeded in running "_s, $$str(TestHttpCookie::testCount), " tests."_s}));
 }
 

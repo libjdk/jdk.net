@@ -1,19 +1,6 @@
 #include <MethodsTest.h>
 
 #include <MethodsTest$1.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/ProxySelector.h>
 #include <java/net/URI.h>
 #include <java/net/http/HttpClient$Builder.h>
@@ -104,18 +91,14 @@ void MethodsTest::bad($String* name) {
 	try {
 		$nc(builder)->method(name, $($HttpRequest$BodyPublishers::noBody()));
 		$throwNew($RuntimeException, $$str({"Expected IAE for method:"_s, name}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, expected, $catch());
-		$init($System);
+	} catch ($IllegalArgumentException& expected) {
 		$nc($System::out)->println($$str({"Got expected IAE: "_s, expected}));
 	}
 	try {
 		$var($HttpRequest, req, $new($MethodsTest$1, name));
 		$nc(MethodsTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 		$throwNew($RuntimeException, $$str({"Expected IAE for method:"_s, name}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, expected, $catch());
-		$init($System);
+	} catch ($IllegalArgumentException& expected) {
 		$nc($System::out)->println($$str({"Got expected IAE: "_s, expected}));
 	}
 }
@@ -126,8 +109,7 @@ void MethodsTest::good($String* name) {
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(MethodsTest::TEST_URI));
 	try {
 		$nc(builder)->method(name, $($HttpRequest$BodyPublishers::noBody()));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, e, $catch());
+	} catch ($IllegalArgumentException& e) {
 		$throwNew($RuntimeException, $$str({"Unexpected IAE for header:"_s, name}));
 	}
 }

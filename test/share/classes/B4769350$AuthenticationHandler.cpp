@@ -4,16 +4,6 @@
 #include <com/sun/net/httpserver/Headers.h>
 #include <com/sun/net/httpserver/HttpExchange.h>
 #include <java/io/OutputStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <jcpp.h>
 
 using $B4769350 = ::B4769350;
@@ -86,20 +76,18 @@ void B4769350$AuthenticationHandler::okReply($HttpExchange* exchange) {
 			try {
 				try {
 					$nc(os)->write($(response->getBytes()));
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (os != nullptr) {
 						try {
 							os->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				if (os != nullptr) {
 					os->close();

@@ -6,20 +6,7 @@
 #include <com/sun/net/httpserver/HttpHandler.h>
 #include <com/sun/net/httpserver/HttpServer.h>
 #include <java/io/InputStream.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/HttpURLConnection.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
@@ -166,11 +153,10 @@ void PlainProxyConnectionTest::main($StringArray* args) {
 			$init($HttpClient$Version);
 			test(server, $HttpClient$Version::HTTP_1_1);
 			test(server, $HttpClient$Version::HTTP_2);
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			server->stop(0);
-			$init($System);
 			$nc($System::out)->println("Server stopped"_s);
 		}
 		if (var$0 != nullptr) {
@@ -183,7 +169,6 @@ void PlainProxyConnectionTest::performSanityTest($HttpServer* server, $URI* uri,
 	$init(PlainProxyConnectionTest);
 	$useLocalCurrentObjectStackCache();
 	$nc(PlainProxyConnectionTest::connections)->clear();
-	$init($System);
 	$nc($System::out)->println("Verifying communication with server"_s);
 	{
 		$init($Proxy);
@@ -198,20 +183,18 @@ void PlainProxyConnectionTest::performSanityTest($HttpServer* server, $URI* uri,
 					if (!$nc(PlainProxyConnectionTest::RESPONSE)->equals(resp)) {
 						$throwNew($AssertionError, $of("Unexpected response from server"_s));
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (is != nullptr) {
 						try {
 							is->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				if (is != nullptr) {
 					is->close();
@@ -230,18 +213,18 @@ void PlainProxyConnectionTest::performSanityTest($HttpServer* server, $URI* uri,
 		$throwNew($AssertionError, $of($$str({"Expected only one connection: "_s, PlainProxyConnectionTest::connections})));
 	}
 	{
-		$var($Throwable, var$1, nullptr);
+		$var($Throwable, var$2, nullptr);
 		try {
 			$nc($System::out)->println("Pretending the server is a proxy..."_s);
 			$init($Proxy$Type);
-			$var($String, var$2, $nc($($nc($($nc(server)->getAddress()))->getAddress()))->getHostAddress());
-			$var($Proxy, p, $new($Proxy, $Proxy$Type::HTTP, $($InetSocketAddress::createUnresolved(var$2, $nc($(server->getAddress()))->getPort()))));
+			$var($String, var$3, $nc($($nc($($nc(server)->getAddress()))->getAddress()))->getHostAddress());
+			$var($Proxy, p, $new($Proxy, $Proxy$Type::HTTP, $($InetSocketAddress::createUnresolved(var$3, $nc($(server->getAddress()))->getPort()))));
 			$nc($System::out)->println("Verifying communication with proxy"_s);
 			$var($HttpURLConnection, conn, $cast($HttpURLConnection, $nc($($nc(proxiedURI)->toURL()))->openConnection(p)));
 			{
 				$var($InputStream, is, $nc(conn)->getInputStream());
 				{
-					$var($Throwable, var$3, nullptr);
+					$var($Throwable, var$4, nullptr);
 					try {
 						try {
 							$init($StandardCharsets);
@@ -250,27 +233,25 @@ void PlainProxyConnectionTest::performSanityTest($HttpServer* server, $URI* uri,
 							if (!$nc(PlainProxyConnectionTest::RESPONSE)->equals(resp)) {
 								$throwNew($AssertionError, $of("Unexpected response from proxy"_s));
 							}
-						} catch ($Throwable&) {
-							$var($Throwable, t$, $catch());
+						} catch ($Throwable& t$) {
 							if (is != nullptr) {
 								try {
 									is->close();
-								} catch ($Throwable&) {
-									$var($Throwable, x2, $catch());
+								} catch ($Throwable& x2) {
 									t$->addSuppressed(x2);
 								}
 							}
 							$throw(t$);
 						}
-					} catch ($Throwable&) {
-						$assign(var$3, $catch());
+					} catch ($Throwable& var$5) {
+						$assign(var$4, var$5);
 					} /*finally*/ {
 						if (is != nullptr) {
 							is->close();
 						}
 					}
-					if (var$3 != nullptr) {
-						$throw(var$3);
+					if (var$4 != nullptr) {
+						$throw(var$4);
 					}
 				}
 			}
@@ -281,13 +262,13 @@ void PlainProxyConnectionTest::performSanityTest($HttpServer* server, $URI* uri,
 				$throwNew($AssertionError, $of($$str({"Expected two connection: "_s, PlainProxyConnectionTest::connections})));
 			}
 			$nc($System::out)->println("Communication with proxy OK"_s);
-		} catch ($Throwable&) {
-			$assign(var$1, $catch());
+		} catch ($Throwable& var$6) {
+			$assign(var$2, var$6);
 		} /*finally*/ {
 			$nc(PlainProxyConnectionTest::connections)->clear();
 		}
-		if (var$1 != nullptr) {
-			$throw(var$1);
+		if (var$2 != nullptr) {
+			$throw(var$2);
 		}
 	}
 }
@@ -296,7 +277,6 @@ void PlainProxyConnectionTest::test($HttpServer* server, $HttpClient$Version* ve
 	$init(PlainProxyConnectionTest);
 	$useLocalCurrentObjectStackCache();
 	$nc(PlainProxyConnectionTest::connections)->clear();
-	$init($System);
 	$nc($System::out)->println($$str({"\n===== Testing with "_s, version}));
 	$nc($System::out)->println($$str({"Server is: "_s, $($nc($($nc(server)->getAddress()))->toString())}));
 	$var($String, var$0, "http"_s);
@@ -359,8 +339,8 @@ void PlainProxyConnectionTest::test($HttpServer* server, $HttpClient$Version* ve
 			} else {
 				$nc($System::out)->println($$str({"PASSED: Proxy received only one connection from: "_s, remote}));
 			}
-		} catch ($Throwable&) {
-			$assign(var$2, $catch());
+		} catch ($Throwable& var$4) {
+			$assign(var$2, var$4);
 		} /*finally*/ {
 			$nc(PlainProxyConnectionTest::connections)->clear();
 		}

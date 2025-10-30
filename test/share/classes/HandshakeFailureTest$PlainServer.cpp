@@ -5,24 +5,8 @@
 #include <java/io/DataInputStream.h>
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
 #include <java/lang/Error.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/InterruptedException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/ServerSocket.h>
 #include <java/net/Socket.h>
 #include <jcpp.h>
@@ -99,7 +83,6 @@ void HandshakeFailureTest$PlainServer::run() {
 						++this->count;
 						$var($DataInputStream, din, $new($DataInputStream, $($nc(s)->getInputStream())));
 						int32_t contentType = din->read();
-						$init($System);
 						$nc($System::out)->println($$str({"ContentType:"_s, $$str(contentType)}));
 						int32_t majorVersion = din->read();
 						$nc($System::out)->println($$str({"Major:"_s, $$str(majorVersion)}));
@@ -111,20 +94,18 @@ void HandshakeFailureTest$PlainServer::run() {
 						din->readFully(ba);
 						$Thread::sleep(10 * (this->count % 10));
 						$nc(s)->close();
-					} catch ($Throwable&) {
-						$var($Throwable, t$, $catch());
+					} catch ($Throwable& t$) {
 						if (s != nullptr) {
 							try {
 								s->close();
-							} catch ($Throwable&) {
-								$var($Throwable, x2, $catch());
+							} catch ($Throwable& x2) {
 								t$->addSuppressed(x2);
 							}
 						}
 						$throw(t$);
 					}
-				} catch ($Throwable&) {
-					$assign(var$0, $catch());
+				} catch ($Throwable& var$1) {
+					$assign(var$0, var$1);
 				} /*finally*/ {
 					if (s != nullptr) {
 						s->close();
@@ -134,35 +115,27 @@ void HandshakeFailureTest$PlainServer::run() {
 					$throw(var$0);
 				}
 			}
-		} catch ($IOException&) {
-			$var($IOException, e, $catch());
+		} catch ($IOException& e) {
 			if (!this->closed) {
-				$init($System);
 				$nc($System::out)->println($$str({"PlainServer: unexpected "_s, e}));
 				e->printStackTrace($System::out);
 			}
-		} catch ($InterruptedException&) {
-			$var($InterruptedException, e, $catch());
+		} catch ($InterruptedException& e) {
 			if (!this->closed) {
-				$init($System);
 				$nc($System::out)->println($$str({"PlainServer: unexpected "_s, e}));
 				e->printStackTrace($System::out);
 				$throwNew($RuntimeException, static_cast<$Throwable*>(e));
 			}
 			break;
-		} catch ($Error&) {
-			$var($Throwable, e, $catch());
+		} catch ($Error& e) {
 			if (!this->closed) {
-				$init($System);
 				$nc($System::out)->println($$str({"PlainServer: unexpected "_s, e}));
 				e->printStackTrace($System::out);
 				$throwNew($RuntimeException, e);
 			}
 			break;
-		} catch ($RuntimeException&) {
-			$var($Throwable, e, $catch());
+		} catch ($RuntimeException& e) {
 			if (!this->closed) {
-				$init($System);
 				$nc($System::out)->println($$str({"PlainServer: unexpected "_s, e}));
 				e->printStackTrace($System::out);
 				$throwNew($RuntimeException, e);

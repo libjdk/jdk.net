@@ -3,28 +3,13 @@
 #include <TestKit$ThrowingFunction.h>
 #include <TestKit$ThrowingProcedure.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/UnsupportedOperationException.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/util/AbstractMap$SimpleImmutableEntry.h>
 #include <java/util/AbstractMap.h>
 #include <java/util/Collection.h>
@@ -1764,8 +1749,7 @@ $Object* TestKit::assertNotThrows($TestKit$ThrowingFunction* code) {
 	$Objects::requireNonNull($of(code), "code"_s);
 	try {
 		return $of($nc(code)->run());
-	} catch ($Throwable&) {
-		$var($Throwable, t, $catch());
+	} catch ($Throwable& t) {
 		$throwNew($RuntimeException, $$str({"Expected to run normally, but threw "_s, $($of(t)->getClass()->getCanonicalName())}), t);
 	}
 	$shouldNotReachHere();
@@ -1777,8 +1761,7 @@ $Throwable* TestKit::assertThrows($Class* clazz, $TestKit$ThrowingProcedure* cod
 	$Objects::requireNonNull($of(code), "code"_s);
 	try {
 		$nc(code)->run();
-	} catch ($Throwable&) {
-		$var($Throwable, t, $catch());
+	} catch ($Throwable& t) {
 		if ($nc(clazz)->isInstance(t)) {
 			return $cast($Throwable, clazz->cast(t));
 		}

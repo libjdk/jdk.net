@@ -5,23 +5,9 @@
 #include <java/io/InputStream.h>
 #include <java/io/InputStreamReader.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Reader.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/ProxySelector.h>
@@ -160,7 +146,6 @@ void Http1ChunkedTest::test($String* name, $String* headers, $List* body, int64_
 					$init($HttpClient$Builder);
 					$var($HttpClient, client, $nc($($nc($($HttpClient::newBuilder()))->proxy($HttpClient$Builder::NO_PROXY)))->build());
 					$var($HttpRequest, request, $nc($($nc($($HttpRequest::newBuilder(uri)))->GET()))->build());
-					$init($System);
 					$nc($System::out)->printf("%s: %s%n"_s, $$new($ObjectArray, {
 						$of(name),
 						$of(uri)
@@ -220,20 +205,18 @@ void Http1ChunkedTest::test($String* name, $String* headers, $List* body, int64_
 										}
 										validate($cast($String, $($nc(resp)->body())));
 										$nc($System::out)->printf("%n%s: body validated%n%n"_s, $$new($ObjectArray, {$of(name)}));
-									} catch ($Throwable&) {
-										$var($Throwable, t$, $catch());
+									} catch ($Throwable& t$) {
 										if (serverConn != nullptr) {
 											try {
 												serverConn->close();
-											} catch ($Throwable&) {
-												$var($Throwable, x2, $catch());
+											} catch ($Throwable& x2) {
 												t$->addSuppressed(x2);
 											}
 										}
 										$throw(t$);
 									}
-								} catch ($Throwable&) {
-									$assign(var$3, $catch());
+								} catch ($Throwable& var$5) {
+									$assign(var$3, var$5);
 								} $finally1: {
 									if (serverConn != nullptr) {
 										serverConn->close();
@@ -248,18 +231,16 @@ void Http1ChunkedTest::test($String* name, $String* headers, $List* body, int64_
 							}
 						}
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					try {
 						server->close();
-					} catch ($Throwable&) {
-						$var($Throwable, x2, $catch());
+					} catch ($Throwable& x2) {
 						t$->addSuppressed(x2);
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$6) {
+				$assign(var$0, var$6);
 			} /*finally*/ {
 				server->close();
 			}

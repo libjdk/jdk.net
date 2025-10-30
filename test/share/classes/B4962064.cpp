@@ -9,23 +9,7 @@
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/PrintWriter.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/Authenticator.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
@@ -135,18 +119,16 @@ void B4962064::handle($HttpExchange* req) {
 						try {
 							try {
 								pw->print("Hello ."_s);
-							} catch ($Throwable&) {
-								$var($Throwable, t$, $catch());
+							} catch ($Throwable& t$) {
 								try {
 									pw->close();
-								} catch ($Throwable&) {
-									$var($Throwable, x2, $catch());
+								} catch ($Throwable& x2) {
 									t$->addSuppressed(x2);
 								}
 								$throw(t$);
 							}
-						} catch ($Throwable&) {
-							$assign(var$0, $catch());
+						} catch ($Throwable& var$1) {
+							$assign(var$0, var$1);
 						} /*finally*/ {
 							pw->close();
 						}
@@ -166,8 +148,7 @@ void B4962064::handle($HttpExchange* req) {
 			}
 		}
 		++B4962064::count;
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		e->printStackTrace();
 	}
 }
@@ -175,7 +156,6 @@ void B4962064::handle($HttpExchange* req) {
 void B4962064::read($InputStream* is) {
 	$init(B4962064);
 	int32_t c = 0;
-	$init($System);
 	$nc($System::out)->println("reading"_s);
 	while ((c = $nc(is)->read()) != -1) {
 		$nc($System::out)->write(c);
@@ -188,7 +168,6 @@ void B4962064::client($String* u) {
 	$init(B4962064);
 	$useLocalCurrentObjectStackCache();
 	$var($URL, url, $new($URL, u));
-	$init($System);
 	$nc($System::out)->println($$str({"client opening connection to: "_s, u}));
 	$var($URLConnection, urlc, url->openConnection());
 	$var($InputStream, is, $nc(urlc)->getInputStream());
@@ -203,7 +182,6 @@ void B4962064::main($StringArray* args) {
 	try {
 		$var($InetAddress, address, $InetAddress::getLoopbackAddress());
 		$var($InetAddress, resolved, $InetAddress::getByName($($nc(address)->getHostName())));
-		$init($System);
 		$var($String, var$2, $$str({"Lookup: "_s, address, " -> \""_s}));
 		$var($String, var$1, $$concat(var$2, $($nc(address)->getHostName())));
 		$var($String, var$0, $$concat(var$1, "\" -> "));
@@ -225,8 +203,7 @@ void B4962064::main($StringArray* args) {
 		$assign(s, $new($String, "http://bar.com/dr/d3/foo.html"_s));
 		$assignStatic(B4962064::urlsave, $new($URL, s));
 		client(s);
-	} catch ($Exception&) {
-		$var($Exception, e, $catch());
+	} catch ($Exception& e) {
 		if (B4962064::server != nullptr) {
 			$nc(B4962064::server)->stop(1);
 		}

@@ -3,28 +3,14 @@
 #include <HttpInputStreamTest$HttpInputStreamHandler.h>
 #include <java/io/InputStream.h>
 #include <java/io/InputStreamReader.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Reader.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/http/HttpClient.h>
 #include <java/net/http/HttpHeaders.h>
@@ -309,7 +295,6 @@ void HttpInputStreamTest::main($StringArray* args) {
 	$var($HttpRequest, request, $nc($($nc($($HttpRequest::newBuilder($$new($URI, "http://hg.openjdk.java.net/jdk9/sandbox/jdk/shortlog/http-client-branch/"_s))))->GET()))->build());
 	$var($CompletableFuture, handle, $nc(client)->sendAsync(request, $$new($HttpInputStreamTest$HttpInputStreamHandler, 3)));
 	if (HttpInputStreamTest::DEBUG) {
-		$init($System);
 		$nc($System::err)->println("Request sent"_s);
 	}
 	$var($HttpResponse, pending, $cast($HttpResponse, $nc(handle)->get()));
@@ -330,11 +315,9 @@ void HttpInputStreamTest::main($StringArray* args) {
 								int32_t off = 0;
 								int32_t n = 0;
 								if (HttpInputStreamTest::DEBUG) {
-									$init($System);
 									$nc($System::err)->println("Start receiving response body"_s);
 								}
 								if (HttpInputStreamTest::DEBUG) {
-									$init($System);
 									$nc($System::err)->println($$str({"Charset: "_s, $($nc(charset)->get())}));
 								}
 								while ((n = r->read(buff, off, buff->length - off)) > 0) {
@@ -345,7 +328,6 @@ void HttpInputStreamTest::main($StringArray* args) {
 										$throwNew($AssertionError);
 									}
 									if (n == (buff->length - off)) {
-										$init($System);
 										$nc($System::out)->print(buff);
 										off = 0;
 									} else {
@@ -359,23 +341,19 @@ void HttpInputStreamTest::main($StringArray* args) {
 									$throwNew($AssertionError);
 								}
 								for (int32_t i = 0; i < off; ++i) {
-									$init($System);
 									$nc($System::out)->print(buff->get(i));
 								}
-								$init($System);
 								$nc($System::out)->println("Done!"_s);
-							} catch ($Throwable&) {
-								$var($Throwable, t$, $catch());
+							} catch ($Throwable& t$) {
 								try {
 									r->close();
-								} catch ($Throwable&) {
-									$var($Throwable, x2, $catch());
+								} catch ($Throwable& x2) {
 									t$->addSuppressed(x2);
 								}
 								$throw(t$);
 							}
-						} catch ($Throwable&) {
-							$assign(var$1, $catch());
+						} catch ($Throwable& var$2) {
+							$assign(var$1, var$2);
 						} /*finally*/ {
 							r->close();
 						}
@@ -383,20 +361,18 @@ void HttpInputStreamTest::main($StringArray* args) {
 							$throw(var$1);
 						}
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (is != nullptr) {
 						try {
 							is->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$3) {
+				$assign(var$0, var$3);
 			} /*finally*/ {
 				if (is != nullptr) {
 					is->close();

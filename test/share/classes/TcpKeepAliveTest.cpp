@@ -1,17 +1,5 @@
 #include <TcpKeepAliveTest.h>
 
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/DatagramSocket.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
@@ -157,18 +145,16 @@ void TcpKeepAliveTest::main($StringArray* args) {
 														if ($nc($(mc->supportedOptions()))->contains($ExtendedSocketOptions::TCP_KEEPINTERVAL)) {
 															$throwNew($RuntimeException, "Test failed, TCP_KEEPINTERVAL is applicable for TCP Sockets only"_s);
 														}
-													} catch ($Throwable&) {
-														$var($Throwable, t$, $catch());
+													} catch ($Throwable& t$) {
 														try {
 															mc->close();
-														} catch ($Throwable&) {
-															$var($Throwable, x2, $catch());
+														} catch ($Throwable& x2) {
 															t$->addSuppressed(x2);
 														}
 														$throw(t$);
 													}
-												} catch ($Throwable&) {
-													$assign(var$3, $catch());
+												} catch ($Throwable& var$4) {
+													$assign(var$3, var$4);
 												} /*finally*/ {
 													mc->close();
 												}
@@ -176,18 +162,16 @@ void TcpKeepAliveTest::main($StringArray* args) {
 													$throw(var$3);
 												}
 											}
-										} catch ($Throwable&) {
-											$var($Throwable, t$, $catch());
+										} catch ($Throwable& t$) {
 											try {
 												ds->close();
-											} catch ($Throwable&) {
-												$var($Throwable, x2, $catch());
+											} catch ($Throwable& x2) {
 												t$->addSuppressed(x2);
 											}
 											$throw(t$);
 										}
-									} catch ($Throwable&) {
-										$assign(var$2, $catch());
+									} catch ($Throwable& var$5) {
+										$assign(var$2, var$5);
 									} /*finally*/ {
 										ds->close();
 									}
@@ -195,18 +179,16 @@ void TcpKeepAliveTest::main($StringArray* args) {
 										$throw(var$2);
 									}
 								}
-							} catch ($Throwable&) {
-								$var($Throwable, t$, $catch());
+							} catch ($Throwable& t$) {
 								try {
 									s->close();
-								} catch ($Throwable&) {
-									$var($Throwable, x2, $catch());
+								} catch ($Throwable& x2) {
 									t$->addSuppressed(x2);
 								}
 								$throw(t$);
 							}
-						} catch ($Throwable&) {
-							$assign(var$1, $catch());
+						} catch ($Throwable& var$6) {
+							$assign(var$1, var$6);
 						} /*finally*/ {
 							s->close();
 						}
@@ -214,20 +196,18 @@ void TcpKeepAliveTest::main($StringArray* args) {
 							$throw(var$1);
 						}
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					if (ss != nullptr) {
 						try {
 							ss->close();
-						} catch ($Throwable&) {
-							$var($Throwable, x2, $catch());
+						} catch ($Throwable& x2) {
 							t$->addSuppressed(x2);
 						}
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$7) {
+				$assign(var$0, var$7);
 			} /*finally*/ {
 				if (ss != nullptr) {
 					ss->close();

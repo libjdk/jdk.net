@@ -4,23 +4,10 @@
 #include <HttpInputStreamTest.h>
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
 #include <java/lang/InterruptedException.h>
 #include <java/lang/Math.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/ByteBuffer.h>
 #include <java/util/Iterator.h>
 #include <java/util/List.h>
@@ -172,13 +159,11 @@ $ByteBuffer* HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream:
 			if (this->currentListItr == nullptr || !$nc(this->currentListItr)->hasNext()) {
 				$init($HttpInputStreamTest);
 				if ($HttpInputStreamTest::DEBUG) {
-					$init($System);
 					$nc($System::err)->println("Taking list of Buffers"_s);
 				}
 				$var($List, lb, $cast($List, $nc(this->buffers)->take()));
 				$set(this, currentListItr, $nc(lb)->iterator());
 				if ($HttpInputStreamTest::DEBUG) {
-					$init($System);
 					$nc($System::err)->println("List of Buffers Taken"_s);
 				}
 				if (this->closed || this->failed != nullptr) {
@@ -202,12 +187,10 @@ $ByteBuffer* HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream:
 			}
 			$init($HttpInputStreamTest);
 			if ($HttpInputStreamTest::DEBUG) {
-				$init($System);
 				$nc($System::err)->println("Next Buffer"_s);
 			}
 			$set(this, currentBuffer, $cast($ByteBuffer, $nc(this->currentListItr)->next()));
-		} catch ($InterruptedException&) {
-			$catch();
+		} catch ($InterruptedException& ex) {
 		}
 	}
 	if (!HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream::$assertionsDisabled && !(this->currentBuffer == HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream::LAST_BUFFER || $nc(this->currentBuffer)->hasRemaining())) {
@@ -249,7 +232,6 @@ void HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream::onSubsc
 	}
 	$init($HttpInputStreamTest);
 	if ($HttpInputStreamTest::DEBUG) {
-		$init($System);
 		$nc($System::err)->println($$str({"onSubscribe: requesting "_s, $$str($Math::max(1, $nc(this->buffers)->remainingCapacity() - 1))}));
 	}
 	$nc(s)->request($Math::max(1, $nc(this->buffers)->remainingCapacity() - 1));
@@ -259,23 +241,19 @@ void HttpInputStreamTest$HttpInputStreamHandler$HttpResponseInputStream::onNext(
 	try {
 		$init($HttpInputStreamTest);
 		if ($HttpInputStreamTest::DEBUG) {
-			$init($System);
 			$nc($System::err)->println("next item received"_s);
 		}
 		if (!$nc(this->buffers)->offer(t)) {
 			$throwNew($IllegalStateException, "queue is full"_s);
 		}
 		if ($HttpInputStreamTest::DEBUG) {
-			$init($System);
 			$nc($System::err)->println("item offered"_s);
 		}
-	} catch ($Exception&) {
-		$var($Exception, ex, $catch());
+	} catch ($Exception& ex) {
 		$set(this, failed, ex);
 		try {
 			close();
-		} catch ($IOException&) {
-			$catch();
+		} catch ($IOException& ex1) {
 		}
 	}
 }

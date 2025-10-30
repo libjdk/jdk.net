@@ -3,28 +3,13 @@
 #include <ProxyServer$1.h>
 #include <ProxyServer$Connection.h>
 #include <ProxyServer$Credentials.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/SecurityManager.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/SocketAddress.h>
@@ -242,7 +227,6 @@ $InetSocketAddress* ProxyServer::getProxyAddress() {
 void ProxyServer::close() {
 	$useLocalCurrentObjectStackCache();
 	if (this->debug) {
-		$init($System);
 		$nc($System::out)->println("Proxy: closing server"_s);
 	}
 	this->done = true;
@@ -277,16 +261,13 @@ void ProxyServer::execute() {
 			++id;
 			$var($ProxyServer$Connection, c, $new($ProxyServer$Connection, this, s, id));
 			if (this->debug) {
-				$init($System);
 				$nc($System::out)->println($$str({"Proxy: accepted new connection: "_s, c}));
 			}
 			$nc(this->connections)->add(c);
 			c->init();
 		}
-	} catch ($Throwable&) {
-		$var($Throwable, e, $catch());
+	} catch ($Throwable& e) {
 		if (this->debug && !this->done) {
-			$init($System);
 			$nc($System::out)->println($$str({"Proxy: Fatal error, listener got "_s, e}));
 			e->printStackTrace();
 		}
@@ -298,7 +279,6 @@ void ProxyServer::main($StringArray* args) {
 	$useLocalCurrentObjectStackCache();
 	int32_t port = $Integer::parseInt($nc(args)->get(0));
 	bool debug = $nc(args)->length > 1 && $nc(args->get(1))->equals("-debug"_s);
-	$init($System);
 	$nc($System::out)->println($$str({"Debugging : "_s, $$str(debug)}));
 	$var($Integer, var$0, $Integer::valueOf(port));
 	$var(ProxyServer, ps, $new(ProxyServer, var$0, $($Boolean::valueOf(debug))));

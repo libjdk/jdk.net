@@ -1,17 +1,5 @@
 #include <RestrictedHeadersTest.h>
 
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/http/HttpRequest$Builder.h>
 #include <java/net/http/HttpRequest.h>
@@ -75,7 +63,6 @@ void RestrictedHeadersTest::main($StringArray* args) {
 void RestrictedHeadersTest::runDefaultTest() {
 	$init(RestrictedHeadersTest);
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->println("DEFAULT TEST: no property set"_s);
 	{
 		$var($Iterator, i$, $nc(RestrictedHeadersTest::defaultRestrictedHeaders)->iterator());
@@ -99,18 +86,15 @@ void RestrictedHeadersTest::checkHeader($String* name, $String* value, bool succ
 			$var($String, s, $str({name, "/"_s, value, " should have failed"_s}));
 			$throwNew($RuntimeException, s);
 		}
-		$init($System);
 		$nc($System::out)->printf("%s = %s succeeded as expected\n"_s, $$new($ObjectArray, {
 			$of(name),
 			$of(value)
 		}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, iae, $catch());
+	} catch ($IllegalArgumentException& iae) {
 		if (succeed) {
 			$var($String, s, $str({name, "/"_s, value, " should have succeeded"_s}));
 			$throwNew($RuntimeException, s);
 		}
-		$init($System);
 		$nc($System::out)->printf("%s = %s failed as expected\n"_s, $$new($ObjectArray, {
 			$of(name),
 			$of(value)
@@ -121,7 +105,6 @@ void RestrictedHeadersTest::checkHeader($String* name, $String* value, bool succ
 void RestrictedHeadersTest::runTest($Set* args) {
 	$init(RestrictedHeadersTest);
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->print("RUNTEST: allowed headers set in property: "_s);
 	{
 		$var($Iterator, i$, $nc(args)->iterator());

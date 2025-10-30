@@ -4,21 +4,6 @@
 #include <B4769350$MyAuthenticator.h>
 #include <B4769350$Server.h>
 #include <java/io/InputStream.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/Authenticator.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
@@ -136,7 +121,6 @@ void B4769350::read($InputStream* is) {
 void B4769350::doServerTests($String* authority, $B4769350$Server* server) {
 	$init(B4769350);
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->println("Doing Server tests"_s);
 	$nc($System::out)->println("T1"_s);
 	$assignStatic(B4769350::c1, $new($B4769350$Client, authority, "/test/realm1/t1a"_s, false));
@@ -181,7 +165,6 @@ void B4769350::doServerTests($String* authority, $B4769350$Server* server) {
 void B4769350::doProxyTests($String* authority, $B4769350$Server* server) {
 	$init(B4769350);
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->println("Doing Proxy tests"_s);
 	$assignStatic(B4769350::c7, $new($B4769350$Client, authority, "/test/realm4/t3a"_s, false));
 	$assignStatic(B4769350::c8, $new($B4769350$Client, authority, "/test/realm4/t3b"_s, false));
@@ -229,18 +212,16 @@ void B4769350::runTest(bool proxy) {
 						$ProxySelector::setDefault($($ProxySelector::of(nullptr)));
 						doServerTests($(authority(server->getPort())), server);
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					try {
 						server->close();
-					} catch ($Throwable&) {
-						$var($Throwable, x2, $catch());
+					} catch ($Throwable& x2) {
 						t$->addSuppressed(x2);
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				server->close();
 			}

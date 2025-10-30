@@ -1,30 +1,15 @@
 #include <HttpRequestBuilderTest.h>
 
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/http/HttpClient$Version.h>
 #include <java/net/http/HttpRequest$BodyPublisher.h>
@@ -1358,7 +1343,6 @@ void HttpRequestBuilderTest::method($String* name, $Supplier* supplier, $String*
 		$throwNew($AssertionError, $of($$str({"failed: "_s, name, ". Unexpected body processor for GET: "_s, $($nc($(request->bodyPublisher()))->get())})));
 	}
 	if ($nc(expectedMethod)->equals(method)) {
-		$init($System);
 		$nc($System::out)->println($$str({"success: "_s, name}));
 	} else {
 		$throwNew($AssertionError, $of($$str({"failed: "_s, name, ". Expected "_s, expectedMethod, ", got "_s, method})));
@@ -1371,18 +1355,15 @@ void HttpRequestBuilderTest::test0($String* name, $Runnable* r, $ClassArray* ex)
 	try {
 		$nc(r)->run();
 		if (!shouldFail(ex)) {
-			$init($System);
 			$nc($System::out)->println($$str({"success: "_s, name}));
 			return;
 		} else {
 			$throwNew($AssertionError, $of($$str({"Expected "_s, $(expectedNames(ex)), " not raised for "_s, name})));
 		}
-	} catch ($Exception&) {
-		$var($Exception, x, $catch());
+	} catch ($Exception& x) {
 		if (!isExpected(x, ex)) {
 			$throw(x);
 		} else {
-			$init($System);
 			$nc($System::out)->println($$str({"success: "_s, name, " - Got expected exception: "_s, x}));
 		}
 	}
@@ -1398,18 +1379,15 @@ $Object* HttpRequestBuilderTest::test1($String* name, Object$* receiver, $Functi
 	try {
 		$var($Object, result, $nc(m)->apply(arg));
 		if (!shouldFail(ex)) {
-			$init($System);
 			$nc($System::out)->println($$str({"success: "_s, name, "("_s, argMessage, ")"_s}));
 			return $of(result);
 		} else {
 			$throwNew($AssertionError, $of($$str({"Expected "_s, $(expectedNames(ex)), " not raised for "_s, name, "("_s, argMessage, ")"_s})));
 		}
-	} catch ($Exception&) {
-		$var($Exception, x, $catch());
+	} catch ($Exception& x) {
 		if (!isExpected(x, ex)) {
 			$throw(x);
 		} else {
-			$init($System);
 			$nc($System::out)->println($$str({"success: "_s, name, "("_s, argMessage, ") - Got expected exception: "_s, x}));
 			return $of(receiver);
 		}
@@ -1423,18 +1401,15 @@ $Object* HttpRequestBuilderTest::test2($String* name, Object$* receiver, $BiFunc
 	try {
 		$var($Object, result, $nc(m)->apply(arg1, arg2));
 		if (!shouldFail(ex)) {
-			$init($System);
 			$nc($System::out)->println($$str({"success: "_s, name, "("_s, arg1, ", "_s, arg2, ")"_s}));
 			return $of(result);
 		} else {
 			$throwNew($AssertionError, $of($$str({"Expected "_s, $(expectedNames(ex)), " not raised for "_s, name, "("_s, arg1, ", "_s, arg2, ")"_s})));
 		}
-	} catch ($Exception&) {
-		$var($Exception, x, $catch());
+	} catch ($Exception& x) {
 		if (!isExpected(x, ex)) {
 			$throw(x);
 		} else {
-			$init($System);
 			$nc($System::out)->println($$str({"success: "_s, name, "("_s, arg1, ", "_s, arg2, ") - Got expected exception: "_s, x}));
 			return $of(receiver);
 		}

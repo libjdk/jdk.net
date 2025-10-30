@@ -7,33 +7,15 @@
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/InterruptedException.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/Socket.h>
 #include <java/net/SocketAddress.h>
@@ -444,7 +426,6 @@ $bytes* ProxyServer$Connection::readHeaders($InputStream* is) {
 	while ((c = $nc(is)->read()) != -1 && bytecount < outbuffer->length) {
 		outbuffer->set(bytecount++, (int8_t)c);
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->write(c);
 		}
 		if (c == ProxyServer$Connection::CR || c == ProxyServer$Connection::LF) {
@@ -499,7 +480,6 @@ void ProxyServer$Connection::close() {
 	$synchronized(this) {
 		this->closing = true;
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->println($$str({"Proxy: closing connection {"_s, this, "}"_s}));
 		}
 		if (this->serverSocket != nullptr) {
@@ -519,8 +499,7 @@ void ProxyServer$Connection::awaitCompletion() {
 		if (this->out != nullptr) {
 			$nc(this->out)->join();
 		}
-	} catch ($InterruptedException&) {
-		$catch();
+	} catch ($InterruptedException& e) {
 	}
 }
 
@@ -577,7 +556,6 @@ void ProxyServer$Connection::init() {
 			$assign(buf, readHeaders(this->clientIn));
 			if (findCRLF(buf) == -1) {
 				if (this->this$0->debug) {
-					$init($System);
 					$init($StandardCharsets);
 					$nc($System::out)->println($$str({"Proxy: no CRLF closing, buf contains:["_s, $$new($String, buf, $StandardCharsets::ISO_8859_1), "]"_s}));
 				}
@@ -598,8 +576,7 @@ void ProxyServer$Connection::init() {
 					if (this->this$0->debug) {
 						$var($Integer, linger, $cast($Integer, $nc(this->clientSocket)->getOption($StandardSocketOptions::SO_LINGER)));
 						$var($Boolean, nodelay, $cast($Boolean, $nc(this->clientSocket)->getOption($StandardSocketOptions::TCP_NODELAY)));
-						$init($System);
-							int32_t var$0 = $nc(buffer)->position();
+						int32_t var$0 = $nc(buffer)->position();
 						$nc($System::out)->printf("Proxy: unauthorized; 407 sent (%s/%s), linger: %s, nodelay: %s%n"_s, $$new($ObjectArray, {
 							$($of($Integer::valueOf($nc(buffer)->position()))),
 							$($of($Integer::valueOf(var$0 + buffer->remaining()))),
@@ -628,17 +605,14 @@ void ProxyServer$Connection::init() {
 		} else {
 			doProxy(params->get(1), cmd, headers, host, authorized);
 		}
-	} catch ($Throwable&) {
-		$var($Throwable, e, $catch());
+	} catch ($Throwable& e) {
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->println($$str({"Proxy: "_s, e}));
 			e->printStackTrace();
 		}
 		try {
 			close();
-		} catch ($IOException&) {
-			$catch();
+		} catch ($IOException& e1) {
 		}
 	}
 }
@@ -672,8 +646,8 @@ int64_t ProxyServer$Connection::drain($SocketChannel* socket) {
 			var$2 = drained;
 			return$1 = true;
 			goto $finally;
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} $finally: {
 			if (isBlocking) {
 				socket->configureBlocking(true);
@@ -695,7 +669,6 @@ void ProxyServer$Connection::closeConnection() {
 		$init($StandardSocketOptions);
 		$var($Integer, linger, $cast($Integer, $nc(this->clientSocket)->getOption($StandardSocketOptions::SO_LINGER)));
 		$var($Boolean, nodelay, $cast($Boolean, $nc(this->clientSocket)->getOption($StandardSocketOptions::TCP_NODELAY)));
-		$init($System);
 		$nc($System::out)->printf("Proxy: closing connection id=%s, linger: %s, nodelay: %s%n"_s, $$new($ObjectArray, {
 			$($of($Integer::valueOf(this->id))),
 			$of(linger),
@@ -704,7 +677,6 @@ void ProxyServer$Connection::closeConnection() {
 	}
 	int64_t drained = drain(this->clientSocket);
 	if (this->this$0->debug) {
-		$init($System);
 		$nc($System::out)->printf("Proxy: drained: %s%n"_s, $$new($ObjectArray, {$($of($Long::valueOf(drained)))}));
 	}
 	$nc(this->clientSocket)->shutdownOutput();
@@ -712,8 +684,7 @@ void ProxyServer$Connection::closeConnection() {
 		if ($ProxyServer::isWindows()) {
 			$Thread::sleep(500);
 		}
-	} catch ($InterruptedException&) {
-		$catch();
+	} catch ($InterruptedException& x) {
 	}
 	$nc(this->clientSocket)->shutdownInput();
 	close();
@@ -724,7 +695,6 @@ bool ProxyServer$Connection::shouldCloseAfter407($List* headers) {
 	$var($String, te, findFirst(headers, "transfer-encoding"_s));
 	if (te != nullptr) {
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->println("Proxy: transfer-encoding with 407, closing connection"_s);
 		}
 		return true;
@@ -734,20 +704,16 @@ bool ProxyServer$Connection::shouldCloseAfter407($List* headers) {
 	try {
 		n = $Integer::parseInt(cl);
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->printf("Proxy: content-length: %d%n"_s, $$new($ObjectArray, {$of(cl)}));
 		}
-	} catch ($IllegalFormatException&) {
-		$var($IllegalFormatException, x, $catch());
+	} catch ($IllegalFormatException& x) {
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->println("Proxy: bad content-length, closing connection"_s);
 		}
 		return true;
 	}
 	if (n > 0 || n < -1) {
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->println("Proxy: request body with 407, closing connection"_s);
 		}
 		return true;
@@ -761,7 +727,6 @@ bool ProxyServer$Connection::shouldCloseAfter407($List* headers) {
 		int64_t drained = drain(this->clientSocket);
 		if (drained > 0 || available > 0) {
 			if (this->this$0->debug) {
-				$init($System);
 				$nc($System::out)->printf("Proxy: unexpected bytes (%d) with 407, closing connection%n"_s, $$new($ObjectArray, {$($of($Long::valueOf(drained + available)))}));
 			}
 			return true;
@@ -769,7 +734,6 @@ bool ProxyServer$Connection::shouldCloseAfter407($List* headers) {
 		return false;
 	} else {
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->println("Proxy: possible body with 407, closing connection"_s);
 		}
 		return true;
@@ -790,7 +754,6 @@ void ProxyServer$Connection::doProxy($String* dest$renamed, $String* cmdLine$ren
 			}
 		}
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->printf("Proxy: uri=%s%n"_s, $$new($ObjectArray, {$of(uri)}));
 		}
 		$assign(dest, uri->getAuthority());
@@ -813,7 +776,6 @@ void ProxyServer$Connection::doProxy($String* dest$renamed, $String* cmdLine$ren
 		$nc(sout)->write($(cmdLine->getBytes($StandardCharsets::ISO_8859_1)));
 		sout->write(CRLF);
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->printf("Proxy Forwarding: %s%n"_s, $$new($ObjectArray, {$of(cmdLine)}));
 		}
 		for (int32_t l = 1; l < $nc(headers)->size(); ++l) {
@@ -823,22 +785,18 @@ void ProxyServer$Connection::doProxy($String* dest$renamed, $String* cmdLine$ren
 				sout->write($(s->getBytes($StandardCharsets::ISO_8859_1)));
 				sout->write(CRLF);
 				if (this->this$0->debug) {
-					$init($System);
 					$nc($System::out)->printf("Proxy Forwarding: %s%n"_s, $$new($ObjectArray, {$of(s)}));
 				}
 			} else if (this->this$0->debug) {
-				$init($System);
 				$nc($System::out)->printf("Proxy Skipping: %s%n"_s, $$new($ObjectArray, {$of(s)}));
 			}
 		}
 		sout->write(CRLF);
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->printf("Proxy Forwarding: %n"_s, $$new($ObjectArray, 0));
 		}
 		proxyCommon(this->this$0->debug);
-	} catch ($URISyntaxException&) {
-		$var($URISyntaxException, e, $catch());
+	} catch ($URISyntaxException& e) {
 		$throwNew($IOException, static_cast<$Throwable*>(e));
 	}
 }
@@ -857,7 +815,6 @@ void ProxyServer$Connection::commonInit($String* dest, int32_t defaultPort) {
 			port = $Integer::parseInt(hostport->get(1));
 		}
 		if (this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->printf("Proxy: connecting to (%s/%d)\n"_s, $$new($ObjectArray, {
 				$of(hostport->get(0)),
 				$($of($Integer::valueOf(port)))
@@ -910,22 +867,18 @@ void ProxyServer$Connection::lambda$proxyCommon$4(bool log) {
 			$nc(this->clientOut)->write(bb, 0, n);
 			resp += n;
 			if (log) {
-				$init($System);
 				$init($StandardCharsets);
 				$nc($System::out)->printf("Proxy Forwarding [response]: %s%n"_s, $$new($ObjectArray, {$of($$new($String, bb, 0, n, $StandardCharsets::UTF_8))}));
 			}
 			if (log) {
-				$init($System);
 				$nc($System::out)->printf("Proxy Forwarding [response]: total %d%n"_s, $$new($ObjectArray, {$($of($Integer::valueOf(resp)))}));
 			}
 		}
 		this->closing = true;
 		$nc(this->serverSocket)->close();
 		$nc(this->clientSocket)->close();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		if (!this->closing && this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->println($$str({"Proxy: "_s, e}));
 			e->printStackTrace();
 		}
@@ -942,17 +895,14 @@ void ProxyServer$Connection::lambda$proxyCommon$3(bool log) {
 			$nc(this->serverOut)->write(bb, 0, n);
 			body += n;
 			if (log) {
-				$init($System);
 				$nc($System::out)->printf("Proxy Forwarding [request body]: total %d%n"_s, $$new($ObjectArray, {$($of($Integer::valueOf(body)))}));
 			}
 		}
 		this->closing = true;
 		$nc(this->serverSocket)->close();
 		$nc(this->clientSocket)->close();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		if (!this->closing && this->this$0->debug) {
-			$init($System);
 			$nc($System::out)->println($$str({"Proxy: "_s, e}));
 			e->printStackTrace();
 		}

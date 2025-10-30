@@ -13,15 +13,6 @@
 #include <com/sun/net/httpserver/HttpHandler.h>
 #include <com/sun/net/httpserver/HttpServer.h>
 #include <java/io/IOException.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/util/List.h>
@@ -121,8 +112,7 @@ void B4769350$Server::startServer() {
 	$var($InetSocketAddress, addr, $new($InetSocketAddress, loopback, 0));
 	try {
 		$set(this, server, $HttpServer::create(addr, 0));
-	} catch ($IOException&) {
-		$var($IOException, ioe, $catch());
+	} catch ($IOException& ioe) {
 		$throwNew($RuntimeException, "Server could not be created"_s);
 	}
 	$set(this, executor, $Executors::newFixedThreadPool(10));

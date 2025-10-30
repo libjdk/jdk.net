@@ -11,28 +11,13 @@
 #include <HeadersTest$7.h>
 #include <HeadersTest$8.h>
 #include <HeadersTest$9.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
-#include <java/lang/Array.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/IllegalArgumentException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/ProxySelector.h>
 #include <java/net/URI.h>
 #include <java/net/http/HttpClient$Builder.h>
@@ -199,18 +184,14 @@ void HeadersTest::bad($String* name) {
 	try {
 		$nc(builder)->header(name, "foo"_s);
 		$throwNew($RuntimeException, $$str({"Expected IAE for header:"_s, name}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, expected, $catch());
-		$init($System);
+	} catch ($IllegalArgumentException& expected) {
 		$nc($System::out)->println($$str({"Got expected IAE: "_s, expected}));
 	}
 	try {
 		$var($HttpRequest, req, $new($HeadersTest$1, name));
 		$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 		$throwNew($RuntimeException, $$str({"Expected IAE for header:"_s, name}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, expected, $catch());
-		$init($System);
+	} catch ($IllegalArgumentException& expected) {
 		$nc($System::out)->println($$str({"Got expected IAE: "_s, expected}));
 	}
 }
@@ -222,18 +203,14 @@ void HeadersTest::badValue($String* value) {
 	try {
 		$nc(builder)->header("x-bad"_s, value);
 		$throwNew($RuntimeException, $$str({"Expected IAE for header x-bad: "_s, $($($nc(value)->replace(static_cast<$CharSequence*>("\r"_s), static_cast<$CharSequence*>("\\r"_s)))->replace(static_cast<$CharSequence*>("\n"_s), static_cast<$CharSequence*>("\\n"_s)))}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, expected, $catch());
-		$init($System);
+	} catch ($IllegalArgumentException& expected) {
 		$nc($System::out)->println($$str({"Got expected IAE: "_s, expected}));
 	}
 	try {
 		$var($HttpRequest, req, $new($HeadersTest$2, value));
 		$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 		$throwNew($RuntimeException, $$str({"Expected IAE for header x-bad:"_s, $($($nc(value)->replace(static_cast<$CharSequence*>("\r"_s), static_cast<$CharSequence*>("\\r"_s)))->replace(static_cast<$CharSequence*>("\n"_s), static_cast<$CharSequence*>("\\n"_s)))}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, expected, $catch());
-		$init($System);
+	} catch ($IllegalArgumentException& expected) {
 		$nc($System::out)->println($$str({"Got expected IAE: "_s, expected}));
 	}
 }
@@ -245,18 +222,14 @@ void HeadersTest::nullName() {
 	try {
 		$nc(builder)->header(nullptr, "foo"_s);
 		$throwNew($RuntimeException, "Expected NPE for null header name"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 	try {
 		$var($HttpRequest, req, $new($HeadersTest$3));
 		$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 		$throwNew($RuntimeException, "Expected NPE for null header name"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 }
@@ -268,27 +241,21 @@ void HeadersTest::nullValue() {
 	try {
 		$nc(builder)->header("x-bar"_s, nullptr);
 		$throwNew($RuntimeException, "Expected NPE for null header value"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 	try {
 		$var($HttpRequest, req, $new($HeadersTest$4));
 		$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 		$throwNew($RuntimeException, "Expected NPE for null header values"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 	try {
 		$var($HttpRequest, req, $new($HeadersTest$5));
 		$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 		$throwNew($RuntimeException, "Expected NPE for null header value"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 }
@@ -300,18 +267,14 @@ void HeadersTest::nullHeaders() {
 		$var($HttpRequest, req, $new($HeadersTest$6));
 		$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 		$throwNew($RuntimeException, "Expected NPE for null header name"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 	try {
 		$var($HttpRequest, req, $new($HeadersTest$7));
 		$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 		$throwNew($RuntimeException, "Expected NPE for null header name"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 }
@@ -322,8 +285,7 @@ void HeadersTest::good($String* name) {
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(HeadersTest::TEST_URI));
 	try {
 		$nc(builder)->header(name, "foo"_s);
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, e, $catch());
+	} catch ($IllegalArgumentException& e) {
 		$throwNew($RuntimeException, $$str({"Unexpected IAE for header:"_s, name}));
 	}
 }
@@ -334,8 +296,7 @@ void HeadersTest::goodValue($String* value) {
 	$var($HttpRequest$Builder, builder, $HttpRequest::newBuilder(HeadersTest::TEST_URI));
 	try {
 		$nc(builder)->header("x-good"_s, value);
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, e, $catch());
+	} catch ($IllegalArgumentException& e) {
 		$throwNew($RuntimeException, $$str({"Unexpected IAE for x-good: "_s, value}));
 	}
 }
@@ -348,26 +309,20 @@ void HeadersTest::badURI() {
 	try {
 		$nc(builder)->uri(uri);
 		$throwNew($RuntimeException, $$str({"Expected IAE for uri: "_s, uri}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, expected, $catch());
-		$init($System);
+	} catch ($IllegalArgumentException& expected) {
 		$nc($System::out)->println($$str({"Got expected IAE: "_s, expected}));
 	}
 	try {
 		$HttpRequest::newBuilder(uri);
 		$throwNew($RuntimeException, $$str({"Expected IAE for uri: "_s, uri}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, expected, $catch());
-		$init($System);
+	} catch ($IllegalArgumentException& expected) {
 		$nc($System::out)->println($$str({"Got expected IAE: "_s, expected}));
 	}
 	try {
 		$var($HttpRequest, req, $new($HeadersTest$8, uri));
 		$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 		$throwNew($RuntimeException, $$str({"Expected IAE for uri:"_s, uri}));
-	} catch ($IllegalArgumentException&) {
-		$var($IllegalArgumentException, expected, $catch());
-		$init($System);
+	} catch ($IllegalArgumentException& expected) {
 		$nc($System::out)->println($$str({"Got expected IAE: "_s, expected}));
 	}
 }
@@ -379,26 +334,20 @@ void HeadersTest::nullURI() {
 	try {
 		$nc(builder)->uri(nullptr);
 		$throwNew($RuntimeException, "Expected NPE for null URI"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 	try {
 		$HttpRequest::newBuilder(nullptr);
 		$throwNew($RuntimeException, "Expected NPE for null uri"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 	try {
 		$var($HttpRequest, req, $new($HeadersTest$9));
 		$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 		$throwNew($RuntimeException, "Expected NPE for null uri"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 }
@@ -417,18 +366,14 @@ void HeadersTest::badTimeout() {
 				try {
 					$nc(builder)->timeout(zero);
 					$throwNew($RuntimeException, $$str({"Expected IAE for timeout: "_s, bad}));
-				} catch ($IllegalArgumentException&) {
-					$var($IllegalArgumentException, expected, $catch());
-					$init($System);
+				} catch ($IllegalArgumentException& expected) {
 					$nc($System::out)->println($$str({"Got expected IAE: "_s, expected}));
 				}
 				try {
 					$var($HttpRequest, req, $new($HeadersTest$10, bad));
 					$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 					$throwNew($RuntimeException, $$str({"Expected IAE for timeout:"_s, bad}));
-				} catch ($IllegalArgumentException&) {
-					$var($IllegalArgumentException, expected, $catch());
-					$init($System);
+				} catch ($IllegalArgumentException& expected) {
 					$nc($System::out)->println($$str({"Got expected IAE: "_s, expected}));
 				}
 			}
@@ -443,18 +388,14 @@ void HeadersTest::nullTimeout() {
 	try {
 		$nc(builder)->timeout(nullptr);
 		$throwNew($RuntimeException, "Expected NPE for null timeout"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 	try {
 		$var($HttpRequest, req, $new($HeadersTest$11));
 		$nc(HeadersTest::client)->send(req, $($HttpResponse$BodyHandlers::ofString()));
 		$throwNew($RuntimeException, "Expected NPE for null timeout"_s);
-	} catch ($NullPointerException&) {
-		$var($NullPointerException, expected, $catch());
-		$init($System);
+	} catch ($NullPointerException& expected) {
 		$nc($System::out)->println($$str({"Got expected NPE: "_s, expected}));
 	}
 }

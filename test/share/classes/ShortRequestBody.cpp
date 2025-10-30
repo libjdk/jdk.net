@@ -7,31 +7,14 @@
 #include <ShortRequestBody$StringRequestBody.h>
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
 #include <java/io/UncheckedIOException.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/http/HttpClient.h>
 #include <java/net/http/HttpRequest$BodyPublisher.h>
@@ -267,7 +250,6 @@ void ShortRequestBody::main($StringArray* args) {
 						for (; $nc(i$)->hasNext();) {
 							$var($Supplier, cs, $cast($Supplier, i$->next()));
 							{
-								$init($System);
 								$nc($System::err)->println("\n---- next supplier ----\n"_s);
 								$var($URI, uri, $new($URI, $$str({"http://localhost:"_s, $$str(server->getPort()), "/"_s, ShortRequestBody::MARKER})));
 								success(cs, uri, $$new($ShortRequestBody$StringRequestBody, ShortRequestBody::STRING_BODY, 0));
@@ -287,18 +269,16 @@ void ShortRequestBody::main($StringArray* args) {
 							}
 						}
 					}
-				} catch ($Throwable&) {
-					$var($Throwable, t$, $catch());
+				} catch ($Throwable& t$) {
 					try {
 						server->close();
-					} catch ($Throwable&) {
-						$var($Throwable, x2, $catch());
+					} catch ($Throwable& x2) {
 						t$->addSuppressed(x2);
 					}
 					$throw(t$);
 				}
-			} catch ($Throwable&) {
-				$assign(var$0, $catch());
+			} catch ($Throwable& var$1) {
+				$assign(var$0, var$1);
 			} /*finally*/ {
 				server->close();
 			}
@@ -317,7 +297,6 @@ void ShortRequestBody::success($Supplier* clientSupplier, $URI* uri, $HttpReques
 	$assign(cf, $nc(($cast($HttpClient, $($nc(clientSupplier)->get()))))->sendAsync(request, $($HttpResponse$BodyHandlers::discarding())));
 	$init($TimeUnit);
 	$var($HttpResponse, resp, $cast($HttpResponse, $nc(cf)->get(30, $TimeUnit::SECONDS)));
-	$init($System);
 	$nc($System::err)->println($$str({"Response code: "_s, $$str($nc(resp)->statusCode())}));
 	bool var$0 = $nc(resp)->statusCode() == 200;
 	check(var$0, nullptr, $$new($ObjectArray, {
@@ -336,12 +315,9 @@ void ShortRequestBody::failureNonBlocking($Supplier* clientSupplier, $URI* uri, 
 		$init($TimeUnit);
 		$var($HttpResponse, r, $cast($HttpResponse, $nc(cf)->get(30, $TimeUnit::SECONDS)));
 		$throwNew($RuntimeException, $$str({"Unexpected response: "_s, $$str($nc(r)->statusCode())}));
-	} catch ($TimeoutException&) {
-		$var($TimeoutException, x, $catch());
+	} catch ($TimeoutException& x) {
 		$throwNew($RuntimeException, "Unexpected timeout"_s, x);
-	} catch ($ExecutionException&) {
-		$var($ExecutionException, expected, $catch());
-		$init($System);
+	} catch ($ExecutionException& expected) {
 		$nc($System::err)->println($$str({"Caught expected: "_s, expected}));
 		$var($Throwable, t, expected->getCause());
 		check($instanceOf($IOException, t), t, $$new($ObjectArray, {
@@ -364,12 +340,9 @@ void ShortRequestBody::failureBlocking($Supplier* clientSupplier, $URI* uri, $Ht
 	try {
 		$var($HttpResponse, r, $nc(($cast($HttpClient, $($nc(clientSupplier)->get()))))->send(request, $($HttpResponse$BodyHandlers::discarding())));
 		$throwNew($RuntimeException, $$str({"Unexpected response: "_s, $$str($nc(r)->statusCode())}));
-	} catch ($HttpTimeoutException&) {
-		$var($HttpTimeoutException, x, $catch());
+	} catch ($HttpTimeoutException& x) {
 		$throwNew($RuntimeException, "Unexpected timeout"_s, x);
-	} catch ($IOException&) {
-		$var($IOException, expected, $catch());
-		$init($System);
+	} catch ($IOException& expected) {
 		$nc($System::err)->println($$str({"Caught expected: "_s, expected}));
 		$var($String, msg, expected->getMessage());
 		bool var$0 = $nc(msg)->contains("Too many"_s);
@@ -415,8 +388,7 @@ int32_t ShortRequestBody::fileSize($Path* p) {
 	$init(ShortRequestBody);
 	try {
 		return (int32_t)$Files::size(p);
-	} catch ($IOException&) {
-		$var($IOException, x, $catch());
+	} catch ($IOException& x) {
 		$throwNew($UncheckedIOException, x);
 	}
 	$shouldNotReachHere();

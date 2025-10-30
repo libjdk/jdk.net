@@ -3,19 +3,6 @@
 #include <B4769350.h>
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/URISyntaxException.h>
 #include <java/net/URL.h>
@@ -94,20 +81,18 @@ void B4769350$Client::run() {
 				try {
 					try {
 						$B4769350::read(is);
-					} catch ($Throwable&) {
-						$var($Throwable, t$, $catch());
+					} catch ($Throwable& t$) {
 						if (is != nullptr) {
 							try {
 								is->close();
-							} catch ($Throwable&) {
-								$var($Throwable, x2, $catch());
+							} catch ($Throwable& x2) {
 								t$->addSuppressed(x2);
 							}
 						}
 						$throw(t$);
 					}
-				} catch ($Throwable&) {
-					$assign(var$0, $catch());
+				} catch ($Throwable& var$1) {
+					$assign(var$0, var$1);
 				} /*finally*/ {
 					if (is != nullptr) {
 						is->close();
@@ -118,16 +103,12 @@ void B4769350$Client::run() {
 				}
 			}
 		}
-	} catch ($URISyntaxException&) {
-		$var($URISyntaxException, e, $catch());
-		$init($System);
+	} catch ($URISyntaxException& e) {
 		$nc($System::out)->println($of(e));
 		$init($B4769350);
 		$B4769350::error = true;
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		if (!this->allowerror) {
-			$init($System);
 			$nc($System::out)->println($$str({$($($Thread::currentThread())->getName()), " "_s, e}));
 			e->printStackTrace();
 			$init($B4769350);

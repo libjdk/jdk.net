@@ -6,40 +6,21 @@
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
 #include <java/io/Serializable.h>
 #include <java/io/UncheckedIOException.h>
 #include <java/lang/AbstractStringBuilder.h>
-#include <java/lang/Array.h>
 #include <java/lang/AutoCloseable.h>
-#include <java/lang/Boolean.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
 #include <java/lang/IllegalStateException.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
 #include <java/lang/InternalError.h>
 #include <java/lang/InterruptedException.h>
 #include <java/lang/Math.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/String.h>
-#include <java/lang/StringBuilder.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/Void.h>
 #include <java/lang/invoke/CallSite.h>
 #include <java/lang/invoke/LambdaMetafactory.h>
 #include <java/lang/invoke/MethodHandle.h>
 #include <java/lang/invoke/MethodHandles$Lookup.h>
 #include <java/lang/invoke/MethodType.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/InetSocketAddress.h>
 #include <java/net/ServerSocket.h>
@@ -544,38 +525,36 @@ void DummySecureWebSocketServer::serve($DummySecureWebSocketServer$WebSocketChan
 			while (!this->done) {
 				try {
 					reader->join(500);
-				} catch ($InterruptedException&) {
-					$var($InterruptedException, x, $catch());
+				} catch ($InterruptedException& x) {
 					if (this->done) {
 						close($$new($AutoCloseableArray, {static_cast<$AutoCloseable*>(channel)}));
 						break;
 					}
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$1) {
+			$assign(var$0, var$1);
 		} /*finally*/ {
 			reader->interrupt();
 			{
-				$var($Throwable, var$1, nullptr);
+				$var($Throwable, var$2, nullptr);
 				try {
 					while (!this->done) {
 						try {
 							writer->join(500);
-						} catch ($InterruptedException&) {
-							$var($InterruptedException, x, $catch());
+						} catch ($InterruptedException& x) {
 							if (this->done) {
 								break;
 							}
 						}
 					}
-				} catch ($Throwable&) {
-					$assign(var$1, $catch());
+				} catch ($Throwable& var$3) {
+					$assign(var$2, var$3);
 				} /*finally*/ {
 					writer->interrupt();
 				}
-				if (var$1 != nullptr) {
-					$throw(var$1);
+				if (var$2 != nullptr) {
+					$throw(var$2);
 				}
 			}
 		}
@@ -593,7 +572,6 @@ $ByteBuffer* DummySecureWebSocketServer::read() {
 
 void DummySecureWebSocketServer::open() {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::err)->println("Starting"_s);
 	if (!$nc(this->started)->compareAndSet(false, true)) {
 		$throwNew($IllegalStateException, "Already started"_s);
@@ -603,8 +581,7 @@ void DummySecureWebSocketServer::open() {
 		$nc(this->ss)->bind($$new($InetSocketAddress, $($InetAddress::getLoopbackAddress()), 0));
 		$set(this, address, $cast($InetSocketAddress, $nc(this->ss)->getLocalAddress()));
 		$nc(this->thread)->start();
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		this->done = true;
 		close($$new($AutoCloseableArray, {static_cast<$AutoCloseable*>(this->ss)}));
 		$throw(e);
@@ -614,7 +591,6 @@ void DummySecureWebSocketServer::open() {
 
 void DummySecureWebSocketServer::close() {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::err)->println($$str({"Stopping: "_s, $(getURI())}));
 	this->done = true;
 	$nc(this->thread)->interrupt();
@@ -642,8 +618,7 @@ bool DummySecureWebSocketServer::readRequest($DummySecureWebSocketServer$WebSock
 		try {
 			$init($StandardCharsets);
 			$assign(decoded, $nc($($nc($StandardCharsets::ISO_8859_1)->newDecoder()))->decode(buffer));
-		} catch ($CharacterCodingException&) {
-			$var($CharacterCodingException, e, $catch());
+		} catch ($CharacterCodingException& e) {
 			$throwNew($UncheckedIOException, e);
 		}
 		$nc(request)->append(static_cast<$CharSequence*>(decoded));
@@ -662,8 +637,7 @@ void DummySecureWebSocketServer::writeResponse($DummySecureWebSocketServer$WebSo
 	try {
 		$init($StandardCharsets);
 		$assign(encoded, $nc($($nc($StandardCharsets::ISO_8859_1)->newEncoder()))->encode($($CharBuffer::wrap(static_cast<$CharSequence*>(s)))));
-	} catch ($CharacterCodingException&) {
-		$var($CharacterCodingException, e, $catch());
+	} catch ($CharacterCodingException& e) {
 		$throwNew($UncheckedIOException, e);
 	}
 	while ($nc(encoded)->hasRemaining()) {
@@ -739,8 +713,7 @@ void DummySecureWebSocketServer::close($AutoCloseableArray* acs) {
 			{
 				try {
 					$nc(ac)->close();
-				} catch ($Exception&) {
-					$catch();
+				} catch ($Exception& ignored) {
 				}
 			}
 		}
@@ -791,8 +764,7 @@ $List* DummySecureWebSocketServer::lambda$defaultMapping$4($List* request, $Dumm
 	$var($MessageDigest, sha1, nullptr);
 	try {
 		$assign(sha1, $MessageDigest::getInstance("SHA-1"_s));
-	} catch ($NoSuchAlgorithmException&) {
-		$var($NoSuchAlgorithmException, e, $catch());
+	} catch ($NoSuchAlgorithmException& e) {
 		$throwNew($InternalError, static_cast<$Throwable*>(e));
 	}
 	$var($String, x, $str({$cast($String, $($nc(key)->get(0))), "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"_s}));
@@ -817,16 +789,14 @@ $List* DummySecureWebSocketServer::lambda$defaultMapping$3($String* k) {
 void DummySecureWebSocketServer::lambda$serve$2($DummySecureWebSocketServer$WebSocketChannel* channel) {
 	try {
 		write(channel);
-	} catch ($IOException&) {
-		$catch();
+	} catch ($IOException& ignored) {
 	}
 }
 
 void DummySecureWebSocketServer::lambda$serve$1($DummySecureWebSocketServer$WebSocketChannel* channel) {
 	try {
 		read(channel);
-	} catch ($IOException&) {
-		$catch();
+	} catch ($IOException& ignored) {
 	}
 }
 
@@ -837,7 +807,6 @@ void DummySecureWebSocketServer::lambda$new$0($BiFunction* mapping, $DummySecure
 		try {
 			try {
 				while (!$($Thread::currentThread())->isInterrupted() && !this->done) {
-					$init($System);
 					$nc($System::err)->println($$str({"Accepting next connection at: "_s, this->ss}));
 					$var($DummySecureWebSocketServer$WebSocketChannel, channel, $nc(this->ss)->accept());
 					$nc($System::err)->println($$str({"Accepted: "_s, channel}));
@@ -863,14 +832,13 @@ void DummySecureWebSocketServer::lambda$new$0($BiFunction* mapping, $DummySecure
 										break;
 									}
 								}
-							} catch ($IOException&) {
-								$var($IOException, e, $catch());
+							} catch ($IOException& e) {
 								if (!this->done) {
 									$nc($System::err)->println($$str({"Error in connection: "_s, channel, ", "_s, e}));
 								}
 							}
-						} catch ($Throwable&) {
-							$assign(var$1, $catch());
+						} catch ($Throwable& var$2) {
+							$assign(var$1, var$2);
 						} /*finally*/ {
 							$nc($System::err)->println($$str({"Closed: "_s, channel}));
 							close($$new($AutoCloseableArray, {static_cast<$AutoCloseable*>(channel)}));
@@ -881,21 +849,17 @@ void DummySecureWebSocketServer::lambda$new$0($BiFunction* mapping, $DummySecure
 						}
 					}
 				}
-			} catch ($ClosedByInterruptException&) {
-				$catch();
-			} catch ($Throwable&) {
-				$var($Throwable, e, $catch());
+			} catch ($ClosedByInterruptException& ignored) {
+			} catch ($Throwable& e) {
 				if (!this->done) {
-					$init($System);
 					e->printStackTrace($System::err);
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
 			this->done = true;
 			close($$new($AutoCloseableArray, {static_cast<$AutoCloseable*>(this->ss)}));
-			$init($System);
 			$nc($System::err)->println($$str({"Stopped at: "_s, $(getURI())}));
 		}
 		if (var$0 != nullptr) {

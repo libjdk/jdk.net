@@ -2,21 +2,8 @@
 
 #include <ALPNFailureTest$ReadOnlyServer.h>
 #include <java/io/IOException.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
 #include <java/lang/AssertionError.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Thread.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/InetAddress.h>
 #include <java/net/ProxySelector.h>
 #include <java/net/ServerSocket.h>
@@ -119,7 +106,6 @@ void ALPNFailureTest::main($StringArray* args$renamed) {
 
 void ALPNFailureTest::test($ServerSocket* socket, $SSLContext* context, $ProxySelector* ps, $StringArray* args) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->println("Tests a race condition in SSLTube/SSLFlowDelegate"_s);
 	$nc($System::out)->println("This test will timeout if the ALPN CF is not completed when a \'Connection reset by peer\' exception is raised during the handshake - see 8217094."_s);
 	$var($String, var$0, "https"_s);
@@ -160,13 +146,11 @@ void ALPNFailureTest::test($ServerSocket* socket, $SSLContext* context, $ProxySe
 									try {
 										$var($HttpResponse, resp, $nc(client)->send(request, $($HttpResponse$BodyHandlers::ofString())));
 										$throwNew($AssertionError, $of($$str({"Client should not have received any response: "_s, resp})));
-									} catch ($HttpTimeoutException&) {
-										$var($HttpTimeoutException, x, $catch());
+									} catch ($HttpTimeoutException& x) {
 										$nc($System::out)->println($$str({"Unexpected "_s, x}));
 										x->printStackTrace();
 										$throwNew($AssertionError, $$str({"Unexpected exception "_s, x}), x);
-									} catch ($Exception&) {
-										$var($Exception, x, $catch());
+									} catch ($Exception& x) {
 										$nc($System::err)->println($$str({"Client got expected exception: "_s, x}));
 										x->printStackTrace($System::out);
 									}
@@ -176,8 +160,8 @@ void ALPNFailureTest::test($ServerSocket* socket, $SSLContext* context, $ProxySe
 					}
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$2, $catch());
+		} catch ($Throwable& var$5) {
+			$assign(var$2, var$5);
 		} /*finally*/ {
 			server->close();
 		}

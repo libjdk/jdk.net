@@ -1,15 +1,6 @@
 #include <HeadersTest2.h>
 
 #include <HeadersTest2$CompareTest.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/String.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/util/List.h>
 #include <jcpp.h>
@@ -90,10 +81,10 @@ void HeadersTest2::main($StringArray* args) {
 void clinit$HeadersTest2($Class* class$) {
 	$useLocalCurrentObjectStackCache();
 	$assignStatic(HeadersTest2::uri, $URI::create("http://www.foo.com/"_s));
-		$var($List, var$0, $List::of("Dontent-length"_s, "99"_s));
-		$var($List, var$1, $List::of("Dontent-length"_s, "99"_s));
-		$var($List, var$2, $List::of("Name1"_s, "val1"_s, "Name1"_s, "val2"_s, "name1"_s, "val3"_s));
-		$var($List, var$3, $List::of("Name1"_s, "val1"_s, "Name1"_s, "val2"_s, "name1"_s, "val3"_s));
+	$var($List, var$0, $List::of("Dontent-length"_s, "99"_s));
+	$var($List, var$1, $List::of("Dontent-length"_s, "99"_s));
+	$var($List, var$2, $List::of("Name1"_s, "val1"_s, "Name1"_s, "val2"_s, "name1"_s, "val3"_s));
+	$var($List, var$3, $List::of("Name1"_s, "val1"_s, "Name1"_s, "val2"_s, "name1"_s, "val3"_s));
 	$assignStatic(HeadersTest2::compareTests, $new($HeadersTest2$CompareTestArray, {
 		$(HeadersTest2::test(true, var$0, $($List::of("dontent-length"_s, "99"_s)))),
 		$(HeadersTest2::test(false, var$1, $($List::of("dontent-length"_s, "100"_s)))),

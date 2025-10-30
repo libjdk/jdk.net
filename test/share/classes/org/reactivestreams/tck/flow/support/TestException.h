@@ -17,8 +17,10 @@ public:
 	TestException();
 	void init$();
 	TestException(const TestException& e);
-	TestException wrapper$();
-	virtual void throwWrapper$() override;
+	virtual void throw$() override;
+	inline TestException* operator ->() {
+		return (TestException*)throwing$;
+	}
 };
 
 				} // support

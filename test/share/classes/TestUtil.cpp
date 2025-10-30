@@ -3,17 +3,6 @@
 #include <java/io/BufferedWriter.h>
 #include <java/io/IOException.h>
 #include <java/io/UncheckedIOException.h>
-#include <java/lang/Array.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/Long.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/Void.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/nio/file/Files.h>
 #include <java/nio/file/OpenOption.h>
 #include <java/nio/file/Path.h>
@@ -98,8 +87,7 @@ $Path* TestUtil::tempFile() {
 	try {
 		$var($Path, p, $Files::createTempFile(TestUtil::CWD, "TestUtil_tmp_"_s, "_HTTPClient"_s, $$new($FileAttributeArray, 0)));
 		return p;
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($UncheckedIOException, e);
 	}
 	$shouldNotReachHere();
@@ -118,8 +106,7 @@ $Void* TestUtil::compareFiles($Path* path1, $Path* path2) {
 		}
 		compareContents(path1, path2);
 		return nullptr;
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($UncheckedIOException, e);
 	}
 	$shouldNotReachHere();
@@ -134,8 +121,7 @@ void TestUtil::compareContents($Path* path1, $Path* path2) {
 		if (!$Arrays::equals(b1, b2)) {
 			$throwNew($RuntimeException, "Files do not match"_s);
 		}
-	} catch ($IOException&) {
-		$var($IOException, e, $catch());
+	} catch ($IOException& e) {
 		$throwNew($UncheckedIOException, e);
 	}
 }

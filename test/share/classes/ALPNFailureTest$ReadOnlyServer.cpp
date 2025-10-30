@@ -4,20 +4,7 @@
 #include <java/io/IOException.h>
 #include <java/io/InputStream.h>
 #include <java/io/OutputStream.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
 #include <java/lang/Runnable.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/ServerSocket.h>
 #include <java/net/Socket.h>
 #include <java/net/SocketOption.h>
@@ -128,7 +115,6 @@ void ALPNFailureTest$ReadOnlyServer::run() {
 		$var($Throwable, var$0, nullptr);
 		try {
 			try {
-				$init($System);
 				$nc($System::out)->println("Server starting"_s);
 				while (!$nc(this->closing)->get()) {
 					all += count;
@@ -153,8 +139,7 @@ void ALPNFailureTest$ReadOnlyServer::run() {
 											if (count >= 50) {
 												drain = false;
 											}
-										} catch ($SocketTimeoutException&) {
-											$var($SocketTimeoutException, so, $catch());
+										} catch ($SocketTimeoutException& so) {
 											if (count > 0) {
 												++timeouts;
 											}
@@ -164,20 +149,18 @@ void ALPNFailureTest$ReadOnlyServer::run() {
 										}
 									}
 									$nc($System::out)->println($$str({"Got "_s, $$str(count), " bytes"_s}));
-								} catch ($Throwable&) {
-									$var($Throwable, t$, $catch());
+								} catch ($Throwable& t$) {
 									if (client != nullptr) {
 										try {
 											client->close();
-										} catch ($Throwable&) {
-											$var($Throwable, x2, $catch());
+										} catch ($Throwable& x2) {
 											t$->addSuppressed(x2);
 										}
 									}
 									$throw(t$);
 								}
-							} catch ($Throwable&) {
-								$assign(var$1, $catch());
+							} catch ($Throwable& var$2) {
+								$assign(var$1, var$2);
 							} /*finally*/ {
 								if (client != nullptr) {
 									client->close();
@@ -189,17 +172,15 @@ void ALPNFailureTest$ReadOnlyServer::run() {
 						}
 					}
 				}
-			} catch ($Throwable&) {
-				$var($Throwable, t, $catch());
+			} catch ($Throwable& t) {
 				if (!$nc(this->closing)->get()) {
 					$nc(this->errorRef)->set(t);
 					t->printStackTrace();
 				}
 			}
-		} catch ($Throwable&) {
-			$assign(var$0, $catch());
+		} catch ($Throwable& var$3) {
+			$assign(var$0, var$3);
 		} /*finally*/ {
-			$init($System);
 			$nc($System::out)->println($$str({"Server existing after reading "_s, $$str((all + count)), " bytes"_s}));
 			close();
 		}
@@ -210,15 +191,12 @@ void ALPNFailureTest$ReadOnlyServer::run() {
 }
 
 void ALPNFailureTest$ReadOnlyServer::close() {
-	$useLocalCurrentObjectStackCache();
 	if ($nc(this->closing)->getAndSet(true)) {
 		return;
 	}
 	try {
 		$nc(this->socket)->close();
-	} catch ($IOException&) {
-		$var($IOException, x, $catch());
-		$init($System);
+	} catch ($IOException& x) {
 		$nc($System::out)->println($$str({"Exception while closing: "_s, x}));
 	}
 }

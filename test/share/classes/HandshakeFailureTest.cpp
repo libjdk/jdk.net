@@ -6,23 +6,7 @@
 #include <HandshakeFailureTest$PlainServer.h>
 #include <HandshakeFailureTest$SSLServer.h>
 #include <java/io/IOException.h>
-#include <java/io/PrintStream.h>
-#include <java/lang/Array.h>
 #include <java/lang/CharSequence.h>
-#include <java/lang/Class.h>
-#include <java/lang/ClassInfo.h>
-#include <java/lang/Exception.h>
-#include <java/lang/FieldInfo.h>
-#include <java/lang/InnerClassInfo.h>
-#include <java/lang/Integer.h>
-#include <java/lang/MethodInfo.h>
-#include <java/lang/NullPointerException.h>
-#include <java/lang/RuntimeException.h>
-#include <java/lang/String.h>
-#include <java/lang/System.h>
-#include <java/lang/Throwable.h>
-#include <java/lang/reflect/Constructor.h>
-#include <java/lang/reflect/Method.h>
 #include <java/net/URI.h>
 #include <java/net/http/HttpClient$Builder.h>
 #include <java/net/http/HttpClient$Version.h>
@@ -159,7 +143,6 @@ void HandshakeFailureTest::main($StringArray* args) {
 						$var($Throwable, var$1, nullptr);
 						try {
 							try {
-								$init($System);
 								$nc($System::out)->format("%n%n------ Testing with server:%s ------%n"_s, $$new($ObjectArray, {$of(server)}));
 								$var($URI, uri, $new($URI, $$str({"https://"_s, $($nc(server)->getAuthority()), "/"_s})));
 								$init($HttpClient$Version);
@@ -171,20 +154,18 @@ void HandshakeFailureTest::main($StringArray* args) {
 								test->testAsyncSameClient(uri, $HttpClient$Version::HTTP_2);
 								test->testAsyncDiffClient(uri, $HttpClient$Version::HTTP_1_1);
 								test->testAsyncDiffClient(uri, $HttpClient$Version::HTTP_2);
-							} catch ($Throwable&) {
-								$var($Throwable, t$, $catch());
+							} catch ($Throwable& t$) {
 								if (twrVar0$ != nullptr) {
 									try {
 										twrVar0$->close();
-									} catch ($Throwable&) {
-										$var($Throwable, x2, $catch());
+									} catch ($Throwable& x2) {
 										t$->addSuppressed(x2);
 									}
 								}
 								$throw(t$);
 							}
-						} catch ($Throwable&) {
-							$assign(var$1, $catch());
+						} catch ($Throwable& var$2) {
+							$assign(var$1, var$2);
 						} /*finally*/ {
 							if (twrVar0$ != nullptr) {
 								twrVar0$->close();
@@ -210,7 +191,6 @@ $HttpClient* HandshakeFailureTest::getClient() {
 
 void HandshakeFailureTest::testSyncSameClient($URI* uri, $HttpClient$Version* version) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->printf("%n--- testSyncSameClient %s ---%n"_s, $$new($ObjectArray, {$of(version)}));
 	$var($HttpClient, client, getClient());
 	$var($HandshakeFailureTest$ExceptionChecker, exceptionChecker, $new($HandshakeFailureTest$ExceptionChecker));
@@ -221,8 +201,7 @@ void HandshakeFailureTest::testSyncSameClient($URI* uri, $HttpClient$Version* ve
 			$var($HttpResponse, response, $nc(client)->send(request, $($HttpResponse$BodyHandlers::discarding())));
 			$var($String, msg, $String::format("UNEXPECTED response=%s%n"_s, $$new($ObjectArray, {$of(response)})));
 			$throwNew($RuntimeException, msg);
-		} catch ($IOException&) {
-			$var($IOException, expected, $catch());
+		} catch ($IOException& expected) {
 			$nc($System::out)->printf("Client: caught expected exception: %s%n"_s, $$new($ObjectArray, {$of(expected)}));
 			exceptionChecker->check(static_cast<$Throwable*>(expected));
 		}
@@ -232,7 +211,6 @@ void HandshakeFailureTest::testSyncSameClient($URI* uri, $HttpClient$Version* ve
 
 void HandshakeFailureTest::testSyncDiffClient($URI* uri, $HttpClient$Version* version) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->printf("%n--- testSyncDiffClient %s ---%n"_s, $$new($ObjectArray, {$of(version)}));
 	$var($HandshakeFailureTest$ExceptionChecker, exceptionChecker, $new($HandshakeFailureTest$ExceptionChecker));
 	for (int32_t i = 0; i < HandshakeFailureTest::TIMES; ++i) {
@@ -243,8 +221,7 @@ void HandshakeFailureTest::testSyncDiffClient($URI* uri, $HttpClient$Version* ve
 			$var($HttpResponse, response, $nc(client)->send(request, $($HttpResponse$BodyHandlers::discarding())));
 			$var($String, msg, $String::format("UNEXPECTED response=%s%n"_s, $$new($ObjectArray, {$of(response)})));
 			$throwNew($RuntimeException, msg);
-		} catch ($IOException&) {
-			$var($IOException, expected, $catch());
+		} catch ($IOException& expected) {
 			$nc($System::out)->printf("Client: caught expected exception: %s%n"_s, $$new($ObjectArray, {$of(expected)}));
 			exceptionChecker->check(static_cast<$Throwable*>(expected));
 		}
@@ -254,7 +231,6 @@ void HandshakeFailureTest::testSyncDiffClient($URI* uri, $HttpClient$Version* ve
 
 void HandshakeFailureTest::testAsyncSameClient($URI* uri, $HttpClient$Version* version) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->printf("%n--- testAsyncSameClient %s ---%n"_s, $$new($ObjectArray, {$of(version)}));
 	$var($HttpClient, client, getClient());
 	$var($HandshakeFailureTest$ExceptionChecker, exceptionChecker, $new($HandshakeFailureTest$ExceptionChecker));
@@ -266,8 +242,7 @@ void HandshakeFailureTest::testAsyncSameClient($URI* uri, $HttpClient$Version* v
 			$nc(response)->join();
 			$var($String, msg, $String::format("UNEXPECTED response=%s%n"_s, $$new($ObjectArray, {$of(response)})));
 			$throwNew($RuntimeException, msg);
-		} catch ($CompletionException&) {
-			$var($CompletionException, ce, $catch());
+		} catch ($CompletionException& ce) {
 			$var($Throwable, expected, ce->getCause());
 			$nc($System::out)->printf("Client: caught expected exception: %s%n"_s, $$new($ObjectArray, {$of(expected)}));
 			exceptionChecker->check(expected);
@@ -278,7 +253,6 @@ void HandshakeFailureTest::testAsyncSameClient($URI* uri, $HttpClient$Version* v
 
 void HandshakeFailureTest::testAsyncDiffClient($URI* uri, $HttpClient$Version* version) {
 	$useLocalCurrentObjectStackCache();
-	$init($System);
 	$nc($System::out)->printf("%n--- testAsyncDiffClient %s ---%n"_s, $$new($ObjectArray, {$of(version)}));
 	$var($HandshakeFailureTest$ExceptionChecker, exceptionChecker, $new($HandshakeFailureTest$ExceptionChecker));
 	for (int32_t i = 0; i < HandshakeFailureTest::TIMES; ++i) {
@@ -290,8 +264,7 @@ void HandshakeFailureTest::testAsyncDiffClient($URI* uri, $HttpClient$Version* v
 			$nc(response)->join();
 			$var($String, msg, $String::format("UNEXPECTED response=%s%n"_s, $$new($ObjectArray, {$of(response)})));
 			$throwNew($RuntimeException, msg);
-		} catch ($CompletionException&) {
-			$var($CompletionException, ce, $catch());
+		} catch ($CompletionException& ce) {
 			ce->printStackTrace($System::out);
 			$var($Throwable, expected, ce->getCause());
 			$nc($System::out)->printf("Client: caught expected exception: %s%n"_s, $$new($ObjectArray, {$of(expected)}));
@@ -314,19 +287,16 @@ $HandshakeFailureTest$ExpectedExceptionType* HandshakeFailureTest::checkExceptio
 	do {
 		$load($SSLHandshakeException);
 		if ($SSLHandshakeException::class$->isInstance(t)) {
-			$init($System);
 			$nc($System::out)->println($$str({"Found expected exception/cause: "_s, t}));
 			$init($HandshakeFailureTest$ExpectedExceptionType);
 			return $HandshakeFailureTest$ExpectedExceptionType::HANDSHAKE_FAILURE;
 		}
 		if (HandshakeFailureTest::isWindows && isWsaeConnAborted(t)) {
-			$init($System);
 			$nc($System::out)->println($$str({"Found WSAECONNABORTED: "_s, t}));
 			$init($HandshakeFailureTest$ExpectedExceptionType);
 			return $HandshakeFailureTest$ExpectedExceptionType::WSAECONNABORTED;
 		}
 	} while (($assign(t, $nc(t)->getCause())) != nullptr);
-	$init($System);
 	$nc(original)->printStackTrace($System::out);
 	$throwNew($RuntimeException, $$str({"Not found expected SSLHandshakeException in "_s, original}), original);
 }
