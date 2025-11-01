@@ -27,7 +27,6 @@ class $export ALPNFailureTest$ReadOnlyServer : public ::java::lang::Runnable, pu
 	$class(ALPNFailureTest$ReadOnlyServer, $NO_CLASS_INIT, ::java::lang::Runnable, ::java::io::Closeable)
 public:
 	ALPNFailureTest$ReadOnlyServer();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual bool equals(Object$* arg0) override;
 	virtual void finalize() override;

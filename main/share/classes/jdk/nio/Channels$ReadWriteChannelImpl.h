@@ -33,7 +33,6 @@ class Channels$ReadWriteChannelImpl : public ::java::nio::channels::spi::Abstrac
 	$class(Channels$ReadWriteChannelImpl, $NO_CLASS_INIT, ::java::nio::channels::spi::AbstractSelectableChannel, ::sun::nio::ch::SelChImpl)
 public:
 	Channels$ReadWriteChannelImpl();
-	virtual ::java::lang::Object0* toObject0$() const override {return (::java::lang::Object0*)(void*)this;}
 	virtual $Object* clone() override;
 	virtual void close() override;
 	virtual bool equals(Object$* arg0) override;
